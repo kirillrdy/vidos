@@ -5,16 +5,20 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"runtime"
+	"time"
 
 	"github.com/jinzhu/gorm"
 	"github.com/kirillrdy/nadeshiko/html"
 	_ "github.com/lib/pq"
 )
 
+const formParamName = "file"
+
 func rootHandle(response http.ResponseWriter, request *http.Request) {
 	page := html.Html().Children(
 		html.Form().Action("/upload").Attribute("enctype", "multipart/form-data").Method("POST").Children(
-			html.Input().Type("file").Name("file"),
+			html.Input().Type("file").Name(formParamName),
 			html.Input().Type("submit"),
 		),
 	)
@@ -22,14 +26,18 @@ func rootHandle(response http.ResponseWriter, request *http.Request) {
 }
 
 func fileUpload(response http.ResponseWriter, request *http.Request) {
-	request.ParseMultipartForm(1)
+	request.ParseMultipartForm(1024 * 1024)
 	form := request.MultipartForm
-	formFile := form.File["file"]
+	formFile := form.File[formParamName]
+	//TODO handle no file submitted and only 1 file submitted
 	file, err := formFile[0].Open()
-	log.Print(formFile[0].Filename)
+
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	log.Print(formFile[0].Filename)
+
 	destinationFile, err := os.Create("file")
 	io.Copy(destinationFile, file)
 	defer file.Close()
