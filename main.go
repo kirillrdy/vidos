@@ -42,11 +42,23 @@ type Video struct {
 	filename string
 }
 
+var db gorm.DB
+
 func main() {
-	db, err := gorm.Open("postgres", "dbname=vidos sslmode=disable")
+	var err error
+	db, err = gorm.Open("postgres", "dbname=vidos sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	go func() {
+		for {
+			var stat runtime.MemStats
+			runtime.ReadMemStats(&stat)
+			log.Print(stat.Alloc / 1024)
+			time.Sleep(time.Second)
+		}
+	}()
 
 	db.AutoMigrate(&Video{})
 
