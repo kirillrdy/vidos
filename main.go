@@ -14,10 +14,11 @@ import (
 )
 
 const formParamName = "file"
+const uploadPath = "/upload"
 
 func rootHandle(response http.ResponseWriter, request *http.Request) {
 	page := html.Html().Children(
-		html.Form().Action("/upload").Attribute("enctype", "multipart/form-data").Method("POST").Children(
+		html.Form().Action(uploadPath).Attribute("enctype", "multipart/form-data").Method("POST").Children(
 			html.Input().Type("file").Name(formParamName),
 			html.Input().Type("submit"),
 		),
@@ -45,6 +46,17 @@ func fileUpload(response http.ResponseWriter, request *http.Request) {
 	http.Redirect(response, request, "/", http.StatusFound)
 }
 
+func startMemoryMonitoring() {
+	go func() {
+		for {
+			var stat runtime.MemStats
+			runtime.ReadMemStats(&stat)
+			log.Print(stat.Alloc / 1024)
+			time.Sleep(time.Second)
+		}
+	}()
+}
+
 type Video struct {
 	Id       uint64
 	filename string
@@ -59,19 +71,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	go func() {
-		for {
-			var stat runtime.MemStats
-			runtime.ReadMemStats(&stat)
-			log.Print(stat.Alloc / 1024)
-			time.Sleep(time.Second)
-		}
-	}()
-
 	db.AutoMigrate(&Video{})
 
+	startMemoryMonitoring()
+
 	http.HandleFunc("/", rootHandle)
-	http.HandleFunc("/upload", fileUpload)
+	http.HandleFunc(uploadPath, fileUpload)
 	err = http.ListenAndServe(":3001", nil)
 	if err != nil {
 		log.Fatal(err)
