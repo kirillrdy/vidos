@@ -1,16 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"net/http"
-	"os"
 	"runtime"
 	"time"
 
 	"github.com/jinzhu/gorm"
 	"github.com/kirillrdy/nadeshiko/html"
+	"github.com/kirillrdy/vidos/lib"
 	_ "github.com/lib/pq"
 )
 
@@ -20,7 +19,7 @@ const uploadPath = "/upload"
 func rootHandle(response http.ResponseWriter, request *http.Request) {
 
 	var trs []html.Node
-	var videos []Video
+	var videos []lib.Video
 	result := db.Find(&videos)
 	if result.Error != nil {
 		log.Fatal(result.Error)
@@ -65,25 +64,12 @@ func fileUpload(response http.ResponseWriter, request *http.Request) {
 		log.Fatal(err)
 	}
 
-	video := Video{Filename: formFile[0].Filename}
+	log.Printf("Received %#v", formFile[0].Filename)
+
+	video := lib.Video{Filename: formFile[0].Filename}
+	video.Save(file)
 	db.Save(&video)
-	video.mkdir()
 
-	log.Print(formFile[0].Filename)
-
-	destinationFile, err := os.Create(video.filePath())
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	n, err := io.Copy(destinationFile, file)
-	if n == 0 || err != nil {
-		log.Fatal(err)
-	}
-
-	defer file.Close()
-	defer destinationFile.Close()
 	http.Redirect(response, request, "/", http.StatusFound)
 }
 
@@ -98,31 +84,6 @@ func startMemoryMonitoring() {
 	}()
 }
 
-type Video struct {
-	Id       uint64
-	Filename string
-}
-
-const dataDir = "data"
-
-func (video Video) dirPath() string {
-	return fmt.Sprintf("%v/%v", dataDir, video.Id)
-}
-func (video Video) filePath() string {
-	return fmt.Sprintf("%v/%v", video.dirPath(), video.Filename)
-}
-
-func (video Video) IdString() string {
-	return fmt.Sprint(video.Id)
-}
-
-func (video Video) mkdir() {
-	err := os.MkdirAll(video.dirPath(), os.ModePerm)
-	if err != nil {
-		log.Print(err)
-	}
-}
-
 var db gorm.DB
 
 func main() {
@@ -132,7 +93,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	db.AutoMigrate(&Video{})
+	db.AutoMigrate(&lib.Video{})
 
 	//startMemoryMonitoring()
 
