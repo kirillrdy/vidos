@@ -18,7 +18,34 @@ const formParamName = "file"
 const uploadPath = "/upload"
 
 func rootHandle(response http.ResponseWriter, request *http.Request) {
+
+	var trs []html.Node
+	var videos []Video
+	result := db.Find(&videos)
+	if result.Error != nil {
+		log.Fatal(result.Error)
+	}
+	for _, video := range videos {
+		tr := html.Tr().Children(
+			html.Td().Text(video.IdString()),
+			html.Td().Text(video.Filename),
+		)
+		trs = append(trs, tr)
+	}
+
 	page := html.Html().Children(
+		html.Table().Children(
+			html.Thead().Children(
+				html.Tr().Children(
+					html.Th().Text("Id"),
+					html.Th().Text("File name"),
+				),
+			),
+
+			html.Tbody().Children(
+				trs...,
+			),
+		),
 		html.Form().Action(uploadPath).Attribute("enctype", "multipart/form-data").Method("POST").Children(
 			html.Input().Type("file").Name(formParamName),
 			html.Input().Type("submit"),
@@ -38,10 +65,23 @@ func fileUpload(response http.ResponseWriter, request *http.Request) {
 		log.Fatal(err)
 	}
 
+	video := Video{Filename: formFile[0].Filename}
+	db.Save(&video)
+	video.mkdir()
+
 	log.Print(formFile[0].Filename)
 
-	destinationFile, err := os.Create("file")
-	io.Copy(destinationFile, file)
+	destinationFile, err := os.Create(video.filePath())
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	n, err := io.Copy(destinationFile, file)
+	if n == 0 || err != nil {
+		log.Fatal(err)
+	}
+
 	defer file.Close()
 	defer destinationFile.Close()
 	http.Redirect(response, request, "/", http.StatusFound)
@@ -52,7 +92,7 @@ func startMemoryMonitoring() {
 		for {
 			var stat runtime.MemStats
 			runtime.ReadMemStats(&stat)
-			log.Print(stat.Alloc / 1024)
+			log.Printf("%vKb", stat.Alloc/1024)
 			time.Sleep(time.Second)
 		}
 	}()
@@ -60,13 +100,24 @@ func startMemoryMonitoring() {
 
 type Video struct {
 	Id       uint64
-	filename string
+	Filename string
 }
 
-const dataDir = "data/"
+const dataDir = "data"
+
+func (video Video) dirPath() string {
+	return fmt.Sprintf("%v/%v", dataDir, video.Id)
+}
+func (video Video) filePath() string {
+	return fmt.Sprintf("%v/%v", video.dirPath(), video.Filename)
+}
+
+func (video Video) IdString() string {
+	return fmt.Sprint(video.Id)
+}
 
 func (video Video) mkdir() {
-	err := os.Mkdir(fmt.Sprintf("%v%v%v", dataDir, video.Id, video.filename), 770)
+	err := os.MkdirAll(video.dirPath(), os.ModePerm)
 	if err != nil {
 		log.Print(err)
 	}
@@ -83,7 +134,7 @@ func main() {
 
 	db.AutoMigrate(&Video{})
 
-	startMemoryMonitoring()
+	//startMemoryMonitoring()
 
 	http.HandleFunc("/", rootHandle)
 	http.HandleFunc(uploadPath, fileUpload)
