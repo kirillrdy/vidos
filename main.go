@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -60,6 +61,15 @@ func startMemoryMonitoring() {
 type Video struct {
 	Id       uint64
 	filename string
+}
+
+const dataDir = "data/"
+
+func (video Video) mkdir() {
+	err := os.Mkdir(fmt.Sprintf("%v%v%v", dataDir, video.Id, video.filename), 770)
+	if err != nil {
+		log.Print(err)
+	}
 }
 
 var db gorm.DB
