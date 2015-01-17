@@ -15,8 +15,14 @@ func Version() string {
 	}
 
 	versionRegex := regexp.MustCompile("version (.*?) Copyright")
-	val := versionRegex.FindStringSubmatch(string(out))[1]
-	return val
+	result := versionRegex.FindStringSubmatch(string(out))
+
+	//Failed to match
+	if len(result) != 2 {
+		return ""
+	} else {
+		return result[1]
+	}
 }
 
 //TODO need better implementation
