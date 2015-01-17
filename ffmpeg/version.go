@@ -19,6 +19,44 @@ func Version() string {
 	return val
 }
 
+//TODO need better implementation
+func Duration(filename string) string {
+	cmd := exec.Command("ffmpeg", "-i", filename)
+
+	//TODO does it need to be closed ?
+	stderr, err := cmd.StderrPipe()
+	if err != nil {
+		log.Panic(err)
+	}
+
+	err = cmd.Start()
+	if err != nil {
+		log.Panic(err)
+	}
+
+	//	err = cmd.Wait()
+	//	if err != nil {
+	//		log.Print(err)
+	//	}
+
+	buf := make([]byte, 1024)
+
+	//TODO find a better way
+	n := 1
+	for n != 0 {
+		//TODO handle errors
+		n, _ = stderr.Read(buf)
+		durationRegex := regexp.MustCompile("Duration: (.*?),")
+		result := durationRegex.FindStringSubmatch(string(buf))
+		if len(result) == 2 {
+			return result[1]
+		}
+	}
+
+	//TODO not correct
+	return ""
+}
+
 //Checks that system ffmpeg is of the same version as this lib was built against
 func CheckVersion() {
 	if Version() != testedVersion {
