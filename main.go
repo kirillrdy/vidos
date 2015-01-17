@@ -5,10 +5,13 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/kirillrdy/vidos/ffmpeg"
 	"github.com/kirillrdy/vidos/lib"
 )
 
 func main() {
+
+	ffmpeg.CheckVersion()
 
 	memoryFlag := flag.Bool("memory", false, "Print memory stats")
 
