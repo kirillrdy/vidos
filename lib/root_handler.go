@@ -10,7 +10,11 @@ import (
 )
 
 func ServeVideoPath(video Video) string {
-	return fmt.Sprintf("/serve?id=%v", video.Id)
+	return fmt.Sprintf("%v?id=%v", ServeFilePath, video.Id)
+}
+
+func DownloadVideoPath(video Video) string {
+	return fmt.Sprintf("%v?id=%v", DownloadFilePath, video.Id)
 }
 
 func RootHandle(response http.ResponseWriter, request *http.Request) {
@@ -28,6 +32,10 @@ func RootHandle(response http.ResponseWriter, request *http.Request) {
 			html.Td().Children(
 				html.A().Href(ServeVideoPath(video)).Text("View"),
 			),
+
+			html.Td().Children(
+				html.A().Href(DownloadVideoPath(video)).Text("Download"),
+			),
 		)
 		trs = append(trs, tr)
 	}
@@ -38,6 +46,7 @@ func RootHandle(response http.ResponseWriter, request *http.Request) {
 				html.Tr().Children(
 					html.Th().Text("Id"),
 					html.Th().Text("File name"),
+					html.Th(),
 					html.Th(),
 				),
 			),

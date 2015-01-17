@@ -32,6 +32,11 @@ func (video Video) Mkdir() {
 	}
 }
 
+func (video Video) encodedPath() string {
+	return video.filePath() + ".mp4"
+}
+
+//TODO get rid of log.Fatal
 func (video Video) Save(reader io.ReadCloser) {
 
 	video.Mkdir()
