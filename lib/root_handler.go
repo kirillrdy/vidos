@@ -1,12 +1,17 @@
 package lib
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net/http"
 
 	"github.com/kirillrdy/nadeshiko/html"
 )
+
+func ServeVideoPath(video Video) string {
+	return fmt.Sprintf("/serve?id=%v", video.Id)
+}
 
 func RootHandle(response http.ResponseWriter, request *http.Request) {
 
@@ -20,6 +25,9 @@ func RootHandle(response http.ResponseWriter, request *http.Request) {
 		tr := html.Tr().Children(
 			html.Td().Text(video.IdString()),
 			html.Td().Text(video.Filename),
+			html.Td().Children(
+				html.A().Href(ServeVideoPath(video)).Text("View"),
+			),
 		)
 		trs = append(trs, tr)
 	}
@@ -30,6 +38,7 @@ func RootHandle(response http.ResponseWriter, request *http.Request) {
 				html.Tr().Children(
 					html.Th().Text("Id"),
 					html.Th().Text("File name"),
+					html.Th(),
 				),
 			),
 

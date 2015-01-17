@@ -18,6 +18,7 @@ func main() {
 
 	http.HandleFunc(lib.RootPath, lib.RootHandle)
 	http.HandleFunc(lib.UploadPath, lib.FileUpload)
+	http.HandleFunc(lib.ServeFilePath, lib.ServeFile)
 	err := http.ListenAndServe(":3001", nil)
 	if err != nil {
 		log.Fatal(err)

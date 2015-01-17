@@ -24,8 +24,8 @@ func FileUpload(response http.ResponseWriter, request *http.Request) {
 	log.Printf("Received %#v", formFile[0].Filename)
 
 	video := Video{Filename: formFile[0].Filename}
-	video.Save(file)
 	Db.Save(&video)
+	video.Save(file)
 
 	http.Redirect(response, request, RootPath, http.StatusFound)
 }
