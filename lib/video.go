@@ -5,6 +5,8 @@ import (
 	"io"
 	"log"
 	"os"
+
+	"github.com/kirillrdy/vidos/ffmpeg"
 )
 
 const dataDir = "data"
@@ -12,6 +14,7 @@ const dataDir = "data"
 type Video struct {
 	Id       uint64
 	Filename string
+	Encoded  bool
 }
 
 func (video Video) dirPath() string {
@@ -30,6 +33,22 @@ func (video Video) Mkdir() {
 	if err != nil {
 		log.Print(err)
 	}
+}
+
+func (video Video) StartEncoding() {
+	go func() {
+		video.Encode()
+		video.Encoded = true
+		Db.Save(&video)
+	}()
+}
+
+func (video Video) Encode() {
+	ffmpeg.Encode(video.filePath(), video.encodedPath())
+}
+
+func (video Video) Duration() string {
+	return ffmpeg.Duration(video.filePath())
 }
 
 func (video Video) encodedPath() string {
