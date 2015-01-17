@@ -23,6 +23,7 @@ func main() {
 	http.HandleFunc(lib.UploadPath, lib.FileUpload)
 	http.HandleFunc(lib.ServeFilePath, lib.ServeFile)
 	http.HandleFunc(lib.DownloadFilePath, lib.DownloadFile)
+	http.HandleFunc(lib.ReencodeFilePath, lib.ReencodeFile)
 	err := http.ListenAndServe(":3001", nil)
 	if err != nil {
 		log.Fatal(err)

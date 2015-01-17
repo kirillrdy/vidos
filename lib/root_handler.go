@@ -17,20 +17,24 @@ func DownloadVideoPath(video Video) string {
 	return fmt.Sprintf("%v?id=%v", DownloadFilePath, video.Id)
 }
 
+func ReencodeVideoPath(video Video) string {
+	return fmt.Sprintf("%v?id=%v", ReencodeFilePath, video.Id)
+}
+
 func RootHandle(response http.ResponseWriter, request *http.Request) {
 
 	var trs []html.Node
 	var videos []Video
 	result := Db.Find(&videos)
 	if result.Error != nil {
-		log.Fatal(result.Error)
+		log.Print(result.Error)
 	}
 
-	displayLink := func(video Video) html.Node {
+	displayLink := func(video Video) string {
 		if video.Encoded {
-			return html.A().Href(ServeVideoPath(video)).Text("View")
+			return html.A().Href(ServeVideoPath(video)).Text("View").String()
 		} else {
-			return html.Node{}
+			return ""
 		}
 	}
 
