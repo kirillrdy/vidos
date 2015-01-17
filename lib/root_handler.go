@@ -25,7 +25,7 @@ func RootHandle(response http.ResponseWriter, request *http.Request) {
 
 	var trs []html.Node
 	var videos []Video
-	result := Db.Find(&videos)
+	result := Db.Order("id").Find(&videos)
 	if result.Error != nil {
 		log.Print(result.Error)
 	}
