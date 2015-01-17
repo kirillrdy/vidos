@@ -29,6 +29,7 @@ func RootHandle(response http.ResponseWriter, request *http.Request) {
 		tr := html.Tr().Children(
 			html.Td().Text(video.IdString()),
 			html.Td().Text(video.Filename),
+			html.Td().Text(fmt.Sprint(video.Encoded)),
 			html.Td().Children(
 				html.A().Href(ServeVideoPath(video)).Text("View"),
 			),
@@ -46,6 +47,7 @@ func RootHandle(response http.ResponseWriter, request *http.Request) {
 				html.Tr().Children(
 					html.Th().Text("Id"),
 					html.Th().Text("File name"),
+					html.Th().Text("Encoded"),
 					html.Th(),
 					html.Th(),
 				),
