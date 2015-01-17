@@ -25,13 +25,22 @@ func RootHandle(response http.ResponseWriter, request *http.Request) {
 	if result.Error != nil {
 		log.Fatal(result.Error)
 	}
+
+	displayLink := func(video Video) html.Node {
+		if video.Encoded {
+			return html.A().Href(ServeVideoPath(video)).Text("View")
+		} else {
+			return html.Node{}
+		}
+	}
+
 	for _, video := range videos {
 		tr := html.Tr().Children(
 			html.Td().Text(video.IdString()),
 			html.Td().Text(video.Filename),
 			html.Td().Text(fmt.Sprint(video.Encoded)),
 			html.Td().Children(
-				html.A().Href(ServeVideoPath(video)).Text("View"),
+				displayLink(video),
 			),
 
 			html.Td().Children(
