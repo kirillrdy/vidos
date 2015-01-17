@@ -15,6 +15,7 @@ type Video struct {
 	Id       uint64
 	Filename string
 	Encoded  bool
+	Progress string
 }
 
 func (video Video) dirPath() string {
@@ -55,7 +56,12 @@ func (video Video) StartEncoding() {
 }
 
 func (video Video) Encode() {
-	ffmpeg.Encode(video.filePath(), video.encodedPath())
+	update := func(timeProgress string) {
+		video.Progress = timeProgress
+		//TODO errors
+		Db.Save(&video)
+	}
+	ffmpeg.Encode(video.filePath(), video.encodedPath(), update)
 }
 
 func (video Video) Duration() string {

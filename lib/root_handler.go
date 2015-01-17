@@ -43,12 +43,17 @@ func RootHandle(response http.ResponseWriter, request *http.Request) {
 			html.Td().Text(video.IdString()),
 			html.Td().Text(video.Filename),
 			html.Td().Text(fmt.Sprint(video.Encoded)),
-			html.Td().Children(
+			html.Td().Text(fmt.Sprint(video.Progress)),
+			html.Td().Text(
 				displayLink(video),
 			),
 
 			html.Td().Children(
 				html.A().Href(DownloadVideoPath(video)).Text("Download"),
+			),
+
+			html.Td().Children(
+				html.A().Href(ReencodeVideoPath(video)).Text("Reencode"),
 			),
 		)
 		trs = append(trs, tr)
@@ -61,6 +66,8 @@ func RootHandle(response http.ResponseWriter, request *http.Request) {
 					html.Th().Text("Id"),
 					html.Th().Text("File name"),
 					html.Th().Text("Encoded"),
+					html.Th().Text("Progress"),
+					html.Th(),
 					html.Th(),
 					html.Th(),
 				),
