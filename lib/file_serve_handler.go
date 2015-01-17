@@ -18,8 +18,8 @@ func ServeFile(response http.ResponseWriter, request *http.Request) {
 
 	//TODO set content type depeding on video
 	response.Header().Set("Content-Type", "video/mp4")
-	log.Printf("Streaming: %v", video.filePath())
-	http.ServeFile(response, request, video.filePath())
+	log.Printf("Streaming: %v", video.encodedPath())
+	http.ServeFile(response, request, video.encodedPath())
 
 }
 
