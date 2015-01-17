@@ -9,6 +9,7 @@ import (
 const ServeFilePath = "/serve"
 
 func ServeFile(response http.ResponseWriter, request *http.Request) {
+	//TODO this will be called often
 	video, err := videoFromRequest(request)
 
 	if err != nil {
@@ -17,7 +18,7 @@ func ServeFile(response http.ResponseWriter, request *http.Request) {
 
 	//TODO set content type depeding on video
 	response.Header().Set("Content-Type", "video/mp4")
-	log.Printf("Serving: %v", video.filePath())
+	log.Printf("Streaming: %v", video.filePath())
 	http.ServeFile(response, request, video.filePath())
 
 }
