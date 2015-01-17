@@ -51,6 +51,7 @@ func (video Video) StartEncoding() {
 	go func() {
 		video.Encode()
 		video.Encoded = true
+		video.Progress = ""
 		Db.Save(&video)
 	}()
 }
