@@ -32,6 +32,7 @@ func Videos(videos []db.Video) html.Node {
 		tr := html.Tr().Children(
 			html.Td().Text(video.IdString()),
 			html.Td().Text(video.Filename),
+			html.Td().Text(video.Duration),
 			html.Td().Text(fmt.Sprint(video.Encoded)),
 			html.Td().Text(fmt.Sprint(video.Progress)),
 			html.Td().Text(
@@ -58,6 +59,7 @@ func Videos(videos []db.Video) html.Node {
 				html.Tr().Children(
 					html.Th().Text("Id"),
 					html.Th().Text("File name"),
+					html.Th().Text("Duration"),
 					html.Th().Text("Encoded"),
 					html.Th().Text("Progress"),
 					html.Th(),
