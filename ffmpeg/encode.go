@@ -10,7 +10,7 @@ import (
 )
 
 func Encode(inputFilename, outFilename string, progressUpdate func(string)) {
-	cmd := exec.Command("ffmpeg", "-i",
+	cmd := exec.Command("ffmpeg", "-y", "-i",
 		inputFilename, "-movflags", "faststart", outFilename)
 
 	stderr, err := cmd.StderrPipe()
