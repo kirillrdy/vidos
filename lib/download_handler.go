@@ -6,8 +6,6 @@ import (
 	"net/http"
 )
 
-const DownloadFilePath = "/download"
-
 func DownloadFile(response http.ResponseWriter, request *http.Request) {
 	video, err := videoFromRequest(request)
 
@@ -16,9 +14,9 @@ func DownloadFile(response http.ResponseWriter, request *http.Request) {
 	}
 
 	//TODO set content type depeding on video
-	log.Printf("Serving: %v", video.filePath())
+	log.Printf("Serving: %v", video.FilePath())
 	response.Header().Set("Content-Disposition", fmt.Sprintf(`inline; filename="%v"`, video.Filename))
 
-	http.ServeFile(response, request, video.filePath())
+	http.ServeFile(response, request, video.FilePath())
 
 }

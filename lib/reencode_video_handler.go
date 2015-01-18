@@ -1,8 +1,10 @@
 package lib
 
-import "net/http"
+import (
+	"net/http"
 
-const ReencodeFilePath = "/reencode"
+	"github.com/kirillrdy/vidos/path"
+)
 
 func ReencodeFile(response http.ResponseWriter, request *http.Request) {
 	video, err := videoFromRequest(request)
@@ -13,5 +15,5 @@ func ReencodeFile(response http.ResponseWriter, request *http.Request) {
 
 	video.Reencode()
 
-	http.Redirect(response, request, RootPath, http.StatusFound)
+	http.Redirect(response, request, path.RootPath, http.StatusFound)
 }

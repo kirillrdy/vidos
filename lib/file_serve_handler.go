@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-)
 
-const ServeFilePath = "/serve"
+	"github.com/kirillrdy/vidos/model"
+)
 
 func ServeFile(response http.ResponseWriter, request *http.Request) {
 	//TODO this will be called often
@@ -18,13 +18,13 @@ func ServeFile(response http.ResponseWriter, request *http.Request) {
 
 	//TODO set content type depeding on video
 	response.Header().Set("Content-Type", "video/mp4")
-	log.Printf("Streaming: %v", video.encodedPath())
-	http.ServeFile(response, request, video.encodedPath())
+	log.Printf("Streaming: %v", video.EncodedPath())
+	http.ServeFile(response, request, video.EncodedPath())
 
 }
 
-func videoFromRequest(request *http.Request) (Video, error) {
-	var video Video
+func videoFromRequest(request *http.Request) (model.Video, error) {
+	var video model.Video
 
 	err := request.ParseForm()
 	if err != nil {
@@ -36,7 +36,7 @@ func videoFromRequest(request *http.Request) (Video, error) {
 		return video, err
 	}
 
-	result := Db.Find(&video, id)
+	result := model.Db.Find(&video, id)
 	if result.Error != nil {
 		return video, result.Error
 	}

@@ -7,6 +7,7 @@ import (
 
 	"github.com/kirillrdy/vidos/ffmpeg"
 	"github.com/kirillrdy/vidos/lib"
+	"github.com/kirillrdy/vidos/path"
 )
 
 func main() {
@@ -19,11 +20,11 @@ func main() {
 		lib.StartMemoryMonitoring()
 	}
 
-	http.HandleFunc(lib.RootPath, lib.RootHandle)
-	http.HandleFunc(lib.UploadPath, lib.FileUpload)
-	http.HandleFunc(lib.ServeFilePath, lib.ServeFile)
-	http.HandleFunc(lib.DownloadFilePath, lib.DownloadFile)
-	http.HandleFunc(lib.ReencodeFilePath, lib.ReencodeFile)
+	http.HandleFunc(path.RootPath, lib.RootHandle)
+	http.HandleFunc(path.UploadPath, lib.FileUpload)
+	http.HandleFunc(path.ServeFilePath, lib.ServeFile)
+	http.HandleFunc(path.DownloadFilePath, lib.DownloadFile)
+	http.HandleFunc(path.ReencodeFilePath, lib.ReencodeFile)
 	err := http.ListenAndServe(":3001", nil)
 	if err != nil {
 		log.Fatal(err)
