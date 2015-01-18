@@ -38,12 +38,11 @@ func (video Video) Mkdir() {
 
 func (video Video) Reencode() {
 	video.Encoded = false
-	//TODO errors
-	err := os.Remove(video.encodedPath())
-	if err != nil {
-		log.Print(err)
+	result := Db.Save(&video)
+	if result.Error != nil {
+		log.Print(result.Error)
 	}
-	Db.Save(&video)
+
 	video.StartEncoding()
 }
 
