@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/kirillrdy/vidos/model"
+	"github.com/kirillrdy/vidos/db"
 )
 
 func ServeFile(response http.ResponseWriter, request *http.Request) {
@@ -23,8 +23,8 @@ func ServeFile(response http.ResponseWriter, request *http.Request) {
 
 }
 
-func videoFromRequest(request *http.Request) (model.Video, error) {
-	var video model.Video
+func videoFromRequest(request *http.Request) (db.Video, error) {
+	var video db.Video
 
 	err := request.ParseForm()
 	if err != nil {
@@ -36,7 +36,7 @@ func videoFromRequest(request *http.Request) (model.Video, error) {
 		return video, err
 	}
 
-	result := model.Db.Find(&video, id)
+	result := db.Session.Find(&video, id)
 	if result.Error != nil {
 		return video, result.Error
 	}

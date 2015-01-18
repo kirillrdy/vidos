@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/kirillrdy/nadeshiko/html"
-	"github.com/kirillrdy/vidos/model"
+	"github.com/kirillrdy/vidos/db"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/size"
@@ -13,14 +13,14 @@ import (
 const TableClass css.Class = "videos-table"
 const FormParamName = "file"
 
-func Videos(videos []model.Video) html.Node {
+func Videos(videos []db.Video) html.Node {
 
 	style := TableClass.Style(
 		css.Margin(size.Auto),
 	)
 
 	var trs []html.Node
-	displayLink := func(video model.Video) string {
+	displayLink := func(video db.Video) string {
 		if video.Encoded {
 			return html.A().Href(path.ServeVideoPath(video)).Text("View").String()
 		} else {

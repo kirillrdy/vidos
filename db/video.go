@@ -1,4 +1,4 @@
-package model
+package db
 
 import (
 	"fmt"
@@ -38,7 +38,7 @@ func (video Video) Mkdir() {
 
 func (video Video) Reencode() {
 	video.Encoded = false
-	result := Db.Save(&video)
+	result := Session.Save(&video)
 	if result.Error != nil {
 		log.Print(result.Error)
 	}
@@ -51,7 +51,7 @@ func (video Video) StartEncoding() {
 		video.Encode()
 		video.Encoded = true
 		video.Progress = ""
-		Db.Save(&video)
+		Session.Save(&video)
 	}()
 }
 
@@ -59,7 +59,7 @@ func (video Video) Encode() {
 	update := func(timeProgress string) {
 		video.Progress = timeProgress
 		//TODO errors
-		Db.Save(&video)
+		Session.Save(&video)
 	}
 	ffmpeg.Encode(video.FilePath(), video.EncodedPath(), update)
 }

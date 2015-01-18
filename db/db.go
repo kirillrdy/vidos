@@ -1,4 +1,4 @@
-package model
+package db
 
 import (
 	"log"
@@ -7,14 +7,14 @@ import (
 	_ "github.com/lib/pq"
 )
 
-var Db gorm.DB
+var Session gorm.DB
 
 func init() {
 	var err error
-	Db, err = gorm.Open("postgres", "dbname=vidos sslmode=disable")
+	Session, err = gorm.Open("postgres", "dbname=vidos sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	Db.AutoMigrate(&Video{})
+	Session.AutoMigrate(&Video{})
 }

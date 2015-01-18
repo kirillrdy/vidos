@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/kirillrdy/vidos/model"
+	"github.com/kirillrdy/vidos/db"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/view"
 )
@@ -22,8 +22,8 @@ func FileUpload(response http.ResponseWriter, request *http.Request) {
 
 	log.Printf("Received %#v", formFile[0].Filename)
 
-	video := model.Video{Filename: formFile[0].Filename}
-	model.Db.Save(&video)
+	video := db.Video{Filename: formFile[0].Filename}
+	db.Session.Save(&video)
 	video.Save(file)
 
 	video.StartEncoding()
