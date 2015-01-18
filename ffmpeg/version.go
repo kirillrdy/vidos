@@ -1,6 +1,7 @@
 package ffmpeg
 
 import (
+	"io/ioutil"
 	"log"
 	"os/exec"
 	"regexp"
@@ -45,18 +46,18 @@ func Duration(filename string) string {
 	//		log.Print(err)
 	//	}
 
-	buf := make([]byte, 1024)
+	durationRegex := regexp.MustCompile("Duration: (.*?),")
 
-	//TODO find a better way
-	n := 1
-	for n != 0 {
-		//TODO handle errors
-		n, _ = stderr.Read(buf)
-		durationRegex := regexp.MustCompile("Duration: (.*?),")
-		result := durationRegex.FindStringSubmatch(string(buf))
-		if len(result) == 2 {
-			return result[1]
-		}
+	output, err := ioutil.ReadAll(stderr)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	result := durationRegex.FindStringSubmatch(string(output))
+	if len(result) == 2 {
+		return result[1]
+	} else {
+		return "ERROR getting duration"
 	}
 
 	//TODO not correct
