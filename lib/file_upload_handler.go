@@ -28,5 +28,5 @@ func FileUpload(response http.ResponseWriter, request *http.Request) {
 
 	video.StartEncoding()
 
-	http.Redirect(response, request, path.RootPath, http.StatusFound)
+	http.Redirect(response, request, path.Root, http.StatusFound)
 }

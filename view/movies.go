@@ -70,7 +70,7 @@ func Videos(videos []model.Video) html.Node {
 				trs...,
 			),
 		),
-		html.Form().Action(path.UploadPath).Attribute("enctype", "multipart/form-data").Method("POST").Children(
+		html.Form().Action(path.Upload).Attribute("enctype", "multipart/form-data").Method("POST").Children(
 			html.Input().Type("file").Name(FormParamName),
 			html.Input().Type("submit"),
 		),

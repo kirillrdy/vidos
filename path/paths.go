@@ -6,20 +6,20 @@ import (
 	"github.com/kirillrdy/vidos/model"
 )
 
-const RootPath = "/"
-const UploadPath = "/upload"
-const ServeFilePath = "/serve"
-const DownloadFilePath = "/download"
-const ReencodeFilePath = "/reencode"
+const Root = "/"
+const Upload = "/upload"
+const Serve = "/serve"
+const Download = "/download"
+const Reencode = "/reencode"
 
 func ServeVideoPath(video model.Video) string {
-	return fmt.Sprintf("%v?id=%v", ServeFilePath, video.Id)
+	return fmt.Sprintf("%v?id=%v", Serve, video.Id)
 }
 
 func DownloadVideoPath(video model.Video) string {
-	return fmt.Sprintf("%v?id=%v", DownloadFilePath, video.Id)
+	return fmt.Sprintf("%v?id=%v", Download, video.Id)
 }
 
 func ReencodeVideoPath(video model.Video) string {
-	return fmt.Sprintf("%v?id=%v", ReencodeFilePath, video.Id)
+	return fmt.Sprintf("%v?id=%v", Reencode, video.Id)
 }

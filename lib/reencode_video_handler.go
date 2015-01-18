@@ -15,5 +15,5 @@ func ReencodeFile(response http.ResponseWriter, request *http.Request) {
 
 	video.Reencode()
 
-	http.Redirect(response, request, path.RootPath, http.StatusFound)
+	http.Redirect(response, request, path.Root, http.StatusFound)
 }
