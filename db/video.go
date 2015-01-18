@@ -16,6 +16,7 @@ type Video struct {
 	Filename string
 	Encoded  bool
 	Progress string
+	Duration string
 }
 
 func (video Video) dataDirPath() string {
@@ -64,8 +65,9 @@ func (video Video) Encode() {
 	ffmpeg.Encode(video.FilePath(), video.EncodedPath(), update)
 }
 
-func (video Video) Duration() string {
-	return ffmpeg.Duration(video.FilePath())
+func (video *Video) CalculateDuration() {
+	video.Duration = ffmpeg.Duration(video.FilePath())
+	Session.Save(video)
 }
 
 func (video Video) EncodedPath() string {
