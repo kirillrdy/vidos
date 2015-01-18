@@ -7,6 +7,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
+// DB is not a good name, since sql.DB represents a connection manager
 var Session gorm.DB
 
 func init() {
