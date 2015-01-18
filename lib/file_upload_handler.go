@@ -25,7 +25,7 @@ func FileUpload(response http.ResponseWriter, request *http.Request) {
 	video := db.Video{Filename: formFile[0].Filename}
 	db.Session.Save(&video)
 	video.Save(file)
-
+	video.CalculateDuration()
 	video.StartEncoding()
 
 	http.Redirect(response, request, path.Root, http.StatusFound)
