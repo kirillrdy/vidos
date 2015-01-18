@@ -18,11 +18,11 @@ type Video struct {
 	Progress string
 }
 
-func (video Video) dirPath() string {
+func (video Video) dataDirPath() string {
 	return fmt.Sprintf("%v/%v", dataDir, video.Id)
 }
 func (video Video) FilePath() string {
-	return fmt.Sprintf("%v/%v", video.dirPath(), video.Filename)
+	return fmt.Sprintf("%v/%v", video.dataDirPath(), video.Filename)
 }
 
 func (video Video) IdString() string {
@@ -30,7 +30,7 @@ func (video Video) IdString() string {
 }
 
 func (video Video) Mkdir() {
-	err := os.MkdirAll(video.dirPath(), os.ModePerm)
+	err := os.MkdirAll(video.dataDirPath(), os.ModePerm)
 	if err != nil {
 		log.Print(err)
 	}
