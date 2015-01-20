@@ -40,11 +40,11 @@ func Videos(videos []db.Video) html.Node {
 			),
 
 			html.Td().Children(
-				html.A().Href(path.DownloadVideoPath(video)).Text("Download"),
+			//html.A().Href(path.DownloadVideoPath(video)).Text("Download"),
 			),
 
 			html.Td().Children(
-				html.A().Href(path.ReencodeVideoPath(video)).Text("Reencode"),
+			//html.A().Href(path.ReencodeVideoPath(video)).Text("Reencode"),
 			),
 		)
 		trs = append(trs, tr)
