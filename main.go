@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -14,9 +15,10 @@ func main() {
 
 	ffmpeg.CheckVersion()
 
-	memoryFlag := flag.Bool("memory", false, "Print memory stats")
+	displayMemoryStats := flag.Bool("memory", false, "Print memory stats")
+	port := flag.Int("port", 3001, "Port to listen on")
 
-	if *memoryFlag {
+	if *displayMemoryStats {
 		lib.StartMemoryMonitoring()
 	}
 
@@ -25,7 +27,7 @@ func main() {
 	http.HandleFunc(path.Serve, lib.ServeFile)
 	http.HandleFunc(path.Download, lib.DownloadFile)
 	http.HandleFunc(path.Reencode, lib.ReencodeFile)
-	err := http.ListenAndServe(":3001", nil)
+	err := http.ListenAndServe(fmt.Sprintf(":%v", *port), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
