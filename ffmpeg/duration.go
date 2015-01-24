@@ -7,6 +7,7 @@ import (
 	"regexp"
 )
 
+//TODO need better implementation
 func Duration(filename string) string {
 	cmd := exec.Command("ffmpeg", "-i", filename)
 
@@ -14,7 +15,7 @@ func Duration(filename string) string {
 	cmd.Stderr = &buffer
 	err := cmd.Run()
 	if err != nil {
-		log.Print(err)
+		log.Printf("Getting duration of video:  %v", err)
 	}
 
 	durationRegex := regexp.MustCompile("Duration: (.*?),")
