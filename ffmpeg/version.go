@@ -1,7 +1,7 @@
 package ffmpeg
 
 import (
-	"io/ioutil"
+	"bytes"
 	"log"
 	"os/exec"
 	"regexp"
@@ -30,30 +30,16 @@ func Version() string {
 func Duration(filename string) string {
 	cmd := exec.Command("ffmpeg", "-i", filename)
 
-	//TODO does it need to be closed ?
-	stderr, err := cmd.StderrPipe()
+	var buffer bytes.Buffer
+	cmd.Stderr = &buffer
+	err := cmd.Run()
 	if err != nil {
-		log.Panic(err)
+		log.Print(err)
 	}
-
-	err = cmd.Start()
-	if err != nil {
-		log.Panic(err)
-	}
-
-	//	err = cmd.Wait()
-	//	if err != nil {
-	//		log.Print(err)
-	//	}
 
 	durationRegex := regexp.MustCompile("Duration: (.*?),")
 
-	output, err := ioutil.ReadAll(stderr)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	result := durationRegex.FindStringSubmatch(string(output))
+	result := durationRegex.FindStringSubmatch(buffer.String())
 	if len(result) == 2 {
 		return result[1]
 	} else {
