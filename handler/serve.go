@@ -1,4 +1,4 @@
-package lib
+package handler
 
 import (
 	"log"
@@ -8,7 +8,7 @@ import (
 	"github.com/kirillrdy/vidos/db"
 )
 
-func ServeFile(response http.ResponseWriter, request *http.Request) {
+func Serve(response http.ResponseWriter, request *http.Request) {
 	//TODO this will be called often
 	video, err := videoFromRequest(request)
 

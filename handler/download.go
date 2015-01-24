@@ -1,4 +1,4 @@
-package lib
+package handler
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func DownloadFile(response http.ResponseWriter, request *http.Request) {
+func Download(response http.ResponseWriter, request *http.Request) {
 	video, err := videoFromRequest(request)
 
 	if err != nil {
