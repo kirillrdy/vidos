@@ -8,6 +8,7 @@ import (
 )
 
 //TODO need better implementation
+// returns string in format dd:dd:dd.dd
 func Duration(filename string) string {
 	cmd := exec.Command("ffmpeg", "-i", filename)
 
@@ -21,12 +22,15 @@ func Duration(filename string) string {
 	durationRegex := regexp.MustCompile("Duration: (.*?),")
 
 	result := durationRegex.FindStringSubmatch(buffer.String())
+
+	//TODO error handling for this needs to be fixed
+	const valueToReturnIfFailed = "00:00:00.00"
+
 	if len(result) == 2 {
 		return result[1]
 	} else {
-		return "ERROR getting duration"
+		return valueToReturnIfFailed
 	}
 
-	//TODO not correct
-	return ""
+	return valueToReturnIfFailed
 }
