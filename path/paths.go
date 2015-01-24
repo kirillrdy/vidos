@@ -7,6 +7,7 @@ import (
 )
 
 const Root = "/"
+const Videos = "/videos"
 const Upload = "/upload"
 const Serve = "/serve"
 const Download = "/download"

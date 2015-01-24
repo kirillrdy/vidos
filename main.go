@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/kirillrdy/vidos/ffmpeg"
+	"github.com/kirillrdy/vidos/handler"
 	"github.com/kirillrdy/vidos/lib"
 	"github.com/kirillrdy/vidos/path"
 )
@@ -22,11 +23,14 @@ func main() {
 		lib.StartMemoryMonitoring()
 	}
 
-	http.HandleFunc(path.Root, lib.RootHandle)
+	http.HandleFunc(path.Root, handler.RootHandle)
+	http.HandleFunc(path.Videos, handler.Videos)
 	http.HandleFunc(path.Upload, lib.FileUpload)
 	http.HandleFunc(path.Serve, lib.ServeFile)
 	http.HandleFunc(path.Download, lib.DownloadFile)
 	http.HandleFunc(path.Reencode, lib.ReencodeFile)
+
+	log.Printf("Listening on %v", *port)
 	err := http.ListenAndServe(fmt.Sprintf(":%v", *port), nil)
 	if err != nil {
 		log.Fatal(err)

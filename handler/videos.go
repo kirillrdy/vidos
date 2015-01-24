@@ -1,4 +1,4 @@
-package lib
+package handler
 
 import (
 	"io"
@@ -9,7 +9,7 @@ import (
 	"github.com/kirillrdy/vidos/view"
 )
 
-func RootHandle(response http.ResponseWriter, request *http.Request) {
+func Videos(response http.ResponseWriter, request *http.Request) {
 
 	var videos []db.Video
 	result := db.Session.Order("id").Find(&videos)
