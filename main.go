@@ -25,7 +25,7 @@ func main() {
 
 	http.HandleFunc(path.Root, handler.RootHandle)
 	http.HandleFunc(path.Videos, handler.Videos)
-	http.HandleFunc(path.Upload, lib.FileUpload)
+	http.HandleFunc(path.Upload, handler.Upload)
 	http.HandleFunc(path.Serve, lib.ServeFile)
 	http.HandleFunc(path.Download, lib.DownloadFile)
 	http.HandleFunc(path.Reencode, lib.ReencodeFile)
