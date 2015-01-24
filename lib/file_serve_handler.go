@@ -20,7 +20,6 @@ func ServeFile(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "video/mp4")
 	log.Printf("Streaming: %v", video.EncodedPath())
 	http.ServeFile(response, request, video.EncodedPath())
-
 }
 
 func videoFromRequest(request *http.Request) (db.Video, error) {
