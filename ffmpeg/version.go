@@ -25,9 +25,8 @@ func Version() string {
 	}
 }
 
-//TODO need better implementation
-
 //Checks that system ffmpeg is of the same version as this lib was built against
+//No errors raised just warning is printed
 func CheckVersion() {
 	if Version() != testedVersion {
 		log.Print("WARNING: running against untested version of ffmpeg")
