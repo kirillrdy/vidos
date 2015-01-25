@@ -12,7 +12,7 @@ import (
 func Videos(response http.ResponseWriter, request *http.Request) {
 
 	var videos []db.Video
-	result := db.Session.Order("id").Find(&videos)
+	result := db.Session.Order("id").Where(&db.Video{Encoded: true}).Find(&videos)
 
 	if result.Error != nil {
 		log.Print(result.Error)
