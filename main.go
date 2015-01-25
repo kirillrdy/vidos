@@ -17,7 +17,7 @@ func logMiddleware(handler http.HandlerFunc) http.HandlerFunc {
 	return func(response http.ResponseWriter, request *http.Request) {
 		start := time.Now()
 		handler(response, request)
-		log.Printf("%v %v taken %v", request.Method, request.URL.Path, time.Since(start))
+		log.Printf("%v %v took %v", request.Method, request.URL.Path, time.Since(start))
 	}
 }
 
