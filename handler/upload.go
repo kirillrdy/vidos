@@ -16,6 +16,7 @@ func Upload(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
+	//TODO fix assumption on filesize
 	request.ParseMultipartForm(1024 * 1024)
 	form := request.MultipartForm
 	formFile := form.File[view.FormParamName]
