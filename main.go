@@ -5,12 +5,21 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/kirillrdy/vidos/ffmpeg"
 	"github.com/kirillrdy/vidos/handler"
 	"github.com/kirillrdy/vidos/lib"
 	"github.com/kirillrdy/vidos/path"
 )
+
+func logMiddleware(handler http.HandlerFunc) http.HandlerFunc {
+	return func(response http.ResponseWriter, request *http.Request) {
+		start := time.Now()
+		handler(response, request)
+		log.Printf("%v %v taken %v", request.Method, request.URL.Path, time.Since(start))
+	}
+}
 
 func main() {
 
@@ -26,9 +35,9 @@ func main() {
 	http.HandleFunc(path.Root, handler.RootHandle)
 	http.HandleFunc(path.Videos, handler.Videos)
 	http.HandleFunc(path.Upload, handler.Upload)
-	http.HandleFunc(path.Serve, lib.ServeFile)
-	http.HandleFunc(path.Download, lib.DownloadFile)
-	http.HandleFunc(path.Reencode, lib.ReencodeFile)
+	http.HandleFunc(path.Serve, logMiddleware(handler.Serve))
+	http.HandleFunc(path.Download, handler.Download)
+	http.HandleFunc(path.Reencode, handler.ReencodeFile)
 
 	log.Printf("Listening on %v", *port)
 	err := http.ListenAndServe(fmt.Sprintf(":%v", *port), nil)
