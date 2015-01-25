@@ -7,6 +7,11 @@ import (
 )
 
 const Root = "/"
+
+//Note trailing / is important, due to how "/" http Mux works
+const Public = "/public/"
+const CssReset = Public + "reset.css"
+
 const Videos = "/videos"
 const UnencodedVideos = "/unencoded_videos"
 const Upload = "/upload"

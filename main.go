@@ -40,6 +40,7 @@ func main() {
 	http.HandleFunc(path.Download, handler.Download)
 	http.HandleFunc(path.Reencode, handler.ReencodeFile)
 	http.HandleFunc(path.NewVideo, handler.NewVideo)
+	http.Handle(path.Public, http.StripPrefix(path.Public, http.FileServer(http.Dir("public"))))
 
 	log.Printf("Listening on %v", *port)
 	err := http.ListenAndServe(fmt.Sprintf(":%v", *port), nil)
