@@ -105,10 +105,8 @@ func queueAllUnEncodedVideos() {
 
 	for _, video := range videos {
 		if video.Encoded == false {
-			log.Printf("Adding video for encoding to queue, %v", video.Filename)
-			go func() {
-				EncodeVideo <- video.Id
-			}()
+			EncodeVideo <- video.Id
+			log.Printf("Added video for encoding to queue, %v", video.Filename)
 		}
 	}
 }
@@ -126,6 +124,8 @@ func init() {
 		}
 	}()
 
-	queueAllUnEncodedVideos()
+	go func() {
+		queueAllUnEncodedVideos()
+	}()
 
 }
