@@ -32,7 +32,12 @@ func Upload(response http.ResponseWriter, request *http.Request) {
 	db.Session.Save(&video)
 	video.Save(file)
 	video.CalculateDuration()
-	video.StartEncoding()
+
+	//This can block so do in goroutine
+	//TODO potentially dangerous
+	go func() {
+		db.EncodeVideo <- video.Id
+	}()
 
 	http.Redirect(response, request, path.Root, http.StatusFound)
 }

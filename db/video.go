@@ -30,7 +30,7 @@ func (video Video) IdString() string {
 	return fmt.Sprint(video.Id)
 }
 
-func (video Video) Mkdir() {
+func (video Video) mkdir() {
 	err := os.MkdirAll(video.dataDirPath(), os.ModePerm)
 	if err != nil {
 		log.Print(err)
@@ -44,15 +44,8 @@ func (video Video) Reencode() {
 		log.Print(result.Error)
 	}
 
-	video.StartEncoding()
-}
-
-func (video Video) StartEncoding() {
 	go func() {
-		video.Encode()
-		video.Encoded = true
-		video.Progress = ""
-		Session.Save(&video)
+		EncodeVideo <- video.Id
 	}()
 }
 
@@ -63,6 +56,11 @@ func (video Video) Encode() {
 		Session.Save(&video)
 	}
 	ffmpeg.Encode(video.FilePath(), video.EncodedPath(), update)
+
+	video.Encoded = true
+	video.Progress = ""
+	//TODO errors
+	Session.Save(&video)
 }
 
 func (video *Video) CalculateDuration() {
@@ -78,7 +76,7 @@ func (video Video) EncodedPath() string {
 //TODO get rid of log.Fatal
 func (video Video) Save(reader io.ReadCloser) {
 
-	video.Mkdir()
+	video.mkdir()
 
 	destinationFile, err := os.Create(video.FilePath())
 
@@ -93,4 +91,22 @@ func (video Video) Save(reader io.ReadCloser) {
 
 	defer reader.Close()
 	defer destinationFile.Close()
+}
+
+///////////////////////////////////////
+///////////////////////////////////////
+var EncodeVideo = make(chan (uint64))
+
+func init() {
+	go func() {
+		for {
+			id := <-EncodeVideo
+
+			//TODO encode
+			var video Video
+			Session.Find(&video, id)
+			video.Encode()
+
+		}
+	}()
 }
