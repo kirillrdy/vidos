@@ -50,6 +50,7 @@ func Videos(videos []db.Video) html.Node {
 		trs = append(trs, tr)
 	}
 
+	//TODO use layout
 	page := html.Html().Children(
 		html.Style().Text(
 			style.String(),
@@ -71,10 +72,6 @@ func Videos(videos []db.Video) html.Node {
 			html.Tbody().Children(
 				trs...,
 			),
-		),
-		html.Form().Action(path.Upload).Attribute("enctype", "multipart/form-data").Method("POST").Children(
-			html.Input().Type("file").Name(FormParamName),
-			html.Input().Type("submit"),
 		),
 	)
 
