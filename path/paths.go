@@ -8,10 +8,13 @@ import (
 
 const Root = "/"
 const Videos = "/videos"
+const UnencodedVideos = "/unencoded_videos"
 const Upload = "/upload"
 const Serve = "/serve"
 const Download = "/download"
 const Reencode = "/reencode"
+
+const NewVideo = "/new_video"
 
 func ServeVideoPath(video db.Video) string {
 	return fmt.Sprintf("%v?id=%v", Serve, video.Id)

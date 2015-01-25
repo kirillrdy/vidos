@@ -34,10 +34,12 @@ func main() {
 
 	http.HandleFunc(path.Root, handler.RootHandle)
 	http.HandleFunc(path.Videos, handler.Videos)
+	http.HandleFunc(path.UnencodedVideos, handler.UnencodedVideos)
 	http.HandleFunc(path.Upload, handler.Upload)
 	http.HandleFunc(path.Serve, logMiddleware(handler.Serve))
 	http.HandleFunc(path.Download, handler.Download)
 	http.HandleFunc(path.Reencode, handler.ReencodeFile)
+	http.HandleFunc(path.NewVideo, handler.NewVideo)
 
 	log.Printf("Listening on %v", *port)
 	err := http.ListenAndServe(fmt.Sprintf(":%v", *port), nil)
