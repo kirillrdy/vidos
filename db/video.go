@@ -97,6 +97,22 @@ func (video Video) Save(reader io.ReadCloser) {
 ///////////////////////////////////////
 var EncodeVideo = make(chan (uint64))
 
+func queueAllUnEncodedVideos() {
+
+	var videos []Video
+
+	Session.Find(&videos)
+
+	for _, video := range videos {
+		if video.Encoded == false {
+			log.Printf("Adding video for encoding to queue, %v", video.Filename)
+			go func() {
+				EncodeVideo <- video.Id
+			}()
+		}
+	}
+}
+
 func init() {
 	go func() {
 		for {
@@ -109,4 +125,7 @@ func init() {
 
 		}
 	}()
+
+	queueAllUnEncodedVideos()
+
 }
