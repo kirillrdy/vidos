@@ -9,6 +9,9 @@ import (
 )
 
 func Serve(response http.ResponseWriter, request *http.Request) {
+
+	log.Print(request.Header.Get("Range"))
+
 	//TODO this will be called often
 	video, err := videoFromRequest(request)
 
@@ -20,6 +23,7 @@ func Serve(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "video/mp4")
 	log.Printf("Streaming: %v", video.EncodedPath())
 	http.ServeFile(response, request, video.EncodedPath())
+	log.Printf("Finished streaming: %v", video.EncodedPath())
 }
 
 func videoFromRequest(request *http.Request) (db.Video, error) {
