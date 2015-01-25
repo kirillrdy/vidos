@@ -29,7 +29,6 @@ func Encode(inputFilename, outFilename string, progressUpdate func(string)) {
 		splitSlice := strings.Split(text, "=")
 		if len(splitSlice) == 2 && splitSlice[0] == "time" {
 			progressUpdate(splitSlice[1])
-			log.Printf("%v: %v", inputFilename, splitSlice[1])
 		}
 	}
 	if err := scanner.Err(); err != nil {
