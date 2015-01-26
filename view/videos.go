@@ -15,6 +15,23 @@ const FormParamName = "file"
 
 func Videos(videos []db.Video) html.Node {
 
+	var divs []html.Node
+
+	divs = append(divs, html.Style().Text(VideoCss().String()))
+	for _, video := range videos {
+		divs = append(divs, Video(video))
+	}
+
+	page := html.Div().Class(hbox).Children(
+		divs...,
+	)
+
+	//TODO maybe layout should take html.Node...
+	return Layout(page)
+}
+
+func VideosTable(videos []db.Video) html.Node {
+
 	style := TableClass.Style(
 		css.Width(size.Percent(100)),
 	)
