@@ -20,6 +20,7 @@ const Download = "/download"
 const Reencode = "/reencode"
 
 const NewVideo = "/new_video"
+const Thumbnail = "/thumbnail"
 
 func ServeVideoPath(video db.Video) string {
 	return fmt.Sprintf("%v?id=%v", Serve, video.Id)
@@ -31,4 +32,8 @@ func DownloadVideoPath(video db.Video) string {
 
 func ReencodeVideoPath(video db.Video) string {
 	return fmt.Sprintf("%v?id=%v", Reencode, video.Id)
+}
+
+func ThumbnailPath(video db.Video) string {
+	return fmt.Sprintf("%v?id=%v", Thumbnail, video.Id)
 }
