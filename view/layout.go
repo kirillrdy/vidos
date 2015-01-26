@@ -5,6 +5,7 @@ import (
 	"github.com/kirillrdy/vidos/path"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/display"
+	"github.com/sparkymat/webdsl/css/flex"
 	"github.com/sparkymat/webdsl/css/overflow"
 	"github.com/sparkymat/webdsl/css/size"
 )
@@ -15,6 +16,7 @@ const siteTitle css.Class = "site-title"
 const vbox css.Class = "vbox"
 const hbox css.Class = "hbox"
 const grow css.Class = "grow"
+const wrap css.Class = "wrap"
 const linksMenu css.Class = "links-menu"
 const centerItems css.Class = "align-items-center"
 const headerBar css.Class = "header-bar"
@@ -31,13 +33,14 @@ func pageStyle() css.CssContainer {
 		),
 		vbox.Style(
 			css.Display(display.Flex),
-			css.FlexDirection(css.Column),
-			css.Height(size.Percent(100)),
+			css.FlexDirection(flex.Column),
 		),
 		hbox.Style(
 			css.Display(display.Flex),
-			css.FlexDirection(css.Row),
-			css.Height(size.Percent(100)),
+			css.FlexDirection(flex.Row),
+		),
+		wrap.Style(
+			css.FlexWrap(flex.Wrap),
 		),
 		grow.Style(
 			css.FlexGrow(1),
@@ -74,7 +77,7 @@ func Layout(bodyContent html.Node) html.Node {
 					html.Span().Class(grow),
 					html.Span().Text("TODO, time,uname, memory disk usage"),
 				),
-				html.Div().Class(hbox).Children(
+				html.Div().Class(hbox, grow).Children(
 					html.Div().Class(linksMenu, vbox, centerItems).Children(
 						html.A().Href(path.Videos).Text("Videos"),
 						html.A().Href(path.NewVideo).Text("Upload new video"),

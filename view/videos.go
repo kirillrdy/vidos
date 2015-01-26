@@ -18,11 +18,12 @@ func Videos(videos []db.Video) html.Node {
 	var divs []html.Node
 
 	divs = append(divs, html.Style().Text(VideoCss().String()))
+
 	for _, video := range videos {
 		divs = append(divs, Video(video))
 	}
 
-	page := html.Div().Class(hbox).Children(
+	page := html.Div().Class(hbox, wrap).Children(
 		divs...,
 	)
 
