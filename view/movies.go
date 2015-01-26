@@ -16,7 +16,7 @@ const FormParamName = "file"
 func Videos(videos []db.Video) html.Node {
 
 	style := TableClass.Style(
-		css.Margin(size.Auto),
+		css.Width(size.Percent(100)),
 	)
 
 	var trs []html.Node
@@ -51,10 +51,12 @@ func Videos(videos []db.Video) html.Node {
 	}
 
 	//TODO use layout
-	page := html.Html().Children(
+	page := html.Div().Children(
 		html.Style().Text(
 			style.String(),
 		),
+		html.A().Href(path.NewVideo).Text("Upload new video"),
+		html.A().Href(path.UnencodedVideos).Text("Processing"),
 		html.Table().Class(TableClass).Children(
 			html.Thead().Children(
 				html.Tr().Children(
@@ -75,5 +77,5 @@ func Videos(videos []db.Video) html.Node {
 		),
 	)
 
-	return page
+	return Layout(page)
 }
