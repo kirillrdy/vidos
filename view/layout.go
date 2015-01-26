@@ -10,13 +10,19 @@ import (
 
 const AppName = "Vidos"
 
-const pageBody css.Class = "page-body"
+const siteTitle css.Class = "site-title"
 const vbox css.Class = "vbox"
 const hbox css.Class = "hbox"
-const grow css.Class = "hbox"
+const grow css.Class = "grow"
+const linksMenu css.Class = "links-menu"
+const centerItems css.Class = "align-items-center"
+const headerBar css.Class = "header-bar"
 
 func pageStyle() css.CssContainer {
 	return css.CssContainer{}.Rules(
+		siteTitle.Style(
+			css.FontSize(size.Px(50)),
+		),
 		css.AllSelectors(css.Body, css.Html).Style(
 			css.Width(size.Percent(100)),
 			css.Height(size.Percent(100)),
@@ -31,6 +37,15 @@ func pageStyle() css.CssContainer {
 		),
 		grow.Style(
 			css.FlexGrow(1),
+		),
+		centerItems.Style(
+			css.AlignItems(css.Center),
+		),
+		linksMenu.Style(
+			css.Width(size.Px(180)),
+		),
+		headerBar.Style(
+			css.Height(size.Px(70)),
 		),
 	)
 }
@@ -47,14 +62,20 @@ func Layout(bodyContent html.Node) html.Node {
 		),
 		html.Body().Children(
 			html.Div().Class(vbox).Children(
-				html.Div().Class(hbox).Children(
-					html.H1().Text(AppName),
+				html.Div().Class(hbox, headerBar, centerItems).Children(
+					html.H1().Class(siteTitle).Text(AppName),
 					html.Span().Class(grow),
-					html.Span().Text("TODO, memory disk usage"),
+					html.Span().Text("TODO, time,uname, memory disk usage"),
 				),
-			),
-			html.Div().Class(pageBody).Children(
-				bodyContent,
+				html.Div().Class(hbox).Children(
+					html.Div().Class(linksMenu, vbox, centerItems).Children(
+						html.A().Href(path.NewVideo).Text("Upload new video"),
+						html.A().Href(path.UnencodedVideos).Text("Processing"),
+					),
+					html.Div().Class(grow).Children(
+						bodyContent,
+					),
+				),
 			),
 		),
 	)

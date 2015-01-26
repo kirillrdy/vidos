@@ -55,8 +55,7 @@ func Videos(videos []db.Video) html.Node {
 		html.Style().Text(
 			style.String(),
 		),
-		html.A().Href(path.NewVideo).Text("Upload new video"),
-		html.A().Href(path.UnencodedVideos).Text("Processing"),
+
 		html.Table().Class(TableClass).Children(
 			html.Thead().Children(
 				html.Tr().Children(
