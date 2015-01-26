@@ -13,6 +13,7 @@ import (
 	"github.com/kirillrdy/vidos/path"
 )
 
+//TODO move to own package
 func logMiddleware(handler http.HandlerFunc) http.HandlerFunc {
 	return func(response http.ResponseWriter, request *http.Request) {
 		start := time.Now()
@@ -25,6 +26,7 @@ func main() {
 
 	ffmpeg.CheckVersion()
 
+	//TODO move flags somewhere
 	displayMemoryStats := flag.Bool("memory", false, "Print memory stats")
 	port := flag.Int("port", 3001, "Port to listen on")
 
@@ -32,6 +34,7 @@ func main() {
 		lib.StartMemoryMonitoring()
 	}
 
+	//TODO Getting more routes move somewhere
 	http.HandleFunc(path.Root, handler.RootHandle)
 	http.HandleFunc(path.Videos, handler.Videos)
 	http.HandleFunc(path.UnencodedVideos, handler.UnencodedVideos)
