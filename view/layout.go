@@ -5,6 +5,7 @@ import (
 	"github.com/kirillrdy/vidos/path"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/display"
+	"github.com/sparkymat/webdsl/css/overflow"
 	"github.com/sparkymat/webdsl/css/size"
 )
 
@@ -17,6 +18,7 @@ const grow css.Class = "grow"
 const linksMenu css.Class = "links-menu"
 const centerItems css.Class = "align-items-center"
 const headerBar css.Class = "header-bar"
+const mainSection css.Class = "main-section"
 
 func pageStyle() css.CssContainer {
 	return css.CssContainer{}.Rules(
@@ -30,10 +32,12 @@ func pageStyle() css.CssContainer {
 		vbox.Style(
 			css.Display(display.Flex),
 			css.FlexDirection(css.Column),
+			css.Height(size.Percent(100)),
 		),
 		hbox.Style(
 			css.Display(display.Flex),
 			css.FlexDirection(css.Row),
+			css.Height(size.Percent(100)),
 		),
 		grow.Style(
 			css.FlexGrow(1),
@@ -46,6 +50,9 @@ func pageStyle() css.CssContainer {
 		),
 		headerBar.Style(
 			css.Height(size.Px(70)),
+		),
+		mainSection.Style(
+			css.Overflow(overflow.Auto),
 		),
 	)
 }
@@ -73,7 +80,7 @@ func Layout(bodyContent html.Node) html.Node {
 						html.A().Href(path.NewVideo).Text("Upload new video"),
 						html.A().Href(path.UnencodedVideos).Text("Processing"),
 					),
-					html.Div().Class(grow).Children(
+					html.Div().Class(grow, mainSection, vbox).Children(
 						bodyContent,
 					),
 				),
