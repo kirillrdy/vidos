@@ -10,6 +10,7 @@ import (
 )
 
 const dataDir = "data"
+const thumbnailFilename = "thumb.png"
 
 type Video struct {
 	Id       uint64
@@ -68,9 +69,17 @@ func (video *Video) CalculateDuration() {
 	Session.Save(video)
 }
 
+func (video *Video) GenerateThumbnail() {
+	ffmpeg.Thumbnail(video.FilePath(), video.ThumbnailPath())
+}
+
 func (video Video) EncodedPath() string {
 	//TODO do basename to strip out ext
 	return video.FilePath() + ".mp4"
+}
+
+func (video Video) ThumbnailPath() string {
+	return fmt.Sprintf("%v/%v", video.dataDirPath(), thumbnailFilename)
 }
 
 //TODO get rid of log.Fatal
