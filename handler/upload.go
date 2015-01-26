@@ -33,6 +33,7 @@ func Upload(response http.ResponseWriter, request *http.Request) {
 	db.Session.Save(&video)
 	video.Save(file)
 	video.CalculateDuration()
+	video.GenerateThumbnail()
 
 	//This can block so do in goroutine
 	//TODO potentially dangerous
