@@ -12,7 +12,7 @@ import (
 func NewVideo(response http.ResponseWriter, request *http.Request) {
 	page := view.Layout(
 		html.Form().Action(path.Upload).Attribute("enctype", "multipart/form-data").Method("POST").Children(
-			html.Input().Type("file").Name(view.FormParamName),
+			html.Input().Type("file").Attribute("multiple", "multiple").Name(view.FormParamName),
 			html.Input().Type("submit"),
 		),
 	)

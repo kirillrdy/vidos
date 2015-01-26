@@ -2,6 +2,7 @@ package handler
 
 import (
 	"log"
+	"mime/multipart"
 	"net/http"
 
 	"github.com/kirillrdy/vidos/db"
@@ -19,19 +20,30 @@ func Upload(response http.ResponseWriter, request *http.Request) {
 	//TODO fix assumption on filesize
 	request.ParseMultipartForm(1024 * 1024)
 	form := request.MultipartForm
-	formFile := form.File[view.FormParamName]
-	//TODO handle no file submitted and only 1 file submitted
-	file, err := formFile[0].Open()
+	formFiles := form.File[view.FormParamName]
+
+	for _, formFile := range formFiles {
+		processFormFile(formFile)
+	}
+
+	http.Redirect(response, request, path.Root, http.StatusFound)
+}
+
+func processFormFile(formFile *multipart.FileHeader) {
+
+	file, err := formFile.Open()
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Printf("Received %#v", formFile[0].Filename)
+	log.Printf("Received %#v", formFile.Filename)
 
-	video := db.Video{Filename: formFile[0].Filename}
+	video := db.Video{Filename: formFile.Filename}
 	db.Session.Save(&video)
 	video.Save(file)
+
+	//TODO Stop doing this as part of request
 	video.CalculateDuration()
 	video.GenerateThumbnail()
 
@@ -40,6 +52,4 @@ func Upload(response http.ResponseWriter, request *http.Request) {
 	go func() {
 		db.EncodeVideo <- video.Id
 	}()
-
-	http.Redirect(response, request, path.Root, http.StatusFound)
 }
