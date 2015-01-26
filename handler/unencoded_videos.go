@@ -18,7 +18,7 @@ func UnencodedVideos(response http.ResponseWriter, request *http.Request) {
 		log.Print(result.Error)
 	}
 
-	page := view.Videos(videos)
+	page := view.VideosTable(videos)
 
 	io.WriteString(response, page.String())
 }
