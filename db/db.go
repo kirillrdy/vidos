@@ -17,5 +17,5 @@ func init() {
 		log.Fatal(err)
 	}
 
-	Session.AutoMigrate(&Video{})
+	Session.AutoMigrate(&Video{}, &Subtitle{})
 }
