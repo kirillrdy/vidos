@@ -16,7 +16,7 @@ func p(err error) {
 //TODO needs to handle errors
 func Convert(srtFilename string, webvttFilename string) {
 	//TODO don't read all of the file into memory
-	srtData, err := ioutil.ReadFile("public/sub.srt")
+	srtData, err := ioutil.ReadFile(srtFilename)
 
 	//TODO handle errors
 	p(err)
@@ -25,7 +25,7 @@ func Convert(srtFilename string, webvttFilename string) {
 	replaced := strings.Replace(string(srtData), ",", ".", -1)
 	replaced = "WEBVTT FILE\n\n" + replaced
 
-	webvttFile, err := os.Create("public/sub.vtt")
+	webvttFile, err := os.Create(webvttFilename)
 	//TOOD handle errors
 	p(err)
 	defer webvttFile.Close()
