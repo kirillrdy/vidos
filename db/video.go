@@ -21,7 +21,7 @@ type Video struct {
 }
 
 func (video Video) dataDirPath() string {
-	return fmt.Sprintf("%v/%v", dataDir, video.Id)
+	return fmt.Sprintf("%v/videos/%v", dataDir, video.Id)
 }
 func (video Video) FilePath() string {
 	return fmt.Sprintf("%v/%v", video.dataDirPath(), video.Filename)
