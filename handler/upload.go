@@ -17,20 +17,21 @@ func Upload(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	//TODO fix assumption on filesize
+	//TODO fix assumption on buffer size
 	request.ParseMultipartForm(1024 * 1024)
 	form := request.MultipartForm
 	formFiles := form.File[view.FormParamName]
 
 	for _, formFile := range formFiles {
-		processFormFile(formFile)
+		processVideoFormFile(formFile)
 	}
 
 	http.Redirect(response, request, path.Root, http.StatusFound)
 }
 
-func processFormFile(formFile *multipart.FileHeader) {
+func processVideoFormFile(formFile *multipart.FileHeader) {
 
+	//TODO does this needs to be closed ?
 	file, err := formFile.Open()
 
 	if err != nil {
