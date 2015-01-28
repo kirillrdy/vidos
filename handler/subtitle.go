@@ -19,6 +19,7 @@ func Subtitle(response http.ResponseWriter, request *http.Request) {
 	http.ServeFile(response, request, subtitle.VttFilePath())
 }
 
+//TODO need to be dry, currently same as videoFromRequest
 func subtitleFromRequest(request *http.Request) (db.Subtitle, error) {
 	var subtitle db.Subtitle
 
