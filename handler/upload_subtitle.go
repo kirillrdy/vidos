@@ -33,7 +33,7 @@ func UploadSubtitle(response http.ResponseWriter, request *http.Request) {
 		processSubtitleFormFile(video, formFile)
 	}
 
-	http.Redirect(response, request, path.Root, http.StatusFound)
+	http.Redirect(response, request, path.ViewVideoPath(video), http.StatusFound)
 }
 
 //TODO this is almost a copy of processVideoFromFile
