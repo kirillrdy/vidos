@@ -36,9 +36,12 @@ func main() {
 
 	//TODO Getting more routes move somewhere
 	http.HandleFunc(path.Root, handler.RootHandle)
+	http.HandleFunc(path.ViewVideo, handler.ViewVideo)
+	http.HandleFunc(path.Subtitle, handler.Subtitle)
 	http.HandleFunc(path.Videos, handler.Videos)
 	http.HandleFunc(path.UnencodedVideos, handler.UnencodedVideos)
 	http.HandleFunc(path.Upload, handler.Upload)
+	http.HandleFunc(path.UploadSubtitle, handler.UploadSubtitle)
 	http.HandleFunc(path.Serve, logMiddleware(handler.Serve))
 	http.HandleFunc(path.Download, handler.Download)
 	http.HandleFunc(path.Reencode, handler.ReencodeFile)
