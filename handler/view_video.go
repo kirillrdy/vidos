@@ -34,9 +34,12 @@ func ViewVideo(response http.ResponseWriter, request *http.Request) {
 
 	inside := html.Div().Children(
 		videoElement,
-		html.Form().Action(path.UploadSubtitlePath(video)).Attribute("enctype", "multipart/form-data").Method("POST").Children(
-			html.Input().Type("file").Multiple().Name(view.FormParamName),
-			html.Input().Type("submit"),
+		html.Div().Children(
+			html.Span().Text("Upload srt subtitle"),
+			html.Form().Action(path.UploadSubtitlePath(video)).Attribute("enctype", "multipart/form-data").Method("POST").Children(
+				html.Input().Type("file").Multiple().Name(view.FormParamName),
+				html.Input().Type("submit"),
+			),
 		),
 	)
 	page := view.Layout(inside)
