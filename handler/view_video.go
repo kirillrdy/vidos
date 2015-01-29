@@ -8,6 +8,8 @@ import (
 	"github.com/kirillrdy/vidos/db"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/view"
+	"github.com/sparkymat/webdsl/css"
+	"github.com/sparkymat/webdsl/css/size"
 )
 
 func ViewVideo(response http.ResponseWriter, request *http.Request) {
@@ -30,9 +32,17 @@ func ViewVideo(response http.ResponseWriter, request *http.Request) {
 		videoElementContent = append(videoElementContent, track)
 	}
 
-	videoElement := html.Video().Controls().Autoplay().Name("media").Children(videoElementContent...)
+	var videoPlayer css.Class = "video-player"
+	style := html.Style().Text(
+		videoPlayer.Style(
+			css.MaxWidth(size.Px(640)),
+		).String(),
+	)
+
+	videoElement := html.Video().Class(videoPlayer).Controls().Autoplay().Name("media").Children(videoElementContent...)
 
 	inside := html.Div().Children(
+		style,
 		videoElement,
 		html.Div().Children(
 			html.Span().Text("Upload srt subtitle"),
