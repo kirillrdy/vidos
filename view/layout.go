@@ -10,7 +10,7 @@ import (
 	"github.com/sparkymat/webdsl/css/size"
 )
 
-const AppName = "Vidos"
+const AppName = "Видос"
 
 const siteTitle css.Class = "site-title"
 const vbox css.Class = "vbox"
