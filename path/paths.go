@@ -25,6 +25,9 @@ const NewVideo = "/new_video"
 const Thumbnail = "/thumbnail"
 const Subtitle = "/subtitle.vtt"
 
+const Files = "/files"
+const UploadFile = "/upload_file"
+
 func ServeVideoPath(video db.Video) string {
 	return fmt.Sprintf("%v?id=%v", Serve, video.Id)
 }

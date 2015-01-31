@@ -26,6 +26,7 @@ func pageStyle() css.CssContainer {
 	return css.CssContainer{}.Rules(
 		siteTitle.Style(
 			css.FontSize(size.Px(50)),
+			css.MarginLeft(size.Px(10)),
 		),
 		css.AllSelectors(css.Body, css.Html).Style(
 			css.Width(size.Percent(100)),
@@ -60,7 +61,7 @@ func pageStyle() css.CssContainer {
 	)
 }
 
-func Layout(bodyContent html.Node) html.Node {
+func Layout(bodyContent ...html.Node) html.Node {
 	return html.Html().Children(
 		html.Head().Children(
 			//TODO do better here
@@ -84,7 +85,7 @@ func Layout(bodyContent html.Node) html.Node {
 						html.A().Href(path.UnencodedVideos).Text("Processing"),
 					),
 					html.Div().Class(grow, mainSection, vbox).Children(
-						bodyContent,
+						bodyContent...,
 					),
 				),
 			),
