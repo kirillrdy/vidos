@@ -27,8 +27,7 @@ func VideoCss() css.CssContainer {
 //For a given video returns its view partial
 func Video(video db.Video) html.Node {
 	return html.Div().Class(vbox, videoItem).Children(
-		html.H1().Text(video.Filename),
 		html.Img().Class(videoThumb).Src(path.ThumbnailPath(video)),
-		html.A().Href(path.ViewVideoPath(video)).Text("View"),
+		html.A().Href(path.ViewVideoPath(video)).Text(video.Filename),
 	)
 }
