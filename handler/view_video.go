@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 
@@ -33,16 +34,22 @@ func ViewVideo(response http.ResponseWriter, request *http.Request) {
 	}
 
 	var videoPlayer css.Class = "video-player"
+	var videoTitle css.Class = "video-title"
 	style := html.Style().Text(
-		videoPlayer.Style(
-			css.MaxWidth(size.Px(640)),
-		).String(),
+		css.Stylesheet(
+			videoTitle.Style(
+				css.FontSize(size.Px(24)),
+			),
+			videoPlayer.Style(
+				css.MaxWidth(size.Px(640)),
+			)).String(),
 	)
 
 	videoElement := html.Video().Class(videoPlayer).Controls().Autoplay().Name("media").Children(videoElementContent...)
 
 	inside := html.Div().Children(
 		style,
+		html.H1().Class(videoTitle).Text(video.Filename),
 		videoElement,
 		html.Div().Children(
 			html.Span().Text("Upload srt subtitle"),
@@ -52,6 +59,7 @@ func ViewVideo(response http.ResponseWriter, request *http.Request) {
 			),
 		),
 	)
-	page := view.Layout(inside)
+	title := fmt.Sprintf("%v - %v", view.AppName, video.Filename)
+	page := view.Layout(title, inside)
 	io.WriteString(response, page.String())
 }

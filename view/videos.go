@@ -28,7 +28,7 @@ func Videos(videos []db.Video) html.Node {
 	)
 
 	//TODO maybe layout should take html.Node...
-	return Layout(page)
+	return Layout(AppName, page)
 }
 
 func VideosTable(videos []db.Video) html.Node {
@@ -94,5 +94,5 @@ func VideosTable(videos []db.Video) html.Node {
 		),
 	)
 
-	return Layout(page)
+	return Layout(AppName, page)
 }

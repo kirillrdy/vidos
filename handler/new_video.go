@@ -10,7 +10,7 @@ import (
 )
 
 func NewVideo(response http.ResponseWriter, request *http.Request) {
-	page := view.Layout(
+	page := view.Layout(view.AppName,
 		html.Div().Children(
 			html.Span().Text("Select file to upload"),
 			html.Form().Action(path.Upload).Attribute("enctype", "multipart/form-data").Method("POST").Children(

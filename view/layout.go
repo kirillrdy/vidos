@@ -67,11 +67,10 @@ func pageStyle() css.CssContainer {
 	)
 }
 
-func Layout(bodyContent ...html.Node) html.Node {
+func Layout(title string, bodyContent ...html.Node) html.Node {
 	return html.Html().Children(
 		html.Head().Children(
-			//TODO do better here
-			html.Title().Text(AppName),
+			html.Title().Text(title),
 			html.Link().Href(path.CssReset).Rel("stylesheet"),
 			html.Style().Text(
 				pageStyle().String(),

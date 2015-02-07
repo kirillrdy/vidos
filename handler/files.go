@@ -42,6 +42,6 @@ func Files(response http.ResponseWriter, request *http.Request) {
 		),
 	)
 
-	io.WriteString(response, view.Layout(div).String())
+	io.WriteString(response, view.Layout(view.AppName, div).String())
 
 }
