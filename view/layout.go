@@ -83,6 +83,7 @@ func Layout(bodyContent ...html.Node) html.Node {
 						html.A().Href(path.Videos).Text("Videos"),
 						html.A().Href(path.NewVideo).Text("Upload new video"),
 						html.A().Href(path.UnencodedVideos).Text("Processing"),
+						html.A().Href(path.Files).Text("Files"),
 					),
 					html.Div().Class(grow, mainSection, vbox).Children(
 						bodyContent...,
