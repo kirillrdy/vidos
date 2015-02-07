@@ -32,6 +32,12 @@ func pageStyle() css.CssContainer {
 			css.Width(size.Percent(100)),
 			css.Height(size.Percent(100)),
 		),
+		css.ChildSelector(vbox, css.All).Style(
+			css.FlexShrink(0),
+		),
+		css.ChildSelector(hbox, css.All).Style(
+			css.FlexShrink(0),
+		),
 		vbox.Style(
 			css.Display(display.Flex),
 			css.FlexDirection(flex.Column),
