@@ -12,7 +12,7 @@ const videoThumb css.Class = "video-thumb"
 const videoItem css.Class = "video-item"
 
 func VideoCss() css.CssContainer {
-	return css.CssContainer{}.Rules(
+	return css.Stylesheet(
 		videoThumb.Style(
 			//css.Width(size.Px(ffmpeg.ThumbnailWidth)),
 			//TODO fix 196, this is youtube's width
