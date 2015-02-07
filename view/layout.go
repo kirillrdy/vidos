@@ -23,7 +23,7 @@ const headerBar css.Class = "header-bar"
 const mainSection css.Class = "main-section"
 
 func pageStyle() css.CssContainer {
-	return css.CssContainer{}.Rules(
+	return css.Stylesheet(
 		siteTitle.Style(
 			css.FontSize(size.Px(50)),
 			css.MarginLeft(size.Px(10)),
