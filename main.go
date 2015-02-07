@@ -35,6 +35,7 @@ func main() {
 	}
 
 	//TODO Getting more routes move somewhere
+	http.HandleFunc(path.UploadFile, handler.UploadFile)
 	http.HandleFunc(path.Files, handler.Files)
 	http.HandleFunc(path.ViewVideo, handler.ViewVideo)
 	http.HandleFunc(path.Subtitle, handler.Subtitle)

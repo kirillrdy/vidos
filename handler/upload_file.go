@@ -1,16 +1,18 @@
-package handle
+package handler
 
 import (
+	"fmt"
+	"io"
 	"log"
 	"mime/multipart"
 	"net/http"
+	"os"
 
-	"github.com/kirillrdy/vidos/db"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/view"
 )
 
-func Upload(response http.ResponseWriter, request *http.Request) {
+func UploadFile(response http.ResponseWriter, request *http.Request) {
 
 	if request.Method != "POST" {
 		http.Redirect(response, request, path.Root, http.StatusFound)
@@ -23,16 +25,26 @@ func Upload(response http.ResponseWriter, request *http.Request) {
 	formFiles := form.File[view.FormParamName]
 
 	for _, formFile := range formFiles {
-		processVideoFormFile(formFile)
+		processFormFile(formFile)
 	}
 
-	http.Redirect(response, request, path.Root, http.StatusFound)
+	http.Redirect(response, request, path.Files, http.StatusFound)
 }
 
-func processVideoFormFile(formFile *multipart.FileHeader) {
+type uploadedFile struct {
+	Filename string
+}
+
+func (file uploadedFile) Path() string {
+	//TODO use path seperator
+	return fmt.Sprintf("%v/%v", fileDir, file.Filename)
+}
+
+func processFormFile(formFile *multipart.FileHeader) {
 
 	//TODO does this needs to be closed ?
 	file, err := formFile.Open()
+	defer file.Close()
 
 	if err != nil {
 		log.Fatal(err)
@@ -40,17 +52,18 @@ func processVideoFormFile(formFile *multipart.FileHeader) {
 
 	log.Printf("Received %#v", formFile.Filename)
 
-	video := db.Video{Filename: formFile.Filename}
-	db.Session.Save(&video)
-	video.Save(file)
+	uploadedFile := uploadedFile{Filename: formFile.Filename}
 
-	//TODO Stop doing this as part of request
-	video.CalculateDuration()
-	video.GenerateThumbnail()
+	destinationFile, err := os.Create(uploadedFile.Path())
+	defer destinationFile.Close()
 
-	//This can block so do in goroutine
-	//TODO potentially dangerous
-	go func() {
-		db.EncodeVideo <- video.Id
-	}()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	n, err := io.Copy(destinationFile, file)
+	if n == 0 || err != nil {
+		log.Fatal(err)
+	}
+
 }
