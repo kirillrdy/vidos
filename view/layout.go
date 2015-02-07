@@ -41,10 +41,14 @@ func pageStyle() css.CssContainer {
 		vbox.Style(
 			css.Display(display.Flex),
 			css.FlexDirection(flex.Column),
+			css.Width(size.Percent(100)),
+			css.Height(size.Percent(100)),
 		),
 		hbox.Style(
 			css.Display(display.Flex),
 			css.FlexDirection(flex.Row),
+			css.Width(size.Percent(100)),
+			css.Height(size.Percent(100)),
 		),
 		wrap.Style(
 			css.FlexWrap(flex.Wrap),

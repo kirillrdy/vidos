@@ -20,6 +20,7 @@ func VideoCss() css.CssContainer {
 		),
 		videoItem.Style(
 			css.Width(size.Px(220)),
+			css.Height(size.Px(170)),
 		),
 	)
 }
