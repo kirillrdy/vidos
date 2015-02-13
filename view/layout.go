@@ -1,6 +1,11 @@
 package view
 
 import (
+	"fmt"
+	"log"
+	"runtime"
+	"syscall"
+
 	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/sparkymat/webdsl/css"
@@ -71,6 +76,23 @@ func pageStyle() css.CssContainer {
 	)
 }
 
+func statusLine() string {
+
+	var memStat runtime.MemStats
+	runtime.ReadMemStats(&memStat)
+
+	var fsStat syscall.Statfs_t
+	err := syscall.Statfs("/", &fsStat)
+	if err != nil {
+		log.Print(err)
+	}
+
+	freeStorage := float64(fsStat.Bavail*uint64(fsStat.Bsize)) / float64(1024*1024*1024)
+	memoryUsed := float64(memStat.Alloc) / float64(1024*1024)
+
+	return fmt.Sprintf("OS:%v/%v FreeStorage:%.2f Gb, MemUsed: %.2f Mb", runtime.GOOS, runtime.GOARCH, freeStorage, memoryUsed)
+}
+
 func Layout(title string, bodyContent ...html.Node) html.Node {
 	return html.Html().Children(
 		html.Head().Children(
@@ -85,7 +107,7 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 				html.Div().Class(hbox, headerBar, centerItems).Children(
 					html.H1().Class(siteTitle).Text(AppName),
 					html.Span().Class(grow),
-					html.Span().Text("TODO, time,uname, memory disk usage"),
+					html.Span().Text(statusLine()),
 				),
 				html.Div().Class(hbox, grow).Children(
 					html.Div().Class(linksMenu, vbox, centerItems).Children(
