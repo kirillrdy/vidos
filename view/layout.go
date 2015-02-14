@@ -46,14 +46,14 @@ func pageStyle() css.CssContainer {
 		vbox.Style(
 			css.Display(display.Flex),
 			css.FlexDirection(flex.Column),
-			css.Width(size.Percent(100)),
-			css.Height(size.Percent(100)),
+			//css.Width(size.Percent(100)),
+			//css.Height(size.Percent(100)),
 		),
 		hbox.Style(
 			css.Display(display.Flex),
 			css.FlexDirection(flex.Row),
-			css.Width(size.Percent(100)),
-			css.Height(size.Percent(100)),
+			//css.Width(size.Percent(100)),
+			//css.Height(size.Percent(100)),
 		),
 		wrap.Style(
 			css.FlexWrap(flex.Wrap),
@@ -72,6 +72,7 @@ func pageStyle() css.CssContainer {
 		),
 		mainSection.Style(
 			css.Overflow(overflow.Auto),
+			css.FlexShrink(1),
 		),
 	)
 }
@@ -102,23 +103,21 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 				pageStyle().String(),
 			),
 		),
-		html.Body().Children(
-			html.Div().Class(vbox).Children(
-				html.Div().Class(hbox, headerBar, centerItems).Children(
-					html.H1().Class(siteTitle).Text(AppName),
-					html.Span().Class(grow),
-					html.Span().Text(statusLine()),
+		html.Body().Class(vbox).Children(
+			html.Div().Class(hbox, headerBar, centerItems).Children(
+				html.H1().Class(siteTitle).Text(AppName),
+				html.Span().Class(grow),
+				html.Span().Text(statusLine()),
+			),
+			html.Div().Class(hbox, grow).Children(
+				html.Div().Class(linksMenu, vbox, centerItems).Children(
+					html.A().Href(path.Videos).Text("Videos"),
+					html.A().Href(path.NewVideo).Text("Upload new video"),
+					html.A().Href(path.UnencodedVideos).Text("Processing"),
+					html.A().Href(path.Files).Text("Files"),
 				),
-				html.Div().Class(hbox, grow).Children(
-					html.Div().Class(linksMenu, vbox, centerItems).Children(
-						html.A().Href(path.Videos).Text("Videos"),
-						html.A().Href(path.NewVideo).Text("Upload new video"),
-						html.A().Href(path.UnencodedVideos).Text("Processing"),
-						html.A().Href(path.Files).Text("Files"),
-					),
-					html.Div().Class(grow, mainSection, vbox).Children(
-						bodyContent...,
-					),
+				html.Div().Class(grow, mainSection, vbox).Children(
+					bodyContent...,
 				),
 			),
 		),

@@ -23,7 +23,7 @@ func Videos(videos []db.Video) html.Node {
 		divs = append(divs, Video(video))
 	}
 
-	page := html.Div().Class(hbox, wrap).Children(
+	page := html.Div().Class(hbox, grow, wrap).Children(
 		divs...,
 	)
 
