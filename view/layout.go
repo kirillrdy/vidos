@@ -21,6 +21,7 @@ const siteTitle css.Class = "site-title"
 const vbox css.Class = "vbox"
 const hbox css.Class = "hbox"
 const grow css.Class = "grow"
+const shrink css.Class = "shrink"
 const wrap css.Class = "wrap"
 const linksMenu css.Class = "links-menu"
 const centerItems css.Class = "align-items-center"
@@ -56,6 +57,9 @@ func pageStyle() css.CssContainer {
 		grow.Style(
 			css.FlexGrow(1),
 		),
+		shrink.Style(
+			css.FlexShrink(1),
+		),
 		centerItems.Style(
 			css.AlignItems(css.Center),
 		),
@@ -69,7 +73,6 @@ func pageStyle() css.CssContainer {
 		),
 		mainSection.Style(
 			css.Overflow(overflow.Auto),
-			css.FlexShrink(1),
 		),
 	)
 }
@@ -106,14 +109,14 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 				html.Span().Class(grow),
 				html.Span().Text(statusLine()),
 			),
-			html.Div().Class(hbox, grow).Children(
+			html.Div().Class(hbox, grow, shrink).Children(
 				html.Div().Class(linksMenu, vbox, centerItems).Children(
 					html.A().Href(path.Videos).Text("Videos"),
 					html.A().Href(path.NewVideo).Text("Upload new video"),
 					html.A().Href(path.UnencodedVideos).Text("Processing"),
 					html.A().Href(path.Files).Text("Files"),
 				),
-				html.Div().Class(grow, mainSection, vbox).Children(
+				html.Div().Class(grow, shrink, mainSection, vbox).Children(
 					bodyContent...,
 				),
 			),
