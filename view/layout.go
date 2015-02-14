@@ -31,7 +31,6 @@ func pageStyle() css.CssContainer {
 	return css.Stylesheet(
 		siteTitle.Style(
 			css.FontSize(size.Px(50)),
-			css.MarginLeft(size.Px(10)),
 		),
 		css.AllSelectors(css.Body, css.Html).Style(
 			css.Width(size.Percent(100)),
@@ -46,14 +45,10 @@ func pageStyle() css.CssContainer {
 		vbox.Style(
 			css.Display(display.Flex),
 			css.FlexDirection(flex.Column),
-			//css.Width(size.Percent(100)),
-			//css.Height(size.Percent(100)),
 		),
 		hbox.Style(
 			css.Display(display.Flex),
 			css.FlexDirection(flex.Row),
-			//css.Width(size.Percent(100)),
-			//css.Height(size.Percent(100)),
 		),
 		wrap.Style(
 			css.FlexWrap(flex.Wrap),
@@ -69,6 +64,8 @@ func pageStyle() css.CssContainer {
 		),
 		headerBar.Style(
 			css.Height(size.Px(70)),
+			css.PaddingLeft(size.Px(10)),
+			css.PaddingRight(size.Px(10)),
 		),
 		mainSection.Style(
 			css.Overflow(overflow.Auto),

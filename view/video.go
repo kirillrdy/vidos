@@ -10,6 +10,7 @@ import (
 
 const videoThumb css.Class = "video-thumb"
 const videoItem css.Class = "video-item"
+const videoLink css.Class = "video-link"
 
 func VideoCss() css.CssContainer {
 	return css.Stylesheet(
@@ -22,6 +23,9 @@ func VideoCss() css.CssContainer {
 			css.Width(size.Px(220)),
 			css.Height(size.Px(170)),
 		),
+		videoLink.Style(
+			css.WordWrap(css.BreakWord),
+		),
 	)
 }
 
@@ -29,6 +33,6 @@ func VideoCss() css.CssContainer {
 func Video(video db.Video) html.Node {
 	return html.Div().Class(vbox, videoItem).Children(
 		html.Img().Class(videoThumb).Src(path.ThumbnailPath(video)),
-		html.A().Href(path.ViewVideoPath(video)).Text(video.Filename),
+		html.A().Class(videoLink).Href(path.ViewVideoPath(video)).Text(video.Filename),
 	)
 }
