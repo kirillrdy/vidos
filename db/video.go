@@ -11,6 +11,7 @@ import (
 
 const dataDir = "data"
 const thumbnailFilename = "thumb.png"
+const VideoMimeType = "video/mp4"
 
 type Video struct {
 	Id       uint64

@@ -8,7 +8,7 @@ import (
 	"github.com/kirillrdy/vidos/view"
 )
 
-func ViewVideo(response http.ResponseWriter, request *http.Request) {
+func ManageSubtitles(response http.ResponseWriter, request *http.Request) {
 	video, err := videoFromRequest(request)
 
 	if err != nil {
@@ -19,7 +19,5 @@ func ViewVideo(response http.ResponseWriter, request *http.Request) {
 	var subtitles []db.Subtitle
 	db.Session.Find(&subtitles, db.Subtitle{VideoId: video.Id})
 
-	page := view.ViewVideo(video, subtitles)
-
-	io.WriteString(response, page.String())
+	io.WriteString(response, view.ManageSubtitles(video, subtitles).String())
 }

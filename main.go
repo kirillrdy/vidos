@@ -48,6 +48,8 @@ func main() {
 	http.HandleFunc(path.Reencode, handler.ReencodeFile)
 	http.HandleFunc(path.NewVideo, handler.NewVideo)
 	http.HandleFunc(path.Thumbnail, handler.Thumbnail)
+	http.HandleFunc(path.ManageSubtitles, handler.ManageSubtitles)
+
 	http.HandleFunc(path.Root, handler.RootHandle)
 	http.Handle(path.Public, http.StripPrefix(path.Public, http.FileServer(http.Dir("public"))))
 

@@ -6,11 +6,12 @@ import (
 	"github.com/kirillrdy/vidos/db"
 )
 
+// Root page, which actually redirects to a more useful page
 const Root = "/"
 
 //Note trailing / is important, due to how "/" http Mux works
 const Public = "/public/"
-const CssReset = Public + "reset.css"
+const CSSReset = Public + "reset.css"
 
 const Videos = "/videos"
 const ViewVideo = "/view_video"
@@ -27,6 +28,8 @@ const Subtitle = "/subtitle.vtt"
 
 const Files = "/files"
 const UploadFile = "/upload_file"
+
+const ManageSubtitles = "/subtitles"
 
 func ServeVideoPath(video db.Video) string {
 	return fmt.Sprintf("%v?id=%v", Serve, video.Id)
@@ -54,4 +57,8 @@ func UploadSubtitlePath(video db.Video) string {
 
 func SubtitlePath(subtitle db.Subtitle) string {
 	return fmt.Sprintf("%v?id=%v", Subtitle, subtitle.Id)
+}
+
+func ManageSubtitlesPath(video db.Video) string {
+	return fmt.Sprintf("%v?id=%v", ManageSubtitles, video.Id)
 }

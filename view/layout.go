@@ -94,7 +94,7 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 	return html.Html().Children(
 		html.Head().Children(
 			html.Title().Text(title),
-			html.Link().Href(path.CssReset).Rel("stylesheet"),
+			html.Link().Href(path.CSSReset).Rel("stylesheet"),
 			html.Style().Text(
 				pageStyle().String(),
 			),
