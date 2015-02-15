@@ -40,7 +40,7 @@ func VideosTable(videos []db.Video) html.Node {
 	var trs []html.Node
 	displayLink := func(video db.Video) string {
 		if video.Encoded {
-			return html.A().Href(path.ServeVideoPath(video)).Text("View").String()
+			return html.A().Href(path.ViewVideoPath(video)).Text("View").String()
 		} else {
 			return ""
 		}
