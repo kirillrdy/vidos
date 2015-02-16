@@ -16,6 +16,7 @@ func ViewVideo(video db.Video, subtitles []db.Subtitle) html.Node {
 	videoElementContent = append(videoElementContent, html.Source().Src(path.ServeVideoPath(video)).Type(db.VideoMimeType))
 
 	for _, subtitle := range subtitles {
+		//TODO fix hardwired language
 		track := html.Track().Label("English").Kind("captions").Srclang("en").Src(path.SubtitlePath(subtitle)).Default()
 		videoElementContent = append(videoElementContent, track)
 	}
@@ -40,6 +41,8 @@ func ViewVideo(video db.Video, subtitles []db.Subtitle) html.Node {
 		//html.A().Href(path.ManageSubtitlesPath(video)).Text("Delete"),
 		html.A().Href(path.ManageSubtitlesPath(video)).Text("Manage Subtitles"),
 	)
+
+	//Title is important here for chromecast support :-)
 	title := fmt.Sprintf("%v - %v", AppName, video.Filename)
 	return Layout(title, inside)
 }
