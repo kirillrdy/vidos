@@ -16,6 +16,7 @@ import (
 )
 
 const AppName = "Видос"
+const padding = 10
 
 const siteTitle css.Class = "site-title"
 const vbox css.Class = "vbox"
@@ -58,14 +59,15 @@ func pageStyle() css.CssContainer {
 			css.AlignItems(css.Center),
 		),
 		linksMenu.Style(
-			css.Width(size.Px(180)),
+			css.Width(size.Px(150)),
 			css.FlexShrink(0),
+			//css.PaddingLeft(size.Px(20)),
 		),
 		headerBar.Style(
 			css.Height(size.Px(70)),
 			css.FlexShrink(0),
-			css.PaddingLeft(size.Px(10)),
-			css.PaddingRight(size.Px(10)),
+			css.PaddingLeft(size.Px(padding)),
+			css.PaddingRight(size.Px(padding)),
 		),
 		mainSection.Style(
 			css.Overflow(overflow.Auto),
@@ -107,10 +109,12 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 			),
 			html.Div().Class(hbox, grow).Children(
 				html.Div().Class(linksMenu, vbox, centerItems).Children(
-					html.A().Href(path.Videos).Text("Videos"),
-					html.A().Href(path.NewVideo).Text("Upload new video"),
-					html.A().Href(path.UnencodedVideos).Text("Processing"),
-					html.A().Href(path.Files).Text("Files"),
+					html.Div().Class(vbox).Children(
+						html.A().Href(path.Videos).Text("Videos"),
+						html.A().Href(path.NewVideo).Text("Upload new video"),
+						html.A().Href(path.UnencodedVideos).Text("Processing"),
+						html.A().Href(path.Files).Text("Files"),
+					),
 				),
 				html.Div().Class(grow, mainSection, vbox).Children(
 					bodyContent...,
