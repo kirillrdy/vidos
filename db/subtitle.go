@@ -40,6 +40,20 @@ func (subtitle Subtitle) mkdir() {
 	}
 }
 
+//TODO rewrite this to use attachment ( or file upload whatever its called ) interface
+func (subtitle Subtitle) Delete() error {
+	err := os.Remove(subtitle.FilePath())
+	if err != nil {
+		return err
+	}
+	err = os.Remove(subtitle.VttFilePath())
+	if err != nil {
+		return err
+	}
+	result := Session.Delete(&subtitle)
+	return result.Error
+}
+
 //TODO get rid of log.Fatal
 //TODO this is very similar to method in video.go
 func (subtitle Subtitle) Save(reader io.ReadCloser) {
