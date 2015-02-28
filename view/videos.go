@@ -27,7 +27,6 @@ func Videos(videos []db.Video) html.Node {
 		divs...,
 	)
 
-	//TODO maybe layout should take html.Node...
 	return Layout(AppName, page)
 }
 
@@ -36,37 +35,6 @@ func VideosTable(videos []db.Video) html.Node {
 	style := TableClass.Style(
 		css.Width(size.Percent(100)),
 	)
-
-	var trs []html.Node
-	displayLink := func(video db.Video) string {
-		if video.Encoded {
-			return html.A().Href(path.ViewVideoPath(video)).Text("View").String()
-		} else {
-			return ""
-		}
-	}
-
-	for _, video := range videos {
-		tr := html.Tr().Children(
-			html.Td().Text(video.IdString()),
-			html.Td().Text(video.Filename),
-			html.Td().Text(video.Duration),
-			html.Td().Text(fmt.Sprint(video.Encoded)),
-			html.Td().Text(fmt.Sprint(video.Progress)),
-			html.Td().Text(
-				displayLink(video),
-			),
-
-			html.Td().Children(
-			//html.A().Href(path.DownloadVideoPath(video)).Text("Download"),
-			),
-
-			html.Td().Children(
-			//html.A().Href(path.ReencodeVideoPath(video)).Text("Reencode"),
-			),
-		)
-		trs = append(trs, tr)
-	}
 
 	//TODO use layout
 	page := html.Div().Children(
@@ -89,10 +57,42 @@ func VideosTable(videos []db.Video) html.Node {
 			),
 
 			html.Tbody().Children(
-				trs...,
+				trs(videos)...,
 			),
 		),
 	)
 
 	return Layout(AppName, page)
+}
+
+func trs(videos []db.Video) []html.Node {
+	var nodes []html.Node
+	for index := range videos {
+		nodes = append(nodes, tr(videos[index]))
+	}
+	return nodes
+}
+
+func tr(video db.Video) html.Node {
+	return html.Tr().Children(
+		html.Td().Text(video.IdString()),
+		html.Td().Text(video.Filename),
+		html.Td().Text(video.Duration),
+		html.Td().Text(fmt.Sprint(video.Encoded)),
+		html.Td().Text(fmt.Sprint(video.Progress)),
+		html.Td().Children(
+			html.If(video.Encoded).Then(
+				html.A().Href(path.ViewVideoPath(video)).Text("View"),
+			).Nodes()...,
+		),
+
+		html.Td().Children(
+		//html.A().Href(path.DownloadVideoPath(video)).Text("Download"),
+		),
+
+		html.Td().Children(
+		//html.A().Href(path.ReencodeVideoPath(video)).Text("Reencode"),
+		),
+	)
+
 }
