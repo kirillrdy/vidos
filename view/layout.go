@@ -54,6 +54,8 @@ func pageStyle() css.CssContainer {
 		),
 		wrap.Style(
 			css.FlexWrap(flex.Wrap),
+			//TODO technically this doesn't belong here, but i think it will only ever be used here
+			css.AlignContent(css.FlexStart),
 		),
 		grow.Style(
 			css.FlexGrow(1),
