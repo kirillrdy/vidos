@@ -89,6 +89,7 @@ func statusLineText() string {
 	runtime.ReadMemStats(&memStat)
 
 	var fsStat syscall.Statfs_t
+	//TODO dont use '/', but use datadir
 	err := syscall.Statfs("/", &fsStat)
 	if err != nil {
 		log.Print(err)
