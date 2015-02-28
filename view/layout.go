@@ -28,9 +28,15 @@ const linksMenu css.Class = "links-menu"
 const centerItems css.Class = "align-items-center"
 const headerBar css.Class = "header-bar"
 const mainSection css.Class = "main-section"
+const statusLine css.Class = "status-line"
 
 func pageStyle() css.CssContainer {
 	return css.Stylesheet(
+		statusLine.Style(
+			css.Height(size.Px(20)),
+			css.FlexShrink(0),
+			css.PaddingRight(size.Px(padding)),
+		),
 		siteTitle.Style(
 			css.FontSize(size.Px(50)),
 		),
@@ -75,7 +81,7 @@ func pageStyle() css.CssContainer {
 	)
 }
 
-func statusLine() string {
+func statusLineText() string {
 
 	var memStat runtime.MemStats
 	runtime.ReadMemStats(&memStat)
@@ -93,6 +99,7 @@ func statusLine() string {
 }
 
 func Layout(title string, bodyContent ...html.Node) html.Node {
+	statusLineText := statusLineText()
 	return html.Html().Children(
 		html.Head().Children(
 			html.Title().Text(title),
@@ -105,7 +112,7 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 			html.Div().Class(hbox, headerBar, centerItems).Children(
 				html.H1().Class(siteTitle).Text(AppName),
 				html.Span().Class(grow),
-				html.Span().Text(statusLine()),
+				html.Span().Text(statusLineText),
 			),
 			html.Div().Class(hbox, grow).Children(
 				html.Div().Class(linksMenu, vbox, centerItems).Children(
@@ -119,6 +126,10 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 				html.Div().Class(grow, mainSection, vbox).Children(
 					bodyContent...,
 				),
+			),
+			html.Div().Class(hbox, statusLine).Children(
+				html.Span().Class(grow),
+				html.Span().Class().Text(statusLineText),
 			),
 		),
 	)
