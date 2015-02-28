@@ -67,7 +67,7 @@ func pageStyle() css.CssContainer {
 			css.AlignItems(css.Center),
 		),
 		linksMenu.Style(
-			css.Width(size.Px(150)),
+			css.Width(size.Px(180)),
 			css.FlexShrink(0),
 			//css.PaddingLeft(size.Px(20)),
 		),
