@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"io"
 	"log"
 	"net/http"
 
@@ -20,5 +19,5 @@ func UnencodedVideos(response http.ResponseWriter, request *http.Request) {
 
 	page := view.VideosTable(videos)
 
-	io.WriteString(response, page.String())
+	page.WriteTo(response)
 }
