@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"io"
 	"log"
 	"net/http"
 
@@ -19,6 +18,5 @@ func Videos(response http.ResponseWriter, request *http.Request) {
 	}
 
 	page := view.Videos(videos)
-
-	io.WriteString(response, page.String())
+	page.WriteTo(response)
 }
