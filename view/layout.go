@@ -22,7 +22,6 @@ const siteTitle css.Class = "site-title"
 const vbox css.Class = "vbox"
 const hbox css.Class = "hbox"
 const grow css.Class = "grow"
-const noShrink css.Class = "no-shrink"
 const wrap css.Class = "wrap"
 const linksMenu css.Class = "links-menu"
 const centerItems css.Class = "align-items-center"
@@ -59,9 +58,6 @@ func pageStyle() css.CssContainer {
 		),
 		grow.Style(
 			css.FlexGrow(1),
-		),
-		noShrink.Style(
-			css.FlexShrink(0),
 		),
 		centerItems.Style(
 			css.AlignItems(css.Center),
