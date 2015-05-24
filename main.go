@@ -53,7 +53,7 @@ func main() {
 	http.HandleFunc(path.Root, handler.RootHandle)
 	http.Handle(path.Public, http.StripPrefix(path.Public, http.FileServer(http.Dir("public"))))
 
-	log.Printf("Listening on %v", *port)
+	log.Printf("Listening on port: '%v'", *port)
 	err := http.ListenAndServe(fmt.Sprintf(":%v", *port), nil)
 	if err != nil {
 		log.Fatal(err)
