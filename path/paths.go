@@ -21,6 +21,7 @@ const UploadSubtitle = "/upload_subtitle"
 const Serve = "/serve"
 const Download = "/download"
 const Reencode = "/reencode"
+const Delete = "/delete"
 
 const NewVideo = "/new_video"
 const Thumbnail = "/thumbnail"
@@ -41,6 +42,10 @@ func DownloadVideoPath(video db.Video) string {
 
 func ReencodeVideoPath(video db.Video) string {
 	return fmt.Sprintf("%v?id=%v", Reencode, video.Id)
+}
+
+func DeleteVideoPath(video db.Video) string {
+	return fmt.Sprintf("%v?id=%v", Delete, video.Id)
 }
 
 func ThumbnailPath(video db.Video) string {

@@ -104,6 +104,15 @@ func (video Video) Save(reader io.ReadCloser) {
 	defer destinationFile.Close()
 }
 
+func (video Video) Delete() {
+	//TODO errors
+	Session.Delete(&video)
+	err := os.RemoveAll(video.dataDirPath())
+	if err != nil {
+		log.Print(err)
+	}
+}
+
 ///////////////////////////////////////
 ///////////////////////////////////////
 var EncodeVideo = make(chan (uint64))

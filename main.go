@@ -46,6 +46,7 @@ func main() {
 	http.HandleFunc(path.Serve, logMiddleware(handler.Serve))
 	http.HandleFunc(path.Download, handler.Download)
 	http.HandleFunc(path.Reencode, handler.ReencodeFile)
+	http.HandleFunc(path.Delete, handler.DeleteVideo)
 	http.HandleFunc(path.NewVideo, handler.NewVideo)
 	http.HandleFunc(path.Thumbnail, handler.Thumbnail)
 	http.HandleFunc(path.ManageSubtitles, handler.ManageSubtitles)

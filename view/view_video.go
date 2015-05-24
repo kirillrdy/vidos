@@ -39,7 +39,7 @@ func ViewVideo(video db.Video, subtitles []db.Subtitle) html.Node {
 		html.Video().Class(videoPlayer).Controls().Autoplay().Name("media").Children(videoElementContent...),
 		//TODO finish those links, also move them somewhere
 		//html.A().Href(path.ManageSubtitlesPath(video)).Text("Download Original"),
-		//html.A().Href(path.ManageSubtitlesPath(video)).Text("Delete"),
+		html.A().Href(path.DeleteVideoPath(video)).Text("Delete"),
 		html.A().Href(path.ManageSubtitlesPath(video)).Text("Manage Subtitles"),
 	)
 
