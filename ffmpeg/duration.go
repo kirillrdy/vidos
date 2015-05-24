@@ -10,7 +10,7 @@ import (
 //TODO need better implementation
 // returns string in format dd:dd:dd.dd
 func Duration(filename string) string {
-	cmd := exec.Command("ffmpeg", "-i", filename)
+	cmd := exec.Command("ffprobe", filename)
 
 	var buffer bytes.Buffer
 	cmd.Stderr = &buffer
