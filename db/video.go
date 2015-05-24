@@ -97,6 +97,7 @@ func (video Video) Save(reader io.ReadCloser) {
 
 	n, err := io.Copy(destinationFile, reader)
 	if n == 0 || err != nil {
+		log.Println("Video/Save()/io.Copy")
 		log.Fatal(err)
 	}
 
