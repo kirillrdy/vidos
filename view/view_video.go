@@ -32,7 +32,10 @@ func ViewVideo(video db.Video, subtitles []db.Subtitle) html.Node {
 					css.Height(size.Px(30)),
 					css.FlexShrink(0),
 				),
-				videoPlayer.Style()).String(),
+				videoPlayer.Style(
+					css.MarginBottom(size.Px(10)),
+				),
+			).String(),
 		),
 		html.H1().Class(videoTitle).Text(video.Filename),
 		html.Video().Class(videoPlayer).Controls().Autoplay().Name("media").Children(videoElementContent...),

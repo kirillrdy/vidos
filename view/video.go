@@ -18,6 +18,7 @@ func VideoCss() css.CssContainer {
 			//css.Width(size.Px(ffmpeg.ThumbnailWidth)),
 			//TODO fix 196, this is youtube's width
 			css.Width(size.Px(196)),
+			css.MarginBottom(size.Px(5)),
 		),
 		videoItem.Style(
 			css.Width(size.Px(220)),
