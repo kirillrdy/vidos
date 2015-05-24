@@ -63,6 +63,13 @@ func (video Video) Encode() {
 	video.Progress = ""
 	//TODO errors
 	Session.Save(&video)
+
+	//remove original
+	err := os.Remove(video.FilePath())
+	if err != nil {
+		log.Print("video/Encode() couldn't remove original file")
+		log.Panic(err)
+	}
 }
 
 func (video *Video) CalculateDuration() {
