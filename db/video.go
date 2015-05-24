@@ -136,7 +136,6 @@ func init() {
 		for {
 			id := <-EncodeVideo
 
-			//TODO encode
 			var video Video
 			Session.Find(&video, id)
 			video.Encode()
