@@ -7,8 +7,9 @@ import (
 )
 
 func ManageSubtitles(video db.Video, subtitles []db.Subtitle) html.Node {
-	return Layout(AppName, html.Div().Children(
-		html.H1().Text("Subtitles"),
+	title := "Subtitles"
+	return Layout(title, html.Div().Children(
+		html.H1().Text(title),
 
 		html.Div().Children(
 			html.Span().Text("Upload srt subtitle"),

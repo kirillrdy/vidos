@@ -1,8 +1,6 @@
 package view
 
 import (
-	"fmt"
-
 	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/db"
 	"github.com/kirillrdy/vidos/path"
@@ -46,6 +44,5 @@ func ViewVideo(video db.Video, subtitles []db.Subtitle) html.Node {
 	)
 
 	//Title is important here for chromecast support :-)
-	title := fmt.Sprintf("%v - %v", AppName, video.Filename)
-	return Layout(title, inside)
+	return Layout(video.Filename, inside)
 }

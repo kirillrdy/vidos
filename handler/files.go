@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -42,6 +41,6 @@ func Files(response http.ResponseWriter, request *http.Request) {
 		),
 	)
 
-	io.WriteString(response, view.Layout(view.AppName, div).String())
+	view.Layout("Files", div).WriteTo(response)
 
 }

@@ -15,7 +15,7 @@ import (
 	"github.com/sparkymat/webdsl/css/size"
 )
 
-const AppName = "Видос"
+const appName = "Видос"
 const padding = 10
 
 const siteTitle css.Class = "site-title"
@@ -98,6 +98,9 @@ func statusLineText() string {
 }
 
 func Layout(title string, bodyContent ...html.Node) html.Node {
+
+	title = fmt.Sprintf("%v - %v", appName, title)
+
 	statusLineText := statusLineText()
 	return html.Html().Children(
 		html.Head().Children(
@@ -109,7 +112,7 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 		),
 		html.Body().Class(vbox).Children(
 			html.Div().Class(hbox, headerBar, centerItems).Children(
-				html.H1().Class(siteTitle).Text(AppName),
+				html.H1().Class(siteTitle).Text(appName),
 				html.Span().Class(grow),
 				html.Span().Text(statusLineText),
 			),

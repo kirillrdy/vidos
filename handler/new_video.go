@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"io"
 	"net/http"
 
 	"github.com/kirillrdy/nadeshiko/html"
@@ -10,7 +9,7 @@ import (
 )
 
 func NewVideo(response http.ResponseWriter, request *http.Request) {
-	page := view.Layout(view.AppName,
+	page := view.Layout("Upload new video",
 		html.Div().Children(
 			html.Span().Text("Select file to upload"),
 			html.Form().Action(path.Upload).Attribute("enctype", "multipart/form-data").Method("POST").Children(
@@ -19,5 +18,5 @@ func NewVideo(response http.ResponseWriter, request *http.Request) {
 			),
 		),
 	)
-	io.WriteString(response, page.String())
+	page.WriteTo(response)
 }
