@@ -63,6 +63,7 @@ func (subtitle Subtitle) Save(reader io.ReadCloser) {
 	destinationFile, err := os.Create(subtitle.FilePath())
 
 	if err != nil {
+		log.Println("Subtitle/Save()")
 		log.Fatal(err)
 	}
 

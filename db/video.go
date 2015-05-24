@@ -91,6 +91,7 @@ func (video Video) Save(reader io.ReadCloser) {
 	destinationFile, err := os.Create(video.FilePath())
 
 	if err != nil {
+		log.Println("Video/Save()")
 		log.Fatal(err)
 	}
 

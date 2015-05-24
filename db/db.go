@@ -14,6 +14,7 @@ func init() {
 	var err error
 	Session, err = gorm.Open("postgres", "dbname=vidos sslmode=disable")
 	if err != nil {
+		log.Println("db/init()")
 		log.Fatal(err)
 	}
 

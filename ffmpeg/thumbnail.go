@@ -20,10 +20,12 @@ func Thumbnail(inputFilename, thumFilename string) {
 		inputFilename, "-vf", thumArg, "-frames:v", "1", thumFilename)
 
 	if err := cmd.Start(); err != nil {
+		log.Println("Thumbnail()/cmd.Start()")
 		log.Fatal(err)
 	}
 
 	if err := cmd.Wait(); err != nil {
+		log.Println("Thumbnail()/cmd.Wait()")
 		log.Fatal(err)
 	}
 }
