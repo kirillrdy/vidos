@@ -11,7 +11,8 @@ import (
 
 func Encode(inputFilename, outFilename string, progressUpdate func(string)) {
 	args := []string{"-y", "-i",
-		inputFilename, "-movflags", "faststart", outFilename}
+		inputFilename, "-map", "0:v:0",
+		"-map", "0:a:0", "-movflags", "faststart", outFilename}
 
 	cmd := exec.Command("ffmpeg", args...)
 
