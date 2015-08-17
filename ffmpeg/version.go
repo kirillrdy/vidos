@@ -9,6 +9,7 @@ import (
 
 var testedVersions = []string{"2.3.6", "2.6.5"}
 
+//Version returns the version of ffmpeg found in path
 func Version() string {
 	out, err := exec.Command("ffmpeg", "-version").Output()
 	if err != nil {
@@ -26,7 +27,7 @@ func Version() string {
 	}
 }
 
-//Checks that system ffmpeg is of the same version as this lib was built against
+//CheckVersion checks that system ffmpeg is of the same version as this lib was built against
 //No errors raised just warning is printed
 func CheckVersion() {
 	var foundVersion bool
