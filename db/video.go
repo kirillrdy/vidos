@@ -125,7 +125,7 @@ func (video Video) Delete() {
 ///////////////////////////////////////
 var EncodeVideo = make(chan (uint64))
 
-func queueAllUnEncodedVideos() {
+func QueueAllUnEncodedVideos() {
 
 	var videos []Video
 
@@ -149,10 +149,6 @@ func init() {
 			video.Encode()
 
 		}
-	}()
-
-	go func() {
-		queueAllUnEncodedVideos()
 	}()
 
 }

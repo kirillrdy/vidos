@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/kirillrdy/vidos/db"
 	"github.com/kirillrdy/vidos/ffmpeg"
 	"github.com/kirillrdy/vidos/handler"
 	"github.com/kirillrdy/vidos/lib"
@@ -25,6 +26,7 @@ func logMiddleware(handler http.HandlerFunc) http.HandlerFunc {
 func main() {
 
 	ffmpeg.CheckVersion()
+	db.QueueAllUnEncodedVideos()
 
 	//TODO move flags somewhere
 	displayMemoryStats := flag.Bool("memory", false, "Print memory stats")
