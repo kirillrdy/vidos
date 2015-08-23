@@ -4,9 +4,10 @@ import (
 	"log"
 	"os/exec"
 	"regexp"
+	"strings"
 )
 
-const testedVersion = "2.3.6"
+var testedVersions = []string{"2.3.6", "2.6.5"}
 
 func Version() string {
 	out, err := exec.Command("ffmpeg", "-version").Output()
@@ -28,9 +29,15 @@ func Version() string {
 //Checks that system ffmpeg is of the same version as this lib was built against
 //No errors raised just warning is printed
 func CheckVersion() {
-	if Version() != testedVersion {
+	var foundVersion bool
+	for _, testedVersion := range testedVersions {
+		if Version() == testedVersion {
+			foundVersion = true
+		}
+	}
+	if foundVersion == false {
 		log.Print("WARNING: running against untested version of ffmpeg")
-		log.Printf("WARNING: recommended version is %#v", testedVersion)
+		log.Printf("WARNING: recommended versions are %#v", strings.Join(testedVersions, ", "))
 		log.Printf("WARNING: detected version is %#v", Version())
 	}
 }
