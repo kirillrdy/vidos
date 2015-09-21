@@ -10,7 +10,6 @@ import (
 	"github.com/kirillrdy/vidos/db"
 	"github.com/kirillrdy/vidos/ffmpeg"
 	"github.com/kirillrdy/vidos/handler"
-	"github.com/kirillrdy/vidos/lib"
 	"github.com/kirillrdy/vidos/path"
 )
 
@@ -29,12 +28,7 @@ func main() {
 	db.QueueAllUnEncodedVideos()
 
 	//TODO move flags somewhere
-	displayMemoryStats := flag.Bool("memory", false, "Print memory stats")
 	port := flag.Int("port", 3001, "Port to listen on")
-
-	if *displayMemoryStats {
-		lib.StartMemoryMonitoring()
-	}
 
 	//TODO Getting more routes move somewhere
 	http.HandleFunc(path.UploadFile, handler.UploadFile)
