@@ -2,11 +2,9 @@ FROM ubuntu:15.10
 
 RUN apt-get update
 RUN apt-get install -y postgresql
-RUN apt-get install -y vim
 RUN apt-get install -y ffmpeg
-RUN apt-get install -y git golang
+RUN apt-get install -y git
 RUN apt-get install -y golang
-RUN apt-get install -y vim
 
 ADD install.sh /install.sh
 RUN /bin/sh /install.sh
