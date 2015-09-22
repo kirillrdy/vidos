@@ -123,6 +123,7 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 						html.A().Href(path.NewVideo).Text("Upload new video"),
 						html.A().Href(path.UnencodedVideos).Text("Processing"),
 						html.A().Href(path.Files).Text("Files"),
+						html.A().Href(path.Torrents).Text("Torrents"),
 					),
 				),
 				html.Div().Class(grow, mainSection, vbox).Children(

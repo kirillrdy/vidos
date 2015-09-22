@@ -22,14 +22,7 @@ func logTimeMiddleware(handler http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-func main() {
-
-	ffmpeg.CheckVersion()
-	db.QueueAllUnEncodedVideos()
-
-	//TODO move flags somewhere
-	port := flag.Int("port", 3001, "Port to listen on")
-
+func addHandlers() {
 	//TODO Getting more routes move somewhere
 	http.HandleFunc(path.UploadFile, handler.UploadFile)
 	http.HandleFunc(path.Files, handler.Files)
@@ -47,8 +40,22 @@ func main() {
 	http.HandleFunc(path.Thumbnail, handler.Thumbnail)
 	http.HandleFunc(path.ManageSubtitles, handler.ManageSubtitles)
 
+	http.HandleFunc(path.Torrents, handler.Torrents)
+
 	http.HandleFunc(path.Root, handler.RootHandle)
 	http.Handle(path.Public, http.StripPrefix(path.Public, http.FileServer(http.Dir("public"))))
+
+}
+
+func main() {
+
+	ffmpeg.CheckVersion()
+	db.QueueAllUnEncodedVideos()
+
+	//TODO move flags somewhere
+	port := flag.Int("port", 3001, "Port to listen on")
+
+	addHandlers()
 
 	log.Printf("Listening on port: '%v'", *port)
 	err := http.ListenAndServe(fmt.Sprintf(":%v", *port), nil)

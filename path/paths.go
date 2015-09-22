@@ -31,6 +31,7 @@ const Files = "/files"
 const UploadFile = "/upload_file"
 
 const ManageSubtitles = "/subtitles"
+const Torrents = "/torrents"
 
 func ServeVideoPath(video db.Video) string {
 	return fmt.Sprintf("%v?id=%v", Serve, video.Id)
