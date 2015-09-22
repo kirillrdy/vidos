@@ -57,7 +57,7 @@ func VideosTable(videos []db.Video) html.Node {
 			),
 
 			html.Tbody().Children(
-				trs(videos)...,
+				videoTrs(videos)...,
 			),
 		),
 	)
@@ -65,15 +65,15 @@ func VideosTable(videos []db.Video) html.Node {
 	return Layout("Videos", page)
 }
 
-func trs(videos []db.Video) []html.Node {
+func videoTrs(videos []db.Video) []html.Node {
 	var nodes []html.Node
 	for index := range videos {
-		nodes = append(nodes, tr(videos[index]))
+		nodes = append(nodes, videoTr(videos[index]))
 	}
 	return nodes
 }
 
-func tr(video db.Video) html.Node {
+func videoTr(video db.Video) html.Node {
 	return html.Tr().Children(
 		html.Td().Text(video.IdString()),
 		html.Td().Text(video.Filename),

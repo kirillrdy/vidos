@@ -5,11 +5,12 @@ import (
 	"log"
 )
 
-var Client torrent.Client
+var Client *torrent.Client
 
 func init() {
 
-	Client, err := torrent.NewClient(nil)
+	var err error
+	Client, err = torrent.NewClient(nil)
 
 	//TODO pehaps allow client to be nil for the whole app
 	if err != nil {
@@ -18,15 +19,16 @@ func init() {
 
 	//TODO implement proper shutdown, and call Close as part of it
 	//defer Client.Close()
-	torrentFile, err := Client.AddMagnet("magnet:?xt=urn:btih:ZOCMZQIPFFW7OLLMIC5HUB6BPCSDEOQU")
 
-	//Return errors to http client
-	if err != nil {
-		log.Println(err)
-	}
+	//torrentFile, err := Client.AddMagnet("magnet:?xt=urn:btih:ZOCMZQIPFFW7OLLMIC5HUB6BPCSDEOQU")
 
-	<-torrentFile.GotInfo()
-	torrentFile.DownloadAll()
+	////Return errors to http client
+	//if err != nil {
+	//	log.Println(err)
+	//}
+
+	//<-torrentFile.GotInfo()
+	//torrentFile.DownloadAll()
 
 	//go func() {
 	//	for {
@@ -37,6 +39,6 @@ func init() {
 
 	//TODO also possibly part of Client.Close()
 	//Client.WaitAll()
-	log.Print("ermahgerd, torrent downloaded")
+	log.Print("torrent downloader init finished")
 
 }
