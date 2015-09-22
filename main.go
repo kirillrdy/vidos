@@ -14,7 +14,7 @@ import (
 )
 
 //TODO move to own package
-func logMiddleware(handler http.HandlerFunc) http.HandlerFunc {
+func logTimeMiddleware(handler http.HandlerFunc) http.HandlerFunc {
 	return func(response http.ResponseWriter, request *http.Request) {
 		start := time.Now()
 		handler(response, request)
@@ -39,7 +39,7 @@ func main() {
 	http.HandleFunc(path.UnencodedVideos, handler.UnencodedVideos)
 	http.HandleFunc(path.Upload, handler.Upload)
 	http.HandleFunc(path.UploadSubtitle, handler.UploadSubtitle)
-	http.HandleFunc(path.Serve, logMiddleware(handler.Serve))
+	http.HandleFunc(path.Serve, logTimeMiddleware(handler.Serve))
 	http.HandleFunc(path.Download, handler.Download)
 	http.HandleFunc(path.Reencode, handler.ReencodeFile)
 	http.HandleFunc(path.Delete, handler.DeleteVideo)
