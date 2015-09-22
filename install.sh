@@ -1,3 +1,4 @@
+#TODO this file shouldnt be here
 set -ex
 cat > /etc/postgresql/9.4/main/pg_hba.conf <<EOF
 local   all             postgres                                peer
