@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/kirillrdy/vidos/downloader"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/view"
 )
@@ -37,7 +38,7 @@ type uploadedFile struct {
 
 func (file uploadedFile) Path() string {
 	//TODO use path seperator
-	return fmt.Sprintf("%v/%v", fileDir, file.Filename)
+	return fmt.Sprintf("%v/%v", downloader.FileDir, file.Filename)
 }
 
 func processFormFile(formFile *multipart.FileHeader) {
@@ -54,6 +55,7 @@ func processFormFile(formFile *multipart.FileHeader) {
 
 	uploadedFile := uploadedFile{Filename: formFile.Filename}
 
+	//TODO what if Path() didn't exist
 	destinationFile, err := os.Create(uploadedFile.Path())
 	defer destinationFile.Close()
 

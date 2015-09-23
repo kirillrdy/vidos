@@ -6,20 +6,20 @@ import (
 	"os"
 
 	"github.com/kirillrdy/nadeshiko/html"
+	"github.com/kirillrdy/vidos/downloader"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/view"
 )
 
-const fileDir = "files"
-
 func Files(response http.ResponseWriter, request *http.Request) {
-	err := os.MkdirAll(fileDir, os.ModePerm)
+	//TODO ModePerm possibly wrong
+	err := os.MkdirAll(downloader.FileDir, os.ModePerm)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	files, err := ioutil.ReadDir(fileDir)
+	files, err := ioutil.ReadDir(downloader.FileDir)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusInternalServerError)
 		return

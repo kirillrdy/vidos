@@ -5,12 +5,22 @@ import (
 	"log"
 )
 
+const FileDir = "files"
+
 var Client *torrent.Client
 
 func init() {
 
+	//TODO In future use this
+	//user, err := user.Current()
+	//if err != nil {
+	//	log.Panic(err)
+	//}
+
+	//config := torrent.Config{DataDir: user.HomeDir}
+	config := torrent.Config{DataDir: FileDir}
 	var err error
-	Client, err = torrent.NewClient(nil)
+	Client, err = torrent.NewClient(&config)
 
 	//TODO pehaps allow client to be nil for the whole app
 	if err != nil {
