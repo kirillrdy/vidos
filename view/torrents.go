@@ -1,8 +1,8 @@
 package view
 
 import (
-	"fmt"
 	"github.com/anacrolix/torrent"
+	humanise "github.com/dustin/go-humanize"
 	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/size"
@@ -53,8 +53,8 @@ func torrentTrs(torrents []torrent.Torrent) []html.Node {
 func torrentTr(torrent torrent.Torrent) html.Node {
 	return html.Tr().Children(
 		html.Td().Text(torrent.Name()),
-		html.Td().Text(fmt.Sprint(torrent.BytesCompleted())),
-		html.Td().Text(fmt.Sprint(torrent.Length())),
+		html.Td().Text(humanise.Bytes(uint64(torrent.BytesCompleted()))),
+		html.Td().Text(humanise.Bytes(uint64(torrent.Length()))),
 	)
 
 }
