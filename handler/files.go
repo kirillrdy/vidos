@@ -31,6 +31,7 @@ func Files(response http.ResponseWriter, request *http.Request) {
 
 	for _, file := range files {
 		div.Append(html.Div().Text(file.Name()))
+		div.Append(html.A().Href(path.AddFileForEncodingPath(file.Name())).Text("Encode"))
 	}
 
 	div.Append(

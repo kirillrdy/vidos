@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"io"
 	"log"
 	"mime/multipart"
 	"net/http"
@@ -31,16 +32,21 @@ func Upload(response http.ResponseWriter, request *http.Request) {
 
 func processVideoFormFile(formFile *multipart.FileHeader) {
 
+	log.Printf("Received %#v", formFile.Filename)
+
 	//TODO does this needs to be closed ?
 	file, err := formFile.Open()
 
+	//TODO don't Fatal
 	if err != nil {
 		log.Fatal(err)
 	}
+	processVideoFromFile(file, formFile.Filename)
+}
 
-	log.Printf("Received %#v", formFile.Filename)
+func processVideoFromFile(file io.ReadCloser, filename string) {
 
-	video := db.Video{Filename: formFile.Filename}
+	video := db.Video{Filename: filename}
 	db.Session.Save(&video)
 	video.Save(file)
 

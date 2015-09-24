@@ -43,6 +43,7 @@ func addHandlers() {
 	http.HandleFunc(path.Torrents, handler.Torrents)
 	http.HandleFunc(path.TorrentStatus, handler.TorrentStatus)
 	http.HandleFunc(path.AddMagnetLink, handler.AddMagnetLink)
+	http.HandleFunc(path.AddFileForEncoding, handler.AddFileForEncoding)
 
 	http.HandleFunc(path.Root, handler.RootHandle)
 	http.Handle(path.Public, http.StripPrefix(path.Public, http.FileServer(http.Dir("public"))))

@@ -27,13 +27,21 @@ const NewVideo = "/new_video"
 const Thumbnail = "/thumbnail"
 const Subtitle = "/subtitle.vtt"
 
+//File is path where users can see uploaded files
 const Files = "/files"
+
+//UploadFile is path for handling of the manual file upload, not to be confused with Upload
 const UploadFile = "/upload_file"
 
 const ManageSubtitles = "/subtitles"
 const Torrents = "/torrents"
 const TorrentStatus = "/torrent_status"
 const AddMagnetLink = "/add_magnet_link"
+const AddFileForEncoding = "/add_file_for_encoding"
+
+func AddFileForEncodingPath(filename string) string {
+	return fmt.Sprintf("%v?filename=%v", AddFileForEncoding, filename)
+}
 
 func ServeVideoPath(video db.Video) string {
 	return fmt.Sprintf("%v?id=%v", Serve, video.Id)
