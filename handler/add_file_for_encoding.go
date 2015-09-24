@@ -10,6 +10,7 @@ func AddFileForEncoding(response http.ResponseWriter, request *http.Request) {
 	err := request.ParseForm()
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	//TODO make filename a constant
@@ -18,6 +19,7 @@ func AddFileForEncoding(response http.ResponseWriter, request *http.Request) {
 
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	processVideoFromFile(file, fileName)

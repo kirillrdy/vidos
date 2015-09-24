@@ -22,6 +22,7 @@ func UploadSubtitle(response http.ResponseWriter, request *http.Request) {
 
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	//TODO fix assumption on buffer size

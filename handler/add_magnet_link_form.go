@@ -24,7 +24,7 @@ func AddMagnetLink(response http.ResponseWriter, request *http.Request) {
 		//Return errors to http client
 		if err != nil {
 			http.Error(response, err.Error(), http.StatusInternalServerError)
-			log.Println(err)
+			return
 		}
 
 		<-torrentFile.GotInfo()

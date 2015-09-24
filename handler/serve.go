@@ -17,6 +17,7 @@ func Serve(response http.ResponseWriter, request *http.Request) {
 
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	//TODO set content type depeding on video
