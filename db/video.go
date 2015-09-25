@@ -123,7 +123,7 @@ func (video Video) Delete() {
 
 ///////////////////////////////////////
 ///////////////////////////////////////
-var EncodeVideo = make(chan (uint64))
+var EncodeVideo = make(chan (uint64), 100) //TODO why 100
 
 func QueueAllUnEncodedVideos() {
 
