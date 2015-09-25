@@ -47,7 +47,7 @@ func processVideoFormFile(formFile *multipart.FileHeader) {
 func processVideoFromFile(file io.ReadCloser, filename string) {
 
 	video := db.Video{Filename: filename}
-	db.Session.Save(&video)
+	db.Postgres.Save(&video)
 	video.Save(file)
 
 	//TODO Stop doing this as part of request

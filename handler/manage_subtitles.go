@@ -17,7 +17,7 @@ func ManageSubtitles(response http.ResponseWriter, request *http.Request) {
 	}
 
 	var subtitles []db.Subtitle
-	db.Session.Find(&subtitles, db.Subtitle{VideoId: video.Id})
+	db.Postgres.Find(&subtitles, db.Subtitle{VideoId: video.Id})
 
 	io.WriteString(response, view.ManageSubtitles(video, subtitles).String())
 }

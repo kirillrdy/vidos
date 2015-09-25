@@ -41,7 +41,7 @@ func (video Video) mkdir() {
 
 func (video Video) Reencode() {
 	video.Encoded = false
-	result := Session.Save(&video)
+	result := Postgres.Save(&video)
 	if result.Error != nil {
 		log.Print(result.Error)
 	}
@@ -55,14 +55,14 @@ func (video Video) Encode() {
 	update := func(timeProgress string) {
 		video.Progress = timeProgress
 		//TODO errors
-		Session.Save(&video)
+		Postgres.Save(&video)
 	}
 	ffmpeg.Encode(video.FilePath(), video.EncodedPath(), update)
 
 	video.Encoded = true
 	video.Progress = ""
 	//TODO errors
-	Session.Save(&video)
+	Postgres.Save(&video)
 
 	//remove original
 	err := os.Remove(video.FilePath())
@@ -74,7 +74,7 @@ func (video Video) Encode() {
 
 func (video *Video) CalculateDuration() {
 	video.Duration = ffmpeg.Duration(video.FilePath())
-	Session.Save(video)
+	Postgres.Save(video)
 }
 
 func (video *Video) GenerateThumbnail() {
@@ -114,22 +114,20 @@ func (video Video) Save(reader io.ReadCloser) {
 
 func (video Video) Delete() {
 	//TODO errors
-	Session.Delete(&video)
+	Postgres.Delete(&video)
 	err := os.RemoveAll(video.dataDirPath())
 	if err != nil {
 		log.Print(err)
 	}
 }
 
-///////////////////////////////////////
-///////////////////////////////////////
-var EncodeVideo = make(chan (uint64), 100) //TODO why 100
+var EncodeVideo = make(chan uint64, 100) //TODO why 100
 
 func QueueAllUnEncodedVideos() {
 
 	var videos []Video
 
-	Session.Find(&videos)
+	Postgres.Find(&videos)
 
 	for _, video := range videos {
 		if video.Encoded == false {
@@ -145,10 +143,9 @@ func init() {
 			id := <-EncodeVideo
 
 			var video Video
-			Session.Find(&video, id)
+			Postgres.Find(&video, id)
 			video.Encode()
 
 		}
 	}()
-
 }

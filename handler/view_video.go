@@ -17,7 +17,7 @@ func ViewVideo(response http.ResponseWriter, request *http.Request) {
 	}
 
 	var subtitles []db.Subtitle
-	db.Session.Find(&subtitles, db.Subtitle{VideoId: video.Id})
+	db.Postgres.Find(&subtitles, db.Subtitle{VideoId: video.Id})
 
 	page := view.ViewVideo(video, subtitles)
 

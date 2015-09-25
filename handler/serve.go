@@ -40,7 +40,7 @@ func videoFromRequest(request *http.Request) (db.Video, error) {
 		return video, err
 	}
 
-	result := db.Session.Find(&video, id)
+	result := db.Postgres.Find(&video, id)
 	if result.Error != nil {
 		return video, result.Error
 	}

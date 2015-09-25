@@ -50,7 +50,7 @@ func (subtitle Subtitle) Delete() error {
 	if err != nil {
 		return err
 	}
-	result := Session.Delete(&subtitle)
+	result := Postgres.Delete(&subtitle)
 	return result.Error
 }
 

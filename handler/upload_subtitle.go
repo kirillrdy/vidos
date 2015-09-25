@@ -50,7 +50,7 @@ func processSubtitleFormFile(video db.Video, formFile *multipart.FileHeader) {
 	log.Printf("Received %#v", formFile.Filename)
 
 	subtitle := db.Subtitle{Filename: formFile.Filename, VideoId: video.Id}
-	db.Session.Save(&subtitle)
+	db.Postgres.Save(&subtitle)
 	subtitle.Save(file)
 
 	//TODO Stop doing this as part of request

@@ -33,7 +33,7 @@ func subtitleFromRequest(request *http.Request) (db.Subtitle, error) {
 		return subtitle, err
 	}
 
-	result := db.Session.Find(&subtitle, id)
+	result := db.Postgres.Find(&subtitle, id)
 	if result.Error != nil {
 		return subtitle, result.Error
 	}
