@@ -13,6 +13,7 @@ import (
 
 func Files(response http.ResponseWriter, request *http.Request) {
 	//TODO ModePerm possibly wrong
+	//TODO Wrong place to do this
 	err := os.MkdirAll(downloader.FileDir, os.ModePerm)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusInternalServerError)
@@ -30,8 +31,10 @@ func Files(response http.ResponseWriter, request *http.Request) {
 	)
 
 	for _, file := range files {
-		div.Append(html.Div().Text(file.Name()))
-		div.Append(html.A().Href(path.AddFileForEncodingPath(file.Name())).Text("Encode"))
+		div.Append(html.Div().Children(
+			html.Div().Text(file.Name()),
+			html.A().Href(path.AddFileForEncodingPath(file.Name())).Text("Encode"),
+		))
 	}
 
 	div.Append(
