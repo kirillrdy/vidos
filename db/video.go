@@ -127,7 +127,8 @@ func QueueAllUnEncodedVideos() {
 
 	var videos []Video
 
-	Postgres.Find(&videos)
+	//TODO "id" should be a constant
+	Postgres.Find(&videos).Order("id")
 
 	for _, video := range videos {
 		if video.Encoded == false {
