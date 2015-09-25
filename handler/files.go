@@ -31,10 +31,14 @@ func Files(response http.ResponseWriter, request *http.Request) {
 	)
 
 	for _, file := range files {
-		div.Append(html.Div().Children(
-			html.Div().Text(file.Name()),
-			html.A().Href(path.AddFileForEncodingPath(file.Name())).Text("Encode"),
-		))
+		if file.IsDir() {
+			div.Append(html.A().Text(file.Name()).Href(path.Files))
+		} else {
+			div.Append(html.Div().Children(
+				html.Div().Text(file.Name()),
+				html.A().Href(path.AddFileForEncodingPath(file.Name())).Text("Encode"),
+			))
+		}
 	}
 
 	div.Append(
