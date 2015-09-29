@@ -11,7 +11,7 @@ import (
 func UnencodedVideos(response http.ResponseWriter, request *http.Request) {
 
 	var videos []db.Video
-	result := db.Postgres.Order("id").Where(&db.Video{Encoded: false}).Find(&videos)
+	result := db.Postgres.Order("id").Not(&db.Video{Encoded: true}).Find(&videos)
 
 	if result.Error != nil {
 		log.Print(result.Error)
