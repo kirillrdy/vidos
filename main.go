@@ -24,8 +24,11 @@ func logTimeMiddleware(handler http.HandlerFunc) http.HandlerFunc {
 
 func addHandlers() {
 	//TODO Getting more routes move somewhere
+
+	//Files related routes
 	http.HandleFunc(path.UploadFile, handler.UploadFile)
 	http.HandleFunc(path.Files, handler.Files)
+
 	http.HandleFunc(path.ViewVideo, handler.ViewVideo)
 	http.HandleFunc(path.Subtitle, handler.Subtitle)
 	http.HandleFunc(path.Videos, handler.Videos)
