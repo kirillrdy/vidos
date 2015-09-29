@@ -20,7 +20,15 @@ func Files(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	files, err := ioutil.ReadDir(downloader.FileDir)
+	request.ParseForm()
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	basePath := request.FormValue("path")
+
+	files, err := ioutil.ReadDir(downloader.FileDir + basePath)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusInternalServerError)
 		return
@@ -28,24 +36,17 @@ func Files(response http.ResponseWriter, request *http.Request) {
 
 	div := html.Div().Children(
 		html.H1().Text("Files"),
-	)
-
-	for _, file := range files {
-		if file.IsDir() {
-			div.Append(html.A().Text(file.Name()).Href(path.Files))
-		} else {
-			div.Append(html.Div().Children(
-				html.Div().Text(file.Name()),
-				html.A().Href(path.AddFileForEncodingPath(file.Name())).Text("Encode"),
-			))
-		}
-	}
-
-	div.Append(
-		html.Span().Text("Select file to upload"),
-		html.Form().Action(path.UploadFile).Attribute("enctype", "multipart/form-data").Method("POST").Children(
-			html.Input().Type("file").Multiple().Name(view.FormParamName),
-			html.Input().Type("submit"),
+		html.Div().Children(view.FilesTable(files, basePath)),
+		html.Div().Children(
+			html.Span().Text("Select file to upload"),
+			html.Form().Action(path.UploadFile).Attribute("enctype", "multipart/form-data").Method("POST").Children(
+				html.Div().Children(
+					html.Input().Type("file").Multiple().Name(view.FormParamName),
+				),
+				html.Div().Children(
+					html.Input().Type("submit").Value("Upload"),
+				),
+			),
 		),
 	)
 

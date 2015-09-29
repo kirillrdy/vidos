@@ -5,7 +5,7 @@ import (
 	"log"
 )
 
-const FileDir = "files"
+const FileDir = "files/"
 
 var Client *torrent.Client
 

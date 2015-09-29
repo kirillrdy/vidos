@@ -40,7 +40,11 @@ const AddMagnetLink = "/add_magnet_link"
 const AddFileForEncoding = "/add_file_for_encoding"
 
 func AddFileForEncodingPath(filename string) string {
-	return fmt.Sprintf("%v?filename=%v", AddFileForEncoding, filename)
+	return fmt.Sprintf("%v?filepath=%v", AddFileForEncoding, filename)
+}
+
+func ViewFilesPath(dirName string) string {
+	return fmt.Sprintf("%v?path=%v", Files, dirName)
 }
 
 func ServeVideoPath(video db.Video) string {
