@@ -19,5 +19,5 @@ func UnencodedVideos(response http.ResponseWriter, request *http.Request) {
 
 	page := view.VideosTable(videos)
 
-	page.WriteTo(response)
+	view.Layout("Videos", page).WriteTo(response)
 }

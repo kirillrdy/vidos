@@ -66,7 +66,7 @@ func VideosTable(videos []db.Video) html.Node {
 		),
 	)
 
-	return Layout("Videos", page)
+	return page
 }
 
 func videoTrs(videos []db.Video) []html.Node {
