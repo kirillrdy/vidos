@@ -32,6 +32,10 @@ func Videos(videos []db.Video) html.Node {
 
 func VideosTable(videos []db.Video) html.Node {
 
+	if len(videos) == 0 {
+		return html.H4().Text("No videos are currently being encoded")
+	}
+
 	style := TableClass.Style(
 		css.Width(size.Percent(100)),
 	)

@@ -12,7 +12,7 @@ import (
 func TorrentsTable(torrents []torrent.Torrent) html.Node {
 
 	if len(torrents) == 0 {
-		return html.H1().Text("No torrents have been added")
+		return html.H4().Text("No torrents have been added")
 	}
 
 	style := TableClass.Style(
