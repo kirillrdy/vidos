@@ -9,6 +9,7 @@ import (
 )
 
 //FilesTable display table of files returned by ioutil.ReadDir()
+//TODO make each table own type, so that basePath doesn't need to be passed in
 func FilesTable(files []os.FileInfo, basePath string) html.Node {
 
 	if len(files) == 0 {
