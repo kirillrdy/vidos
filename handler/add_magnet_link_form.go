@@ -36,7 +36,7 @@ func AddMagnetLink(response http.ResponseWriter, request *http.Request) {
 func magnetLinkForm(response http.ResponseWriter, request *http.Request) {
 	form := html.Form().Action(path.AddMagnetLink).Method("POST").Children(
 		html.Input().Name(MagnetLink),
-		html.Input().Type("submit"),
+		html.Input().Type("submit").Value("Add"),
 	)
 	page := view.Layout("Add Magnet Link", form)
 	page.WriteTo(response)
