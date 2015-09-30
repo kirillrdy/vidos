@@ -20,7 +20,7 @@ func Files(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	request.ParseForm()
+	err = request.ParseForm()
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusInternalServerError)
 		return

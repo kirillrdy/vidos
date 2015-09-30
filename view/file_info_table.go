@@ -51,18 +51,34 @@ func filesTrs(files []os.FileInfo, basePath string) []html.Node {
 	return nodes
 }
 
-func fileTr(file os.FileInfo, basePath string) html.Node {
-	var link html.Node
+//TODO only encode link if it can be encoded
+func actionsLinksForFile(file os.FileInfo, basePath string) html.Node {
+	div := html.Div()
 	if !file.IsDir() {
-		link = html.A().Href(path.AddFileForEncodingPath(basePath + file.Name())).Text("Encode")
+		div.Append(
+			html.A().Href(path.AddFileForEncodingPath(basePath + file.Name())).Text("Encode"),
+		)
+	}
+	div.Append(
+		html.A().Href(path.DeleteFileOrDirectoryPath(basePath + file.Name())).Text("Delete"),
+	)
+	return div
+}
+
+func fileTr(file os.FileInfo, basePath string) html.Node {
+	var name html.Node
+	if !file.IsDir() {
+		name = html.Span().Text(file.Name())
 	} else {
-		link = html.A().Href(path.ViewFilesPath(basePath + file.Name() + "/")).Text("View")
+		name = html.A().Href(path.ViewFilesPath(basePath + file.Name() + "/")).Text(file.Name())
 	}
 
 	return html.Tr().Children(
-		html.Td().Text(file.Name()),
 		html.Td().Children(
-			link,
+			name,
+		),
+		html.Td().Children(
+			actionsLinksForFile(file, basePath),
 		),
 	)
 }

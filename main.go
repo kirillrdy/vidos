@@ -28,6 +28,7 @@ func addHandlers() {
 	//Files related routes
 	http.HandleFunc(path.UploadFile, handler.UploadFile)
 	http.HandleFunc(path.Files, handler.Files)
+	http.HandleFunc(path.DeleteFileOrDirectory, handler.DeleteFileOrDirectory)
 
 	http.HandleFunc(path.ViewVideo, handler.ViewVideo)
 	http.HandleFunc(path.Subtitle, handler.Subtitle)
