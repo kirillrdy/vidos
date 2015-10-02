@@ -7,5 +7,5 @@ import (
 )
 
 func RootHandle(response http.ResponseWriter, request *http.Request) {
-	http.Redirect(response, request, path.Videos, http.StatusFound)
+	http.Redirect(response, request, path.Videos.List, http.StatusFound)
 }

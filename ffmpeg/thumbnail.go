@@ -11,13 +11,16 @@ import (
 const ThumbnailWidth = 640
 const ThumbnailHeight = 360
 
-//TODO extract 640:360
 func Thumbnail(inputFilename, thumFilename string) {
 
 	thumArg := fmt.Sprintf("thumbnail,scale=%v:%v", ThumbnailWidth, ThumbnailHeight)
 
-	cmd := exec.Command("ffmpeg", "-y", "-i",
-		inputFilename, "-vf", thumArg, "-frames:v", "1", thumFilename)
+	args := []string{
+		"-y", "-i",
+		inputFilename, "-vf", thumArg, "-frames:v", "1", thumFilename,
+	}
+
+	cmd := exec.Command("ffmpeg", args...)
 
 	if err := cmd.Start(); err != nil {
 		log.Println("Thumbnail()/cmd.Start()")

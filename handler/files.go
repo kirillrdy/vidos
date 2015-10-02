@@ -2,6 +2,7 @@ package handler
 
 import (
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 
@@ -20,15 +21,12 @@ func Files(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	err = request.ParseForm()
-	if err != nil {
-		http.Error(response, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
 	basePath := request.FormValue("path")
 
-	files, err := ioutil.ReadDir(downloader.FileDir + basePath)
+	pathToRead := downloader.FileDir + basePath
+	log.Printf("%#v", pathToRead)
+
+	files, err := ioutil.ReadDir(pathToRead)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusInternalServerError)
 		return

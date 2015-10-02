@@ -13,6 +13,7 @@ import (
 	"github.com/kirillrdy/vidos/view"
 )
 
+//UploadFile handler accepts file being posted
 func UploadFile(response http.ResponseWriter, request *http.Request) {
 
 	if request.Method != "POST" {
@@ -29,7 +30,7 @@ func UploadFile(response http.ResponseWriter, request *http.Request) {
 		processFormFile(formFile)
 	}
 
-	http.Redirect(response, request, path.Files, http.StatusFound)
+	http.Redirect(response, request, path.Files.List, http.StatusFound)
 }
 
 type uploadedFile struct {

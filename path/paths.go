@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/kirillrdy/vidos/db"
+	"net/url"
 )
 
 // Root page, which actually redirects to a more useful page
@@ -13,22 +14,39 @@ const Root = "/"
 const Public = "/public/"
 const CSSReset = Public + "reset.css"
 
-const Videos = "/videos"
-const ViewVideo = "/view_video"
-const UnencodedVideos = "/unencoded_videos"
-const Upload = "/upload"
+var Videos = struct {
+	List      string
+	Unencoded string
+	New       string
+	Create    string
+	Show      string
+	Stream    string
+	Download  string
+	Delete    string
+	Thumbnail string
+}{
+	"/videos/list",
+	"/videos/unencoded",
+	"/videos/new",
+	"/videos/create",
+	"/videos/show",
+	"/videos/stream",
+	"/videos/download",
+	"/videos/delete",
+	"/videos/thumbnail",
+}
+
+var Files = struct {
+	List   string
+	Upload string
+}{
+	"/files/list",
+	"/files/upload",
+}
+
 const UploadSubtitle = "/upload_subtitle"
-const Serve = "/serve"
-const Download = "/download"
-const Reencode = "/reencode"
-const Delete = "/delete"
 
-const NewVideo = "/new_video"
-const Thumbnail = "/thumbnail"
 const Subtitle = "/subtitle.vtt"
-
-//File is path where users can see uploaded files
-const Files = "/files"
 
 //UploadFile is path for handling of the manual file upload, not to be confused with Upload
 const UploadFile = "/upload_file"
@@ -40,50 +58,56 @@ const TorrentStatus = "/torrent_status"
 const AddMagnetLink = "/add_magnet_link"
 const AddFileForEncoding = "/add_file_for_encoding"
 
+var ParamKeys = struct {
+	ID       string
+	Filepath string
+	Path     string
+}{
+	"id",
+	"filepath",
+	"path",
+}
+
 func DeleteFileOrDirectoryPath(filename string) string {
-	return fmt.Sprintf("%v?filepath=%v", DeleteFileOrDirectory, filename)
+	return fmt.Sprintf("%v?%v=%v", DeleteFileOrDirectory, ParamKeys.Filepath, filename)
 }
 
 func AddFileForEncodingPath(filename string) string {
-	return fmt.Sprintf("%v?filepath=%v", AddFileForEncoding, filename)
+	return fmt.Sprintf("%v?%v=%v", AddFileForEncoding, ParamKeys.Filepath, filename)
 }
 
 func ViewFilesPath(dirName string) string {
-	return fmt.Sprintf("%v?path=%v", Files, dirName)
+	return fmt.Sprintf("%v?%v=%v", Files.List, ParamKeys.Path, url.QueryEscape(dirName))
 }
 
 func ServeVideoPath(video db.Video) string {
-	return fmt.Sprintf("%v?id=%v", Serve, video.Id)
+	return fmt.Sprintf("%v?%v=%v", Videos.Stream, ParamKeys.ID, video.Id)
 }
 
 func DownloadVideoPath(video db.Video) string {
-	return fmt.Sprintf("%v?id=%v", Download, video.Id)
-}
-
-func ReencodeVideoPath(video db.Video) string {
-	return fmt.Sprintf("%v?id=%v", Reencode, video.Id)
+	return fmt.Sprintf("%v?%v=%v", Videos.Download, ParamKeys.ID, video.Id)
 }
 
 func DeleteVideoPath(video db.Video) string {
-	return fmt.Sprintf("%v?id=%v", Delete, video.Id)
+	return fmt.Sprintf("%v?%v=%v", Videos.Delete, ParamKeys.ID, video.Id)
 }
 
 func ThumbnailPath(video db.Video) string {
-	return fmt.Sprintf("%v?id=%v", Thumbnail, video.Id)
+	return fmt.Sprintf("%v?%v=%v", Videos.Thumbnail, ParamKeys.ID, video.Id)
 }
 
 func ViewVideoPath(video db.Video) string {
-	return fmt.Sprintf("%v?id=%v", ViewVideo, video.Id)
+	return fmt.Sprintf("%v?%v=%v", Videos.Show, ParamKeys.ID, video.Id)
 }
 
 func UploadSubtitlePath(video db.Video) string {
-	return fmt.Sprintf("%v?id=%v", UploadSubtitle, video.Id)
+	return fmt.Sprintf("%v?%v=%v", UploadSubtitle, ParamKeys.ID, video.Id)
 }
 
 func SubtitlePath(subtitle db.Subtitle) string {
-	return fmt.Sprintf("%v?id=%v", Subtitle, subtitle.Id)
+	return fmt.Sprintf("%v?%v=%v", Subtitle, ParamKeys.ID, subtitle.Id)
 }
 
 func ManageSubtitlesPath(video db.Video) string {
-	return fmt.Sprintf("%v?id=%v", ManageSubtitles, video.Id)
+	return fmt.Sprintf("%v?%v=%v", ManageSubtitles, ParamKeys.ID, video.Id)
 }

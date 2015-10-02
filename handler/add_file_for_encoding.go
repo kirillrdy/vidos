@@ -16,7 +16,7 @@ func AddFileForEncoding(response http.ResponseWriter, request *http.Request) {
 	}
 
 	//TODO make filename a constant
-	filePath := request.FormValue("filepath")
+	filePath := request.FormValue(path.ParamKeys.Filepath)
 	file, err := os.Open(uploadedFile{filePath}.Path())
 
 	if err != nil {
@@ -26,6 +26,6 @@ func AddFileForEncoding(response http.ResponseWriter, request *http.Request) {
 
 	processVideoFromFile(file, golang_path.Base(filePath))
 
-	http.Redirect(response, request, path.UnencodedVideos, http.StatusFound)
+	http.Redirect(response, request, path.Videos.Unencoded, http.StatusFound)
 
 }

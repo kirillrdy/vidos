@@ -97,6 +97,8 @@ func statusLineText() string {
 	return fmt.Sprintf("OS:%v/%v FreeStorage:%.2f Gb, MemUsed: %.2f Mb", runtime.GOOS, runtime.GOARCH, freeStorage, memoryUsed)
 }
 
+//Layout returns the main layout of the application
+//TODO fix regression with overflow in the main grow section
 func Layout(title string, bodyContent ...html.Node) html.Node {
 
 	title = fmt.Sprintf("%v - %v", appName, title)
@@ -119,10 +121,10 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 			html.Div().Class(hbox, grow).Children(
 				html.Div().Class(linksMenu, vbox, centerItems).Children(
 					html.Div().Class(vbox).Children(
-						html.A().Href(path.Videos).Text("Videos"),
-						html.A().Href(path.NewVideo).Text("Upload new video"),
-						html.A().Href(path.UnencodedVideos).Text("Processing"),
-						html.A().Href(path.Files).Text("Files"),
+						html.A().Href(path.Videos.List).Text("Videos"),
+						html.A().Href(path.Videos.New).Text("Upload new video"),
+						html.A().Href(path.Videos.Unencoded).Text("Processing"),
+						html.A().Href(path.Files.List).Text("Files"),
 						html.A().Href(path.Torrents).Text("Torrents"),
 						html.A().Href(path.AddMagnetLink).Text("Add Magnet link"),
 					),

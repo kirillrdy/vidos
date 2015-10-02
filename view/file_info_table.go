@@ -70,7 +70,8 @@ func fileTr(file os.FileInfo, basePath string) html.Node {
 	if !file.IsDir() {
 		name = html.Span().Text(file.Name())
 	} else {
-		name = html.A().Href(path.ViewFilesPath(basePath + file.Name() + "/")).Text(file.Name())
+		path := path.ViewFilesPath(basePath + file.Name() + "/")
+		name = html.A().Href(path).Text(file.Name())
 	}
 
 	return html.Tr().Children(

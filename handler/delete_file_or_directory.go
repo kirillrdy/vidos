@@ -23,5 +23,5 @@ func DeleteFileOrDirectory(response http.ResponseWriter, request *http.Request) 
 		return
 	}
 
-	http.Redirect(response, request, path.Files, http.StatusFound)
+	http.Redirect(response, request, path.Files.List, http.StatusFound)
 }
