@@ -20,6 +20,10 @@ func Serve(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
+	// Note: ServeFile will try to detect content type based on file
+	// extenttion, however mp4 is not in the list so we manually set it
+	//TODO try using mime.AddExtensionType
+	//TODO look into need for this, because of /etc/mime.types
 	response.Header().Set("Content-Type", db.VideoMimeType)
 	log.Printf("Streaming: %v", video.EncodedPath())
 	http.ServeFile(response, request, video.EncodedPath())
