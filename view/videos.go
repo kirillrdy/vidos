@@ -79,7 +79,7 @@ func videoTrs(videos []db.Video) []html.Node {
 
 func videoTr(video db.Video) html.Node {
 	return html.Tr().Children(
-		html.Td().Text(video.IdString()),
+		html.Td().Text(video.IDString()),
 		html.Td().Text(video.Filename),
 		html.Td().Text(video.Duration),
 		html.Td().Text(fmt.Sprint(video.Encoded)),

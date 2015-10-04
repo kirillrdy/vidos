@@ -28,7 +28,7 @@ func (video Video) FilePath() string {
 	return fmt.Sprintf("%v/%v", video.dataDirPath(), video.Filename)
 }
 
-func (video Video) IdString() string {
+func (video Video) IDString() string {
 	return fmt.Sprint(video.Id)
 }
 
