@@ -39,18 +39,6 @@ func (video Video) mkdir() {
 	}
 }
 
-func (video Video) Reencode() {
-	video.Encoded = false
-	result := Postgres.Save(&video)
-	if result.Error != nil {
-		log.Print(result.Error)
-	}
-
-	go func() {
-		EncodeVideo <- video.Id
-	}()
-}
-
 func (video Video) Encode() {
 	update := func(timeProgress string) {
 		video.Progress = timeProgress
