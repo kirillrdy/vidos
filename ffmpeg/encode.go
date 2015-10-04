@@ -9,6 +9,9 @@ import (
 	"strings"
 )
 
+const ffmpegBinName = "ffmpeg"
+
+//Encode take input file, outputs file and a function which will be called with current ecoded time
 func Encode(inputFilename, outFilename string, progressUpdate func(string)) {
 	args := []string{"-y", "-i",
 		inputFilename,
@@ -16,7 +19,7 @@ func Encode(inputFilename, outFilename string, progressUpdate func(string)) {
 		"-map", "0:v:0",
 		"-map", "0:a:0", "-movflags", "faststart", outFilename}
 
-	cmd := exec.Command("ffmpeg", args...)
+	cmd := exec.Command(ffmpegBinName, args...)
 
 	stderr, err := cmd.StderrPipe()
 	if err != nil {
@@ -45,7 +48,7 @@ func Encode(inputFilename, outFilename string, progressUpdate func(string)) {
 	// Print stderr before it gets consumed by bufio.Scanner
 	if err := cmd.Wait(); err != nil {
 		log.Println("ffmpeg/Encode()/cmd.Wait")
-		log.Printf("try rerunnign: ffmpeg %v\n", strings.Join(args, " "))
+		log.Printf("try rerunnign: %v %v\n", ffmpegBinName, strings.Join(args, " "))
 		log.Fatal(err)
 	}
 }
