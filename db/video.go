@@ -11,6 +11,8 @@ import (
 
 const dataDir = "data"
 const thumbnailFilename = "thumb.png"
+
+//VideoMimeType returns a mimetype for a mp4 video
 const VideoMimeType = "video/mp4"
 
 type Video struct {
@@ -71,6 +73,8 @@ func (video *Video) GenerateThumbnail() {
 
 func (video Video) EncodedPath() string {
 	//TODO do basename to strip out ext
+	//TODO somehow note the importance of the mp4 here,
+	// since its how ffmpeg decides to encode to mp4
 	return video.FilePath() + ".mp4"
 }
 
