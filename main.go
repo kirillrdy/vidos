@@ -32,7 +32,7 @@ func addHandlers() {
 
 	http.HandleFunc(path.Videos.Show, handler.ViewVideo)
 	http.HandleFunc(path.Subtitle, handler.Subtitle)
-	http.HandleFunc(path.Videos.List, handler.Videos)
+	http.HandleFunc(path.Videos.List, handler.VideosList)
 	http.HandleFunc(path.Videos.Unencoded, handler.UnencodedVideos)
 	http.HandleFunc(path.Videos.Create, handler.Upload)
 	http.HandleFunc(path.UploadSubtitle, handler.UploadSubtitle)

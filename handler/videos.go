@@ -8,7 +8,7 @@ import (
 	"github.com/kirillrdy/vidos/view"
 )
 
-func Videos(response http.ResponseWriter, request *http.Request) {
+func VideosList(response http.ResponseWriter, request *http.Request) {
 
 	var videos []db.Video
 	result := db.Postgres.Order("id desc").Where(&db.Video{Encoded: true}).Find(&videos)
