@@ -23,9 +23,8 @@ func Version() string {
 	//Failed to match
 	if len(result) != 2 {
 		return ""
-	} else {
-		return result[1]
 	}
+	return result[1]
 }
 
 //CheckVersion checks that system ffmpeg is of the same version as this lib was built against
