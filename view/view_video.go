@@ -22,7 +22,7 @@ func ViewVideo(video db.Video, subtitles []db.Subtitle) html.Node {
 	var videoPlayer css.Class = "video-player"
 	var videoTitle css.Class = "video-title"
 
-	inside := html.Div().Class(vbox, grow, centerItems).Children(
+	return html.Div().Class(vbox, grow, centerItems).Children(
 		html.Style().Text(
 			css.Stylesheet(
 				videoTitle.Style(
@@ -42,7 +42,4 @@ func ViewVideo(video db.Video, subtitles []db.Subtitle) html.Node {
 		html.A().Href(path.DeleteVideoPath(video)).Text("Delete"),
 		html.A().Href(path.ManageSubtitlesPath(video)).Text("Manage Subtitles"),
 	)
-
-	//Title is important here for chromecast support :-)
-	return Layout(video.Filename, inside)
 }

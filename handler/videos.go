@@ -1,22 +1,45 @@
 package handler
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/kirillrdy/vidos/db"
 	"github.com/kirillrdy/vidos/view"
 )
 
-func VideosList(response http.ResponseWriter, request *http.Request) {
+//Videos contains all handlers realted to videos
+var Videos = struct {
+	List func(response http.ResponseWriter, request *http.Request)
+	Show func(response http.ResponseWriter, request *http.Request)
+}{
+	//List
+	func(response http.ResponseWriter, request *http.Request) {
+		var videos []db.Video
+		result := db.Postgres.Order("id desc").Where(&db.Video{Encoded: true}).Find(&videos)
+		//TODO create a function that will do this, also possibly with better layout
+		if result.Error != nil {
+			http.Error(response, result.Error.Error(), http.StatusInternalServerError)
+			return
+		}
+		view.Videos(videos).WriteTo(response)
+	},
 
-	var videos []db.Video
-	result := db.Postgres.Order("id desc").Where(&db.Video{Encoded: true}).Find(&videos)
+	//Show
+	func(response http.ResponseWriter, request *http.Request) {
+		video, err := videoFromRequest(request)
 
-	if result.Error != nil {
-		log.Print(result.Error)
-	}
+		if err != nil {
+			http.Error(response, err.Error(), http.StatusInternalServerError)
+			return
+		}
 
-	page := view.Videos(videos)
-	page.WriteTo(response)
+		var subtitles []db.Subtitle
+		result := db.Postgres.Find(&subtitles, db.Subtitle{VideoId: video.Id})
+		if result.Error != nil {
+			http.Error(response, result.Error.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		view.Layout(video.Filename, view.ViewVideo(video, subtitles)).WriteTo(response)
+	},
 }

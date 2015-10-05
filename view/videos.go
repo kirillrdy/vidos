@@ -10,9 +10,12 @@ import (
 	"github.com/sparkymat/webdsl/css/size"
 )
 
-const TableClass css.Class = "videos-table"
+const tableClass css.Class = "videos-table"
+
+//FormParamName is used by form for file upload and handler that processes it
 const FormParamName = "file"
 
+//Videos returns a page listing videos in a growing wrapped flexbox
 func Videos(videos []db.Video) html.Node {
 
 	var divs []html.Node
@@ -30,13 +33,14 @@ func Videos(videos []db.Video) html.Node {
 	return Layout("Videos", page)
 }
 
+//VideosTable returns html table list of given videos
 func VideosTable(videos []db.Video) html.Node {
 
 	if len(videos) == 0 {
 		return html.H4().Text("No videos are currently being encoded")
 	}
 
-	style := TableClass.Style(
+	style := tableClass.Style(
 		css.Width(size.Percent(100)),
 	)
 
@@ -46,7 +50,7 @@ func VideosTable(videos []db.Video) html.Node {
 			style.String(),
 		),
 
-		html.Table().Class(TableClass).Children(
+		html.Table().Class(tableClass).Children(
 			html.Thead().Children(
 				html.Tr().Children(
 					html.Th().Text("Id"),

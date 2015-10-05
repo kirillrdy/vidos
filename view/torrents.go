@@ -15,7 +15,8 @@ func TorrentsTable(torrents []torrent.Torrent) html.Node {
 		return html.H4().Text("No torrents have been added")
 	}
 
-	style := TableClass.Style(
+	//TODO this is duplicated
+	style := tableClass.Style(
 		css.Width(size.Percent(100)),
 	)
 
@@ -25,7 +26,7 @@ func TorrentsTable(torrents []torrent.Torrent) html.Node {
 			style.String(),
 		),
 
-		html.Table().Class(TableClass).Children(
+		html.Table().Class(tableClass).Children(
 			html.Thead().Children(
 				html.Tr().Children(
 					html.Th().Text("Name"),

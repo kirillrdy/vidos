@@ -30,9 +30,11 @@ func addHandlers() {
 	http.HandleFunc(path.Files.List, handler.Files)
 	http.HandleFunc(path.DeleteFileOrDirectory, handler.DeleteFileOrDirectory)
 
-	http.HandleFunc(path.Videos.Show, handler.ViewVideo)
+	//Videos
+	http.HandleFunc(path.Videos.List, handler.Videos.List)
+	http.HandleFunc(path.Videos.Show, handler.Videos.Show)
 	http.HandleFunc(path.Subtitle, handler.Subtitle)
-	http.HandleFunc(path.Videos.List, handler.VideosList)
+
 	http.HandleFunc(path.Videos.Unencoded, handler.UnencodedVideos)
 	http.HandleFunc(path.Videos.Create, handler.Upload)
 	http.HandleFunc(path.UploadSubtitle, handler.UploadSubtitle)
