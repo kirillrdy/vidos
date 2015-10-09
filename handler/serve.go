@@ -8,6 +8,7 @@ import (
 	"github.com/kirillrdy/vidos/db"
 )
 
+//TODO serve real filename
 func Serve(response http.ResponseWriter, request *http.Request) {
 
 	log.Print(request.Header.Get("Range"))
