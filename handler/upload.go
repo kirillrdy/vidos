@@ -18,8 +18,13 @@ func Upload(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
+	//TODO too much duplication
 	//TODO fix assumption on buffer size
-	request.ParseMultipartForm(1024 * 1024)
+	err := request.ParseMultipartForm(1024 * 1024)
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	form := request.MultipartForm
 	formFiles := form.File[view.FormParamName]
 
