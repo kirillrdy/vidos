@@ -73,7 +73,7 @@ func DeleteFileOrDirectoryPath(filename string) string {
 }
 
 func AddFileForEncodingPath(filename string) string {
-	return fmt.Sprintf("%v?%v=%v", AddFileForEncoding, ParamKeys.Filepath, filename)
+	return fmt.Sprintf("%v?%v=%v", AddFileForEncoding, ParamKeys.Filepath, url.QueryEscape(filename))
 }
 
 func ViewFilesPath(dirName string) string {
