@@ -69,7 +69,7 @@ var ParamKeys = struct {
 }
 
 func DeleteFileOrDirectoryPath(filename string) string {
-	return fmt.Sprintf("%v?%v=%v", DeleteFileOrDirectory, ParamKeys.Filepath, filename)
+	return fmt.Sprintf("%v?%v=%v", DeleteFileOrDirectory, ParamKeys.Filepath, url.QueryEscape(filename))
 }
 
 func AddFileForEncodingPath(filename string) string {
