@@ -3,6 +3,7 @@ package view
 import (
 	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/db"
+	"github.com/kirillrdy/vidos/layout"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/size"
@@ -22,7 +23,7 @@ func ViewVideo(video db.Video, subtitles []db.Subtitle) html.Node {
 	var videoPlayer css.Class = "video-player"
 	var videoTitle css.Class = "video-title"
 
-	return html.Div().Class(vbox, grow, centerItems).Children(
+	return html.Div().Class(layout.VBox, layout.Grow, centerItems).Children(
 		html.Style().Text(
 			css.Stylesheet(
 				videoTitle.Style(

@@ -7,10 +7,9 @@ import (
 	"syscall"
 
 	"github.com/kirillrdy/nadeshiko/html"
+	"github.com/kirillrdy/vidos/layout"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/sparkymat/webdsl/css"
-	"github.com/sparkymat/webdsl/css/display"
-	"github.com/sparkymat/webdsl/css/flex"
 	"github.com/sparkymat/webdsl/css/overflow"
 	"github.com/sparkymat/webdsl/css/size"
 )
@@ -19,62 +18,41 @@ const appName = "Видос"
 const padding = 10
 
 const siteTitle css.Class = "site-title"
-const vbox css.Class = "vbox"
-const hbox css.Class = "hbox"
-const grow css.Class = "grow"
-const wrap css.Class = "wrap"
 const linksMenu css.Class = "links-menu"
 const centerItems css.Class = "align-items-center"
 const headerBar css.Class = "header-bar"
 const mainSection css.Class = "main-section"
 const statusLine css.Class = "status-line"
+const menuItem css.Class = "menu-item"
 
 func pageStyle() css.CssContainer {
 	return css.Stylesheet(
 		statusLine.Style(
-			css.Height(size.Px(20)),
+			css.Height(size.Px(30)),
 			css.FlexShrink(0),
 			css.PaddingRight(size.Px(padding)),
 		),
 		siteTitle.Style(
 			css.FontSize(size.Px(50)),
 		),
-		css.AllSelectors(css.Body, css.Html).Style(
-			css.Width(size.Percent(100)),
-			css.Height(size.Percent(100)),
-		),
-		vbox.Style(
-			css.Display(display.Flex),
-			css.FlexDirection(flex.Column),
-		),
-		hbox.Style(
-			css.Display(display.Flex),
-			css.FlexDirection(flex.Row),
-		),
-		wrap.Style(
-			css.FlexWrap(flex.Wrap),
-			//TODO technically this doesn't belong here, but i think it will only ever be used here
-			css.AlignContent(css.FlexStart),
-		),
-		grow.Style(
-			css.FlexGrow(1),
-		),
 		centerItems.Style(
 			css.AlignItems(css.Center),
 		),
 		linksMenu.Style(
-			css.Width(size.Px(180)),
+			css.Width(size.Px(197)),
 			css.FlexShrink(0),
-			//css.PaddingLeft(size.Px(20)),
 		),
 		headerBar.Style(
-			css.Height(size.Px(70)),
+			css.Height(size.Px(100)),
 			css.FlexShrink(0),
-			css.PaddingLeft(size.Px(padding)),
-			css.PaddingRight(size.Px(padding)),
 		),
 		mainSection.Style(
 			css.Overflow(overflow.Auto),
+			css.Padding(size.Px(10)),
+		),
+		menuItem.Style(
+			css.MarginTop(size.Px(padding)),
+			css.MarginBottom(size.Px(padding)),
 		),
 	)
 }
@@ -111,30 +89,31 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 			html.Style().Text(
 				pageStyle().String(),
 			),
+			layout.Styles(),
 		),
-		html.Body().Class(vbox).Children(
-			html.Div().Class(hbox, headerBar, centerItems).Children(
+		html.Body().Class(layout.VBox).Children(
+			html.Div().Class(layout.HBox, headerBar, centerItems).Children(
+				html.Span().Class(layout.Grow),
 				html.H1().Class(siteTitle).Text(appName),
-				html.Span().Class(grow),
-				html.Span().Text(statusLineText),
+				html.Span().Class(layout.Grow),
 			),
-			html.Div().Class(hbox, grow).Children(
-				html.Div().Class(linksMenu, vbox, centerItems).Children(
-					html.Div().Class(vbox).Children(
-						html.A().Href(path.Videos.List).Text("Videos"),
-						html.A().Href(path.Videos.New).Text("Upload new video"),
-						html.A().Href(path.Videos.Unencoded).Text("Processing"),
-						html.A().Href(path.Files.List).Text("Files"),
-						html.A().Href(path.Torrents).Text("Torrents"),
-						html.A().Href(path.AddMagnetLink).Text("Add Magnet link"),
+			html.Div().Class(layout.HBox, layout.Grow).Children(
+				html.Div().Class(linksMenu, layout.VBox, centerItems).Children(
+					html.Div().Class(layout.VBox).Children(
+						html.A().Class(menuItem).Href(path.Videos.List).Text("Videos"),
+						html.A().Class(menuItem).Href(path.Videos.New).Text("Upload new video"),
+						html.A().Class(menuItem).Href(path.Videos.Unencoded).Text("Processing"),
+						html.A().Class(menuItem).Href(path.Files.List).Text("Files"),
+						html.A().Class(menuItem).Href(path.Torrents).Text("Torrents"),
+						html.A().Class(menuItem).Href(path.AddMagnetLink).Text("Add Magnet link"),
 					),
 				),
-				html.Div().Class(grow, mainSection, vbox).Children(
+				html.Div().Class(layout.Grow, mainSection, layout.VBox).Children(
 					bodyContent...,
 				),
 			),
-			html.Div().Class(hbox, statusLine).Children(
-				html.Span().Class(grow),
+			html.Div().Class(layout.HBox, statusLine).Children(
+				html.Span().Class(layout.Grow),
 				html.Span().Class().Text(statusLineText),
 			),
 		),

@@ -5,6 +5,7 @@ import (
 
 	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/db"
+	"github.com/kirillrdy/vidos/layout"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/size"
@@ -20,13 +21,13 @@ func Videos(videos []db.Video) html.Node {
 
 	var divs []html.Node
 
-	divs = append(divs, html.Style().Text(VideoCss().String()))
+	divs = append(divs, html.Style().Text(VideoCSS().String()))
 
 	for _, video := range videos {
 		divs = append(divs, Video(video))
 	}
 
-	page := html.Div().Class(hbox, grow, wrap).Children(
+	page := html.Div().Class(layout.HBox, layout.Grow, layout.Wrap).Children(
 		divs...,
 	)
 
