@@ -1,4 +1,5 @@
 #TODO this file shouldnt be here
+# This file is only used inside docker
 set -ex
 cat > /etc/postgresql/9.4/main/pg_hba.conf <<EOF
 local   all             postgres                                peer
