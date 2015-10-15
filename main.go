@@ -29,26 +29,28 @@ func addHandlers() {
 	http.HandleFunc(path.UploadFile, handler.UploadFile)
 	http.HandleFunc(path.Files.List, handler.Files)
 	http.HandleFunc(path.DeleteFileOrDirectory, handler.DeleteFileOrDirectory)
+	http.HandleFunc(path.AddFileForEncoding, handler.AddFileForEncoding)
 
 	//Videos
 	http.HandleFunc(path.Videos.List, handler.Videos.List)
 	http.HandleFunc(path.Videos.Show, handler.Videos.Show)
-	http.HandleFunc(path.Subtitle, handler.Subtitle)
-
-	http.HandleFunc(path.Videos.Unencoded, handler.UnencodedVideos)
-	http.HandleFunc(path.Videos.Create, handler.Upload)
-	http.HandleFunc(path.UploadSubtitle, handler.UploadSubtitle)
-	http.HandleFunc(path.Videos.Stream, logTimeMiddleware(handler.Serve))
+	http.HandleFunc(path.Videos.Stream, logTimeMiddleware(handler.Stream))
 	http.HandleFunc(path.Videos.Download, handler.Download)
 	http.HandleFunc(path.Videos.Delete, handler.DeleteVideo)
 	http.HandleFunc(path.Videos.New, handler.NewVideo)
 	http.HandleFunc(path.Videos.Thumbnail, handler.Thumbnail)
+
+	//Subtitles
 	http.HandleFunc(path.ManageSubtitles, handler.ManageSubtitles)
+	http.HandleFunc(path.Subtitle, handler.Subtitle)
+	http.HandleFunc(path.UploadSubtitle, handler.UploadSubtitle)
+
+	http.HandleFunc(path.Videos.Unencoded, handler.UnencodedVideos)
+	http.HandleFunc(path.Videos.Create, handler.Upload)
 
 	http.HandleFunc(path.Torrents, handler.Torrents)
 	http.HandleFunc(path.TorrentStatus, handler.TorrentStatus)
 	http.HandleFunc(path.AddMagnetLink, handler.AddMagnetLink)
-	http.HandleFunc(path.AddFileForEncoding, handler.AddFileForEncoding)
 
 	http.HandleFunc(path.Root, handler.RootHandle)
 	http.Handle(path.Public, http.StripPrefix(path.Public, http.FileServer(http.Dir("public"))))
