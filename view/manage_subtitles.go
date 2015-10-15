@@ -14,7 +14,7 @@ func ManageSubtitles(video db.Video, subtitles []db.Subtitle) html.Node {
 		html.Div().Children(
 			html.Span().Text("Upload srt subtitle"),
 			html.Form().Action(path.UploadSubtitlePath(video)).Attribute("enctype", "multipart/form-data").Method("POST").Children(
-				html.Input().Type("file").Multiple().Name(FormParamName),
+				html.Input().Type("file").Multiple().Name(FileParamName),
 				html.Input().Type("submit"),
 			),
 		),

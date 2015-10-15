@@ -14,7 +14,7 @@ import (
 const tableClass css.Class = "videos-table"
 
 //FormParamName is used by form for file upload and handler that processes it
-const FormParamName = "file"
+const FileParamName = "file"
 
 //Videos returns a page listing videos in a growing wrapped flexbox
 func Videos(videos []db.Video) html.Node {

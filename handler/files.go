@@ -39,7 +39,7 @@ func Files(response http.ResponseWriter, request *http.Request) {
 			html.Span().Text("Select file to upload"),
 			html.Form().Action(path.UploadFile).Attribute("enctype", "multipart/form-data").Method("POST").Children(
 				html.Div().Children(
-					html.Input().Type("file").Multiple().Name(view.FormParamName),
+					html.Input().Type("file").Multiple().Name(view.FileParamName),
 				),
 				html.Div().Children(
 					html.Input().Type("submit").Value("Upload"),

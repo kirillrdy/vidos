@@ -13,7 +13,7 @@ func NewVideo(response http.ResponseWriter, request *http.Request) {
 		html.Div().Children(
 			html.Span().Text("Select file to upload"),
 			html.Form().Action(path.Videos.Create).Attribute("enctype", "multipart/form-data").Method("POST").Children(
-				html.Input().Type("file").Multiple().Name(view.FormParamName),
+				html.Input().Type("file").Multiple().Name(view.FileParamName),
 				html.Input().Type("submit").Value("Upload"),
 			),
 		),

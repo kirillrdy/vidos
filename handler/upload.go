@@ -26,7 +26,7 @@ func Upload(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 	form := request.MultipartForm
-	formFiles := form.File[view.FormParamName]
+	formFiles := form.File[view.FileParamName]
 
 	for _, formFile := range formFiles {
 		processVideoFormFile(formFile)
