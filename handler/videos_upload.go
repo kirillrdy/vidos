@@ -3,7 +3,6 @@ package handler
 import (
 	"io"
 	"log"
-	"mime/multipart"
 	"net/http"
 
 	"github.com/kirillrdy/vidos/db"
