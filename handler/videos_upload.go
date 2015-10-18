@@ -45,6 +45,7 @@ func handleMultiFileUpload(response http.ResponseWriter, request *http.Request, 
 		if err != nil {
 			log.Fatal(err)
 		}
+		log.Printf("Received %#v", formFile.Filename)
 		fileProcessor(file, formFile.Filename)
 	}
 
