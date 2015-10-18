@@ -11,7 +11,7 @@ import (
 	"github.com/kirillrdy/vidos/view"
 )
 
-func Upload(response http.ResponseWriter, request *http.Request) {
+func VideosUpload(response http.ResponseWriter, request *http.Request) {
 
 	if request.Method != "POST" {
 		http.Redirect(response, request, path.Root, http.StatusFound)

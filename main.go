@@ -46,7 +46,7 @@ func addHandlers() {
 	http.HandleFunc(path.UploadSubtitle, handler.UploadSubtitle)
 
 	http.HandleFunc(path.Videos.Unencoded, handler.UnencodedVideos)
-	http.HandleFunc(path.Videos.Create, handler.Upload)
+	http.HandleFunc(path.Videos.Create, handler.VideosUpload)
 
 	http.HandleFunc(path.Torrents, handler.Torrents)
 	http.HandleFunc(path.TorrentStatus, handler.TorrentStatus)
