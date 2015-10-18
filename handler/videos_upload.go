@@ -18,6 +18,13 @@ func VideosUpload(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
+	handleMultiFileUpload(response, request, processVideoFromFile)
+
+	http.Redirect(response, request, path.Root, http.StatusFound)
+}
+
+func handleMultiFileUpload(response http.ResponseWriter, request *http.Request, fileProcessor func(io.ReadCloser, string)) {
+
 	//TODO too much duplication
 	//TODO fix assumption on buffer size
 	err := request.ParseMultipartForm(1024 * 1024)
@@ -29,24 +36,18 @@ func VideosUpload(response http.ResponseWriter, request *http.Request) {
 	formFiles := form.File[view.FileParamName]
 
 	for _, formFile := range formFiles {
-		processVideoFormFile(formFile)
+		log.Printf("Received %#v", formFile.Filename)
+
+		//TODO does this needs to be closed ?
+		file, err := formFile.Open()
+
+		//TODO don't Fatal
+		if err != nil {
+			log.Fatal(err)
+		}
+		fileProcessor(file, formFile.Filename)
 	}
 
-	http.Redirect(response, request, path.Root, http.StatusFound)
-}
-
-func processVideoFormFile(formFile *multipart.FileHeader) {
-
-	log.Printf("Received %#v", formFile.Filename)
-
-	//TODO does this needs to be closed ?
-	file, err := formFile.Open()
-
-	//TODO don't Fatal
-	if err != nil {
-		log.Fatal(err)
-	}
-	processVideoFromFile(file, formFile.Filename)
 }
 
 func processVideoFromFile(file io.ReadCloser, filename string) {
