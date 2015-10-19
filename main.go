@@ -43,7 +43,7 @@ func addHandlers() {
 	//Subtitles
 	http.HandleFunc(path.ManageSubtitles, handler.ManageSubtitles)
 	http.HandleFunc(path.Subtitle, handler.Subtitle)
-	http.HandleFunc(path.UploadSubtitle, handler.UploadSubtitle)
+	http.HandleFunc(path.UploadSubtitle, handler.SubtitlesUpload)
 
 	http.HandleFunc(path.Videos.Unencoded, handler.UnencodedVideos)
 	http.HandleFunc(path.Videos.Create, handler.VideosUpload)
