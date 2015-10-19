@@ -7,6 +7,7 @@ import (
 	"github.com/kirillrdy/vidos/db"
 )
 
+//Subtitle servse a single subtitle file
 func Subtitle(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "text/plain")
 
@@ -23,10 +24,6 @@ func Subtitle(response http.ResponseWriter, request *http.Request) {
 func subtitleFromRequest(request *http.Request) (db.Subtitle, error) {
 	var subtitle db.Subtitle
 
-	err := request.ParseForm()
-	if err != nil {
-		return subtitle, err
-	}
 	idString := request.FormValue("id")
 	id, err := strconv.Atoi(idString)
 	if err != nil {
