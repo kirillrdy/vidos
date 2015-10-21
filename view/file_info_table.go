@@ -6,6 +6,7 @@ import (
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/size"
 	"os"
+	"path/filepath"
 )
 
 //FilesTable display table of files returned by ioutil.ReadDir()
@@ -52,10 +53,20 @@ func filesTrs(files []os.FileInfo, basePath string) []html.Node {
 	return nodes
 }
 
+func canBeEncoded(file os.FileInfo) bool {
+	if file.IsDir() {
+		return false
+	}
+	if filepath.Ext(file.Name()) == ".mp4" || filepath.Ext(file.Name()) == ".avi" {
+		return true
+	}
+	return false
+}
+
 //TODO only encode link if it can be encoded
 func actionsLinksForFile(file os.FileInfo, basePath string) html.Node {
 	div := html.Div()
-	if !file.IsDir() {
+	if canBeEncoded(file) {
 		div.Append(
 			html.A().Href(path.AddFileForEncodingPath(basePath + file.Name())).Text("Encode"),
 		)
