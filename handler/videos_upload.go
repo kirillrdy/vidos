@@ -35,8 +35,6 @@ func handleMultiFileUpload(response http.ResponseWriter, request *http.Request, 
 	formFiles := form.File[view.FileParamName]
 
 	for _, formFile := range formFiles {
-		log.Printf("Received %#v", formFile.Filename)
-
 		//TODO does this needs to be closed ?
 		file, err := formFile.Open()
 
