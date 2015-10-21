@@ -57,7 +57,8 @@ func canBeEncoded(file os.FileInfo) bool {
 	if file.IsDir() {
 		return false
 	}
-	if filepath.Ext(file.Name()) == ".mp4" || filepath.Ext(file.Name()) == ".avi" {
+	ext := filepath.Ext(file.Name())
+	if ext == ".mp4" || ext == ".avi" || ext == ".mkv" {
 		return true
 	}
 	return false
