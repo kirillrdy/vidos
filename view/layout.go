@@ -27,6 +27,7 @@ const menuItem css.Class = "menu-item"
 
 func pageStyle() css.CssContainer {
 	return css.Stylesheet(
+		css.Element("table").Style(css.Width(size.Percent(100))),
 		statusLine.Style(
 			css.Height(size.Px(30)),
 			css.FlexShrink(0),

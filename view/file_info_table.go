@@ -2,9 +2,8 @@ package view
 
 import (
 	"github.com/kirillrdy/nadeshiko/html"
+	"github.com/kirillrdy/vidos/layout"
 	"github.com/kirillrdy/vidos/path"
-	"github.com/sparkymat/webdsl/css"
-	"github.com/sparkymat/webdsl/css/size"
 	"os"
 	"path/filepath"
 )
@@ -17,32 +16,20 @@ func FilesTable(files []os.FileInfo, basePath string) html.Node {
 		return html.H4().Text("No files have been added")
 	}
 
-	//TODO this is duplicated
-	style := tableClass.Style(
-		css.Width(size.Percent(100)),
-	)
-
-	//TODO use layout
-	page := html.Div().Children(
-		html.Style().Text(
-			style.String(),
+	table := html.Table().Class(layout.Grow).Children(
+		html.Thead().Children(
+			html.Tr().Children(
+				html.Th().Text("Name"),
+				html.Th().Text(""),
+			),
 		),
 
-		html.Table().Class(tableClass).Children(
-			html.Thead().Children(
-				html.Tr().Children(
-					html.Th().Text("Name"),
-					html.Th().Text(""),
-				),
-			),
-
-			html.Tbody().Children(
-				filesTrs(files, basePath)...,
-			),
+		html.Tbody().Children(
+			filesTrs(files, basePath)...,
 		),
 	)
 
-	return page
+	return table
 }
 
 func filesTrs(files []os.FileInfo, basePath string) []html.Node {

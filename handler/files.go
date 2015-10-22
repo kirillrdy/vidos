@@ -12,6 +12,7 @@ import (
 	"github.com/kirillrdy/vidos/view"
 )
 
+//Files renderes list of files
 func Files(response http.ResponseWriter, request *http.Request) {
 	//TODO ModePerm possibly wrong
 	//TODO Wrong place to do this
@@ -32,9 +33,9 @@ func Files(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	div := html.Div().Children(
+	nodes := []html.Node{
 		html.H1().Text("Files"),
-		html.Div().Children(view.FilesTable(files, basePath)),
+		view.FilesTable(files, basePath),
 		html.Div().Children(
 			html.Span().Text("Select file to upload"),
 			html.Form().Action(path.UploadFile).Attribute("enctype", "multipart/form-data").Method("POST").Children(
@@ -46,8 +47,8 @@ func Files(response http.ResponseWriter, request *http.Request) {
 				),
 			),
 		),
-	)
+	}
 
-	view.Layout("Files", div).WriteTo(response)
+	view.Layout("Files", nodes...).WriteTo(response)
 
 }

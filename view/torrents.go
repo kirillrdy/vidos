@@ -5,27 +5,16 @@ import (
 	"github.com/anacrolix/torrent"
 	humanise "github.com/dustin/go-humanize"
 	"github.com/kirillrdy/nadeshiko/html"
-	"github.com/sparkymat/webdsl/css"
-	"github.com/sparkymat/webdsl/css/size"
 )
 
+//TorrentsTable should be selfexplanitory
 func TorrentsTable(torrents []torrent.Torrent) html.Node {
 
 	if len(torrents) == 0 {
 		return html.H4().Text("No torrents have been added")
 	}
 
-	//TODO this is duplicated
-	style := tableClass.Style(
-		css.Width(size.Percent(100)),
-	)
-
-	//TODO use layout
 	page := html.Div().Children(
-		html.Style().Text(
-			style.String(),
-		),
-
 		html.Table().Class(tableClass).Children(
 			html.Thead().Children(
 				html.Tr().Children(
