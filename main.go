@@ -17,10 +17,9 @@ func main() {
 	//TODO sort out how this is currently non blocking using buffered chan
 	db.QueueAllUnEncodedVideos()
 
-	port := flag.Int("port", 3001, "Port to listen on")
-
 	routes.AddHandlers()
 
+	port := flag.Int("port", 3001, "Port to listen on")
 	log.Printf("Listening on port: '%v'", *port)
 	err := http.ListenAndServe(fmt.Sprintf(":%v", *port), nil)
 	if err != nil {
