@@ -1,0 +1,12 @@
+#+STARTUP: showall
+
+* Current TODO
+** Add link to godocs
+
+
+* Docker
+To quickly try vidos using docker:
+#+BEGIN_SRC sh
+docker run -d -p 3001:3001 kirillrdy/vidos
+#+END_SRC
+
