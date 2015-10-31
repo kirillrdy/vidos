@@ -1,7 +1,7 @@
 #+STARTUP: showall
 
 * Current TODO
-** Add link to godocs
+- [ ] Add link to godocs
 
 
 * Docker
