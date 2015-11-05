@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+//TODO looks like this wasnt a very useful helper
 func p(err error) {
 	if err != nil {
 		panic(err)
