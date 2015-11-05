@@ -1,6 +1,7 @@
 #+STARTUP: showall
 
 * Current TODO
+- [ ] Stop using postgres
 - [ ] Live updating of data
 - [ ] port to gopherjs
 - [ ] Add torrent search
@@ -9,6 +10,7 @@
 - [ ] Style everything
 - [ ] Get rid of all TODOs
 - [ ] Add link to godocs
+- [ ] Extract flexbox layout into nadeshiko
 
 
 * Docker
