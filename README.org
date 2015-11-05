@@ -1,6 +1,13 @@
 #+STARTUP: showall
 
 * Current TODO
+- [ ] Live updating of data
+- [ ] port to gopherjs
+- [ ] Add torrent search
+- [ ] Simplify adding movie workflow ( for torrent )
+- [ ] fix my desired flexbox layout ( eg status always at the bottom of the screen
+- [ ] Style everything
+- [ ] Get rid of all TODOs
 - [ ] Add link to godocs
 
 
