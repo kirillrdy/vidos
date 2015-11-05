@@ -2,6 +2,7 @@
 
 * Current TODO
 - [ ] Stop using postgres
+- [ ] add subtitles from files ( perhaps automatically) 
 - [ ] Live updating of data
 - [ ] port to gopherjs
 - [ ] Add torrent search
