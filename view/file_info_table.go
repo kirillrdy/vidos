@@ -4,8 +4,8 @@ import (
 	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/layout"
 	"github.com/kirillrdy/vidos/path"
+	"github.com/kirillrdy/vidos/videos"
 	"os"
-	"path/filepath"
 )
 
 //FilesTable display table of files returned by ioutil.ReadDir()
@@ -40,21 +40,9 @@ func filesTrs(files []os.FileInfo, basePath string) []html.Node {
 	return nodes
 }
 
-func canBeEncoded(file os.FileInfo) bool {
-	if file.IsDir() {
-		return false
-	}
-	ext := filepath.Ext(file.Name())
-	if ext == ".mp4" || ext == ".avi" || ext == ".mkv" {
-		return true
-	}
-	return false
-}
-
-//TODO only encode link if it can be encoded
 func actionsLinksForFile(file os.FileInfo, basePath string) html.Node {
 	div := html.Div()
-	if canBeEncoded(file) {
+	if videos.CanBeEncoded(file) {
 		div.Append(
 			html.A().Href(path.AddFileForEncodingPath(basePath + file.Name())).Text("Encode"),
 		)
