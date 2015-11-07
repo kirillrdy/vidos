@@ -1,4 +1,5 @@
 #+STARTUP: showall
+#+TITLE: Vidos
 
 * Current TODO
 - [ ] Stop using postgres
