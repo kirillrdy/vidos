@@ -37,35 +37,46 @@ func init() {
 	go func() {
 
 		for {
-
-			allCompleted := true
-
-			for _, torrent := range Client.Torrents() {
-				allCompleted = torrent.Length() == torrent.BytesCompleted() && allCompleted
-			}
-
-			log.Printf("All completed %v", allCompleted)
-
-			if allCompleted {
-				for _, torrent := range Client.Torrents() {
-					torrent.Drop()
-				}
-
-				items, err := ioutil.ReadDir(torrentsDir)
-				util.LogError(err)
-				for _, item := range items {
-					origin := torrentsDir + "/" + item.Name()
-					dest := FilesDir + "/" + item.Name()
-					log.Printf("moving %v to %v", origin, dest)
-					err := os.Rename(origin, dest)
-					util.LogError(err)
-				}
-
-			}
+			moveAllCompletedTorrentsToFiles()
 
 			//TODO perhaps thats too much
 			time.Sleep(1 * time.Minute)
 		}
 
 	}()
+}
+
+func allTorrentsCompleted() bool {
+
+	allCompleted := true
+
+	for _, torrent := range Client.Torrents() {
+		allCompleted = torrent.Length() == torrent.BytesCompleted() && allCompleted
+	}
+	return allCompleted
+}
+
+//TODO reimplement so that you dont have to wait for ALL torrents to be completed
+func moveAllCompletedTorrentsToFiles() {
+
+	completed := allTorrentsCompleted()
+
+	log.Printf("All completed %v", completed)
+
+	if completed {
+		for _, torrent := range Client.Torrents() {
+			torrent.Drop()
+		}
+
+		items, err := ioutil.ReadDir(torrentsDir)
+		util.LogError(err)
+		for _, item := range items {
+			origin := torrentsDir + "/" + item.Name()
+			dest := FilesDir + "/" + item.Name()
+			log.Printf("moving %v to %v", origin, dest)
+			err := os.Rename(origin, dest)
+			util.LogError(err)
+		}
+
+	}
 }
