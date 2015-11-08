@@ -2,10 +2,10 @@ package view
 
 import (
 	"github.com/kirillrdy/nadeshiko/html"
-	"github.com/kirillrdy/vidos/db"
 	"github.com/kirillrdy/vidos/ffmpeg"
 	"github.com/kirillrdy/vidos/layout"
 	"github.com/kirillrdy/vidos/path"
+	"github.com/kirillrdy/vidos/video"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/size"
 )
@@ -35,7 +35,7 @@ func VideoCSS() css.CssContainer {
 }
 
 //Video For a given video returns its view partial
-func Video(video db.Video) html.Node {
+func Video(video video.Video) html.Node {
 	return html.Div().Class(layout.VBox, videoItem, centerItems).Children(
 		html.Img().Class(videoThumb).Src(path.ThumbnailPath(video)),
 		html.A().Class(videoLink).Href(path.ViewVideoPath(video)).Text(video.Filename),

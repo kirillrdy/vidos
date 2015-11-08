@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/kirillrdy/vidos/db"
+	"github.com/kirillrdy/vidos/video"
 	"github.com/kirillrdy/vidos/view"
 )
 
@@ -14,11 +15,11 @@ var Videos = struct {
 }{
 	//List
 	func(response http.ResponseWriter, request *http.Request) {
-		var videos []db.Video
-		result := db.Postgres.Order("id desc").Where(&db.Video{Encoded: true}).Find(&videos)
+		videos, err := video.All()
+
 		//TODO create a function that will do this, also possibly with better layout
-		if result.Error != nil {
-			http.Error(response, result.Error.Error(), http.StatusInternalServerError)
+		if err != nil {
+			http.Error(response, err.Error(), http.StatusInternalServerError)
 			return
 		}
 		view.Videos(videos).WriteTo(response)

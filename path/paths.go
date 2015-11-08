@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/kirillrdy/vidos/db"
+	"github.com/kirillrdy/vidos/video"
 	"net/url"
 )
 
@@ -92,12 +93,12 @@ func DeleteVideoPath(video db.Video) string {
 	return fmt.Sprintf("%v?%v=%v", Videos.Delete, ParamKeys.ID, video.Id)
 }
 
-func ThumbnailPath(video db.Video) string {
-	return fmt.Sprintf("%v?%v=%v", Videos.Thumbnail, ParamKeys.ID, video.Id)
+func ThumbnailPath(video video.Video) string {
+	return fmt.Sprintf("%v?%v=%v", Videos.Thumbnail, ParamKeys.ID, video.Filename)
 }
 
-func ViewVideoPath(video db.Video) string {
-	return fmt.Sprintf("%v?%v=%v", Videos.Show, ParamKeys.ID, video.Id)
+func ViewVideoPath(video video.Video) string {
+	return fmt.Sprintf("%v?%v=%v", Videos.Show, ParamKeys.ID, video.Filename)
 }
 
 func UploadSubtitlePath(video db.Video) string {

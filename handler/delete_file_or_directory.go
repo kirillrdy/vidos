@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+//DeleteFileOrDirectory does what name
 func DeleteFileOrDirectory(response http.ResponseWriter, request *http.Request) {
 	err := request.ParseForm()
 	if err != nil {
@@ -17,7 +18,7 @@ func DeleteFileOrDirectory(response http.ResponseWriter, request *http.Request) 
 	pathToRemove := request.FormValue("filepath")
 
 	//TODO figure out why this doesn't return errors
-	err = os.RemoveAll(downloader.FileDir + pathToRemove)
+	err = os.RemoveAll(downloader.FilesDir + pathToRemove)
 	if err != nil {
 		http.Error(response, err.Error(), http.StatusInternalServerError)
 		return

@@ -4,7 +4,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/downloader"
@@ -14,17 +13,10 @@ import (
 
 //Files renderes list of files
 func Files(response http.ResponseWriter, request *http.Request) {
-	//TODO ModePerm possibly wrong
-	//TODO Wrong place to do this
-	err := os.MkdirAll(downloader.FileDir, os.ModePerm)
-	if err != nil {
-		http.Error(response, err.Error(), http.StatusInternalServerError)
-		return
-	}
 
 	basePath := request.FormValue("path")
 
-	pathToRead := downloader.FileDir + basePath
+	pathToRead := downloader.FilesDir + basePath
 	log.Printf("%#v", pathToRead)
 
 	files, err := ioutil.ReadDir(pathToRead)

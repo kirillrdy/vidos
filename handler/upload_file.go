@@ -48,5 +48,5 @@ type uploadedFile struct {
 
 func (file uploadedFile) Path() string {
 	//TODO use path seperator
-	return fmt.Sprintf("%v/%v", downloader.FileDir, file.Filename)
+	return fmt.Sprintf("%v/%v", downloader.FilesDir, file.Filename)
 }
