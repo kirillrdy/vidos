@@ -7,9 +7,13 @@ RUN /bin/sh /install.sh
 
 ENV GOPATH /go
 
+WORKDIR /go/src/github.com/kirillrdy/vidos
+
 ADD . /go/src/github.com/kirillrdy/vidos
-RUN go get github.com/kirillrdy/vidos
-RUN go install github.com/kirillrdy/vidos
+
+
+RUN go get -v
+RUN go install
 
 
 CMD service postgresql start && sleep 3 && /go/bin/vidos
