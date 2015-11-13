@@ -26,7 +26,8 @@ type Video struct {
 func (video Video) dataDirPath() string {
 	return fmt.Sprintf("%v/videos/%v", dataDir, video.Id)
 }
-func (video Video) FilePath() string {
+
+func (video Video) filePath() string {
 	return fmt.Sprintf("%v/%v", video.dataDirPath(), video.Filename)
 }
 
@@ -47,7 +48,7 @@ func (video Video) Encode() {
 		//TODO errors
 		Postgres.Save(&video)
 	}
-	ffmpeg.Encode(video.FilePath(), video.EncodedPath(), update)
+	ffmpeg.Encode(video.filePath(), video.EncodedPath(), update)
 
 	video.Encoded = true
 	video.Progress = ""
@@ -55,7 +56,7 @@ func (video Video) Encode() {
 	Postgres.Save(&video)
 
 	//remove original
-	err := os.Remove(video.FilePath())
+	err := os.Remove(video.filePath())
 	if err != nil {
 		log.Print("video/Encode() couldn't remove original file")
 		log.Panic(err)
@@ -65,7 +66,7 @@ func (video Video) Encode() {
 //CalculateDuration calculates and sotores the duration of the video
 func (video *Video) CalculateDuration() error {
 	var err error
-	video.Duration, err = ffmpeg.Duration(video.FilePath())
+	video.Duration, err = ffmpeg.Duration(video.filePath())
 	if err != nil {
 		return err
 	}
@@ -76,14 +77,14 @@ func (video *Video) CalculateDuration() error {
 }
 
 func (video *Video) GenerateThumbnail() {
-	ffmpeg.Thumbnail(video.FilePath(), video.ThumbnailPath())
+	ffmpeg.Thumbnail(video.filePath(), video.ThumbnailPath())
 }
 
 func (video Video) EncodedPath() string {
 	//TODO do basename to strip out ext
 	//TODO somehow note the importance of the mp4 here,
 	// since its how ffmpeg decides to encode to mp4
-	return video.FilePath() + ".mp4"
+	return video.filePath() + ".mp4"
 }
 
 func (video Video) ThumbnailPath() string {
@@ -95,7 +96,7 @@ func (video Video) Save(reader io.ReadCloser) {
 
 	video.mkdir()
 
-	destinationFile, err := os.Create(video.FilePath())
+	destinationFile, err := os.Create(video.filePath())
 
 	if err != nil {
 		log.Println("Video/Save()")
