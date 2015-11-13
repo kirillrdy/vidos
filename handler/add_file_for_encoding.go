@@ -15,7 +15,6 @@ func AddFileForEncoding(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	//TODO make filename a constant
 	filePath := request.FormValue(path.ParamKeys.Filepath)
 	file, err := os.Open(uploadedFile{filePath}.Path())
 
