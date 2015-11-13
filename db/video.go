@@ -62,9 +62,17 @@ func (video Video) Encode() {
 	}
 }
 
-func (video *Video) CalculateDuration() {
-	video.Duration = ffmpeg.Duration(video.FilePath())
+//CalculateDuration calculates and sotores the duration of the video
+func (video *Video) CalculateDuration() error {
+	var err error
+	video.Duration, err = ffmpeg.Duration(video.FilePath())
+	if err != nil {
+		return err
+	}
+
+	//TODO handle erorors on postgres.save
 	Postgres.Save(video)
+	return nil
 }
 
 func (video *Video) GenerateThumbnail() {

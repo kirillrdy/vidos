@@ -3,7 +3,6 @@ package handler
 import (
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"os"
 
@@ -19,7 +18,7 @@ func UploadFile(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	handleMultiFileUpload(response, request, func(file io.ReadCloser, fileName string) {
+	handleMultiFileUpload(response, request, func(file io.ReadCloser, fileName string) error {
 		defer file.Close()
 
 		uploadedFile := uploadedFile{Filename: fileName}
@@ -28,15 +27,15 @@ func UploadFile(response http.ResponseWriter, request *http.Request) {
 		destinationFile, err := os.Create(uploadedFile.Path())
 		defer destinationFile.Close()
 
-		//TODO Less Fatal
 		if err != nil {
-			log.Fatal(err)
+			return err
 		}
 
 		n, err := io.Copy(destinationFile, file)
 		if n == 0 || err != nil {
-			log.Fatal(err)
+			return err
 		}
+		return nil
 	})
 
 	http.Redirect(response, request, path.Files.List, http.StatusFound)
@@ -47,6 +46,6 @@ type uploadedFile struct {
 }
 
 func (file uploadedFile) Path() string {
-	//TODO use path seperator
-	return fmt.Sprintf("%v/%v", downloader.FilesDir, file.Filename)
+	//TODO replace with string + string + string
+	return fmt.Sprintf("%v%v%v", downloader.FilesDir, string(os.PathSeparator), file.Filename)
 }

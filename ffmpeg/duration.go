@@ -2,35 +2,32 @@ package ffmpeg
 
 import (
 	"bytes"
-	"log"
+	"errors"
+	"fmt"
 	"os/exec"
 	"regexp"
 )
 
+//Duration returns string in format dd:dd:dd.dd
 //TODO need better implementation
-// returns string in format dd:dd:dd.dd
-func Duration(filename string) string {
+func Duration(filename string) (string, error) {
 	cmd := exec.Command("ffprobe", filename)
 
 	var buffer bytes.Buffer
 	cmd.Stderr = &buffer
 	err := cmd.Run()
 	if err != nil {
-		log.Printf("Getting duration of video:  %v", err)
+		//TODO this is not ideal
+		return "", fmt.Errorf("Getting duration of video:  %v", err)
 	}
 
 	durationRegex := regexp.MustCompile("Duration: (.*?),")
 
 	result := durationRegex.FindStringSubmatch(buffer.String())
 
-	//TODO error handling for this needs to be fixed
-	const valueToReturnIfFailed = "00:00:00.00"
-
 	if len(result) == 2 {
-		return result[1]
-	} else {
-		return valueToReturnIfFailed
+		return result[1], nil
 	}
 
-	return valueToReturnIfFailed
+	return "", errors.New("Failed to get version, most likely need to update regex")
 }

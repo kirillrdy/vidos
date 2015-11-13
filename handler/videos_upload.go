@@ -17,19 +17,22 @@ func VideosUpload(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	handleMultiFileUpload(response, request, processVideoFromFile)
+	err := handleMultiFileUpload(response, request, processVideoFromFile)
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	http.Redirect(response, request, path.Root, http.StatusFound)
 }
 
-func handleMultiFileUpload(response http.ResponseWriter, request *http.Request, fileProcessor func(io.ReadCloser, string)) {
+func handleMultiFileUpload(response http.ResponseWriter, request *http.Request, fileProcessor func(io.ReadCloser, string) error) error {
 
 	//TODO too much duplication
 	//TODO fix assumption on buffer size
 	err := request.ParseMultipartForm(1024 * 1024)
 	if err != nil {
-		http.Error(response, err.Error(), http.StatusInternalServerError)
-		return
+		return err
 	}
 	form := request.MultipartForm
 	formFiles := form.File[view.FileParamName]
@@ -43,19 +46,25 @@ func handleMultiFileUpload(response http.ResponseWriter, request *http.Request, 
 			log.Fatal(err)
 		}
 		log.Printf("Received %#v", formFile.Filename)
-		fileProcessor(file, formFile.Filename)
+		err = fileProcessor(file, formFile.Filename)
+		if err != nil {
+			return err
+		}
 	}
-
+	return nil
 }
 
-func processVideoFromFile(file io.ReadCloser, filename string) {
+func processVideoFromFile(file io.ReadCloser, filename string) error {
 
 	video := db.Video{Filename: filename}
 	db.Postgres.Save(&video)
 	video.Save(file)
 
 	//TODO Stop doing this as part of request
-	video.CalculateDuration()
+	err := video.CalculateDuration()
+	if err != nil {
+		return err
+	}
 	video.GenerateThumbnail()
 
 	//This can block so do in goroutine
@@ -63,4 +72,6 @@ func processVideoFromFile(file io.ReadCloser, filename string) {
 	go func() {
 		db.EncodeVideo <- video.Id
 	}()
+
+	return nil
 }
