@@ -24,11 +24,11 @@ func UploadFile(response http.ResponseWriter, request *http.Request) {
 
 		//TODO what if Path() didn't exist
 		destinationFile, err := os.Create(uploadedFile.Path())
-		defer destinationFile.Close()
 
 		if err != nil {
 			return err
 		}
+		defer destinationFile.Close()
 
 		n, err := io.Copy(destinationFile, file)
 		if n == 0 || err != nil {
