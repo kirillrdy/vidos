@@ -1,7 +1,10 @@
 #+STARTUP: showall
 #+TITLE: Vidos
 
+* Changelog
+** Release 1
 * Current TODO
+- [ ] Resurrect playing of videos
 - [ ] Stop using postgres
 - [ ] Simplify adding movie workflow ( for torrent )
 - [ ] add subtitles from files ( perhaps automatically) 
@@ -13,11 +16,13 @@
 - [ ] Get rid of all TODOs
 - [ ] Add link to godocs
 - [ ] Extract flexbox layout into nadeshiko
+- [ ] Add page for error logger
 
 
-* Docker
+* Installing using Docker
 To quickly try vidos using docker:
 #+BEGIN_SRC sh
 docker run -d -p 3001:3001 kirillrdy/vidos
 #+END_SRC
+~firefox localhost:3001~
 
