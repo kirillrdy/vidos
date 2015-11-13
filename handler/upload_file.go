@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -46,6 +45,5 @@ type uploadedFile struct {
 }
 
 func (file uploadedFile) Path() string {
-	//TODO replace with string + string + string
-	return fmt.Sprintf("%v%v%v", downloader.FilesDir, string(os.PathSeparator), file.Filename)
+	return downloader.FilesDir + string(os.PathSeparator) + file.Filename
 }
