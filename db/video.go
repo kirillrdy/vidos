@@ -76,8 +76,9 @@ func (video *Video) CalculateDuration() error {
 	return nil
 }
 
-func (video *Video) GenerateThumbnail() {
-	ffmpeg.Thumbnail(video.filePath(), video.ThumbnailPath())
+//GenerateThumbnail generates a thumbnamil image for a video
+func (video *Video) GenerateThumbnail() error {
+	return ffmpeg.Thumbnail(video.filePath(), video.ThumbnailPath())
 }
 
 func (video Video) EncodedPath() string {

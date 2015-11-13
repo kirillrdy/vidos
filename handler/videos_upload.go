@@ -10,6 +10,8 @@ import (
 	"github.com/kirillrdy/vidos/view"
 )
 
+//VideosUpload is a handler that deals with
+// recieving videos via http post and converting them and adding to list of videos
 func VideosUpload(response http.ResponseWriter, request *http.Request) {
 
 	if request.Method != "POST" {
@@ -65,7 +67,10 @@ func processVideoFromFile(file io.ReadCloser, filename string) error {
 	if err != nil {
 		return err
 	}
-	video.GenerateThumbnail()
+	err = video.GenerateThumbnail()
+	if err != nil {
+		return err
+	}
 
 	//This can block so do in goroutine
 	//TODO potentially dangerous

@@ -2,7 +2,6 @@ package ffmpeg
 
 import (
 	"fmt"
-	"log"
 	"os/exec"
 )
 
@@ -11,7 +10,7 @@ import (
 const ThumbnailWidth = 640
 const ThumbnailHeight = 360
 
-func Thumbnail(inputFilename, thumFilename string) {
+func Thumbnail(inputFilename, thumFilename string) error {
 
 	thumArg := fmt.Sprintf("thumbnail,scale=%v:%v", ThumbnailWidth, ThumbnailHeight)
 
@@ -23,12 +22,11 @@ func Thumbnail(inputFilename, thumFilename string) {
 	cmd := exec.Command("ffmpeg", args...)
 
 	if err := cmd.Start(); err != nil {
-		log.Println("Thumbnail()/cmd.Start()")
-		log.Fatal(err)
+		return err
 	}
 
 	if err := cmd.Wait(); err != nil {
-		log.Println("Thumbnail()/cmd.Wait()")
-		log.Fatal(err)
+		return err
 	}
+	return nil
 }
