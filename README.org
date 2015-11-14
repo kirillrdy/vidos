@@ -17,6 +17,7 @@
 - [ ] Add link to godocs
 - [ ] Extract flexbox layout into nadeshiko
 - [ ] Add page for error logger
+- [ ] Resurrect subtitles support
 
 
 * Installing using Docker
