@@ -6,7 +6,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/kirillrdy/vidos/db"
 	"github.com/kirillrdy/vidos/ffmpeg"
 	"github.com/kirillrdy/vidos/routes"
 )
@@ -15,7 +14,7 @@ func main() {
 
 	ffmpeg.CheckVersion()
 	//TODO sort out how this is currently non blocking using buffered chan
-	db.QueueAllUnEncodedVideos()
+	//db.QueueAllUnEncodedVideos()
 
 	routes.AddHandlers()
 

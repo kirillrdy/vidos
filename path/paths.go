@@ -3,8 +3,7 @@ package path
 import (
 	"fmt"
 
-	"github.com/kirillrdy/vidos/db"
-	"github.com/kirillrdy/vidos/video"
+	"github.com/kirillrdy/vidos/fs"
 	"net/url"
 )
 
@@ -81,34 +80,36 @@ func ViewFilesPath(dirName string) string {
 	return fmt.Sprintf("%v?%v=%v", Files.List, ParamKeys.Path, url.QueryEscape(dirName))
 }
 
-func ServeVideoPath(video db.Video) string {
-	return fmt.Sprintf("%v?%v=%v", Videos.Stream, ParamKeys.ID, video.Id)
+//StreamVideoPath is path where actual video being streamed from
+func StreamVideoPath(video fs.Video) string {
+	return fmt.Sprintf("%v?%v=%v", Videos.Stream, ParamKeys.ID, video.Filepath)
 }
 
-func DownloadVideoPath(video db.Video) string {
-	return fmt.Sprintf("%v?%v=%v", Videos.Download, ParamKeys.ID, video.Id)
+// func DownloadVideoPath(video db.Video) string {
+// 	return fmt.Sprintf("%v?%v=%v", Videos.Download, ParamKeys.ID, video.Id)
+// }
+
+// func DeleteVideoPath(video db.Video) string {
+// 	return fmt.Sprintf("%v?%v=%v", Videos.Delete, ParamKeys.ID, video.Id)
+// }
+
+// func ThumbnailPath(video video.Video) string {
+// 	return fmt.Sprintf("%v?%v=%v", Videos.Thumbnail, ParamKeys.ID, video.Filename)
+// }
+
+//ViewFilesPath is path where video player is rendered
+func ViewVideoPath(video fs.Video) string {
+	return fmt.Sprintf("%v?%v=%v", Videos.Show, ParamKeys.ID, video.Filepath)
 }
 
-func DeleteVideoPath(video db.Video) string {
-	return fmt.Sprintf("%v?%v=%v", Videos.Delete, ParamKeys.ID, video.Id)
-}
+// func UploadSubtitlePath(video db.Video) string {
+// 	return fmt.Sprintf("%v?%v=%v", UploadSubtitle, ParamKeys.ID, video.Id)
+// }
 
-func ThumbnailPath(video video.Video) string {
-	return fmt.Sprintf("%v?%v=%v", Videos.Thumbnail, ParamKeys.ID, video.Filename)
-}
+// func SubtitlePath(subtitle db.Subtitle) string {
+// 	return fmt.Sprintf("%v?%v=%v", Subtitle, ParamKeys.ID, subtitle.Id)
+// }
 
-func ViewVideoPath(video video.Video) string {
-	return fmt.Sprintf("%v?%v=%v", Videos.Show, ParamKeys.ID, video.Filename)
-}
-
-func UploadSubtitlePath(video db.Video) string {
-	return fmt.Sprintf("%v?%v=%v", UploadSubtitle, ParamKeys.ID, video.Id)
-}
-
-func SubtitlePath(subtitle db.Subtitle) string {
-	return fmt.Sprintf("%v?%v=%v", Subtitle, ParamKeys.ID, subtitle.Id)
-}
-
-func ManageSubtitlesPath(video db.Video) string {
-	return fmt.Sprintf("%v?%v=%v", ManageSubtitles, ParamKeys.ID, video.Id)
-}
+// func ManageSubtitlesPath(video db.Video) string {
+// 	return fmt.Sprintf("%v?%v=%v", ManageSubtitles, ParamKeys.ID, video.Id)
+// }

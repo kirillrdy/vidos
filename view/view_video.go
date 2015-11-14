@@ -2,23 +2,24 @@ package view
 
 import (
 	"github.com/kirillrdy/nadeshiko/html"
-	"github.com/kirillrdy/vidos/db"
+	"github.com/kirillrdy/vidos/fs"
 	"github.com/kirillrdy/vidos/layout"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/size"
 )
 
-func ViewVideo(video db.Video, subtitles []db.Subtitle) html.Node {
+//VideoShowPage view renders View Video View :-)
+func VideoShowPage(video fs.Video) html.Node {
 	var videoElementContent []html.Node
 
-	videoElementContent = append(videoElementContent, html.Source().Src(path.ServeVideoPath(video)).Type(db.VideoMimeType))
+	videoElementContent = append(videoElementContent, html.Source().Src(path.StreamVideoPath(video)).Type(video.MimeType()))
 
-	for _, subtitle := range subtitles {
-		//TODO fix hardwired language
-		track := html.Track().Label("English").Kind("captions").Srclang("en").Src(path.SubtitlePath(subtitle)).Default()
-		videoElementContent = append(videoElementContent, track)
-	}
+	// for _, subtitle := range subtitles {
+	// 	//TODO fix hardwired language
+	// 	track := html.Track().Label("English").Kind("captions").Srclang("en").Src(path.SubtitlePath(subtitle)).Default()
+	// 	videoElementContent = append(videoElementContent, track)
+	// }
 
 	var videoPlayer css.Class = "video-player"
 	var videoTitle css.Class = "video-title"
@@ -36,11 +37,11 @@ func ViewVideo(video db.Video, subtitles []db.Subtitle) html.Node {
 				),
 			).String(),
 		),
-		html.H1().Class(videoTitle).Text(video.Filename),
+		html.H1().Class(videoTitle).Text(video.Filepath),
 		html.Video().Class(videoPlayer).Controls().Autoplay().Name("media").Children(videoElementContent...),
-		//TODO finish those links, also move them somewhere
-		//html.A().Href(path.ManageSubtitlesPath(video)).Text("Download Original"),
-		html.A().Href(path.DeleteVideoPath(video)).Text("Delete"),
-		html.A().Href(path.ManageSubtitlesPath(video)).Text("Manage Subtitles"),
+	//TODO finish those links, also move them somewhere
+	//html.A().Href(path.ManageSubtitlesPath(video)).Text("Download Original"),
+	// html.A().Href(path.DeleteVideoPath(video)).Text("Delete"),
+	// 	html.A().Href(path.ManageSubtitlesPath(video)).Text("Manage Subtitles"),
 	)
 }

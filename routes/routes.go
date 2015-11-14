@@ -16,10 +16,10 @@ func addHandler(path string, handler http.HandlerFunc) {
 func AddHandlers() {
 
 	//Files related routes
-	addHandler(path.UploadFile, handler.UploadFile)
-	addHandler(path.Files.List, handler.Files)
-	addHandler(path.DeleteFileOrDirectory, handler.DeleteFileOrDirectory)
-	addHandler(path.AddFileForEncoding, handler.AddFileForEncoding)
+	// addHandler(path.UploadFile, handler.UploadFile)
+	// addHandler(path.Files.List, handler.Files)
+	// addHandler(path.DeleteFileOrDirectory, handler.DeleteFileOrDirectory)
+	// addHandler(path.AddFileForEncoding, handler.AddFileForEncoding)
 
 	//Videos
 	addHandler(path.Videos.List, handler.Videos.List)
@@ -27,15 +27,15 @@ func AddHandlers() {
 	addHandler(path.Videos.Stream, handler.Stream)
 	addHandler(path.Videos.Delete, handler.DeleteVideo)
 	addHandler(path.Videos.New, handler.NewVideo)
-	addHandler(path.Videos.Thumbnail, handler.Thumbnail)
+	//addHandler(path.Videos.Thumbnail, handler.Thumbnail)
 
 	//Subtitles
-	addHandler(path.ManageSubtitles, handler.ManageSubtitles)
-	addHandler(path.Subtitle, handler.Subtitle)
+	//addHandler(path.ManageSubtitles, handler.ManageSubtitles)
+	//addHandler(path.Subtitle, handler.Subtitle)
 	// addHandler(path.UploadSubtitle, handler.SubtitlesUpload)
 
 	// addHandler(path.Videos.Unencoded, handler.UnencodedVideos)
-	addHandler(path.Videos.Create, handler.VideosUpload)
+	//addHandler(path.Videos.Create, handler.VideosUpload)
 
 	addHandler(path.Torrents, handler.Torrents)
 	addHandler(path.TorrentStatus, handler.TorrentStatus)

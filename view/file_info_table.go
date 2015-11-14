@@ -2,9 +2,9 @@ package view
 
 import (
 	"github.com/kirillrdy/nadeshiko/html"
+	"github.com/kirillrdy/vidos/fs"
 	"github.com/kirillrdy/vidos/layout"
 	"github.com/kirillrdy/vidos/path"
-	"github.com/kirillrdy/vidos/video"
 	"os"
 )
 
@@ -42,7 +42,7 @@ func filesTrs(files []os.FileInfo, basePath string) []html.Node {
 
 func actionsLinksForFile(file os.FileInfo, basePath string) html.Node {
 	div := html.Div()
-	if video.CanBeEncoded(file) {
+	if fs.CanBeEncoded(file) {
 		div.Append(
 			html.A().Href(path.AddFileForEncodingPath(basePath + file.Name())).Text("Encode"),
 		)

@@ -1,13 +1,13 @@
 package handler
 
-import "net/http"
+// import "net/http"
 
-func Thumbnail(response http.ResponseWriter, request *http.Request) {
-	video, err := videoFromRequest(request)
+// func Thumbnail(response http.ResponseWriter, request *http.Request) {
+// 	video := videoFromRequest(request)
 
-	if err != nil {
-		http.Error(response, err.Error(), http.StatusInternalServerError)
-	}
+// 	if err != nil {
+// 		http.Error(response, err.Error(), http.StatusInternalServerError)
+// 	}
 
-	http.ServeFile(response, request, video.ThumbnailPath())
-}
+// 	http.ServeFile(response, request, video.ThumbnailPath())
+// }

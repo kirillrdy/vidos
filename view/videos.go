@@ -2,8 +2,8 @@ package view
 
 import (
 	"github.com/kirillrdy/nadeshiko/html"
+	"github.com/kirillrdy/vidos/fs"
 	"github.com/kirillrdy/vidos/layout"
-	"github.com/kirillrdy/vidos/video"
 	"github.com/sparkymat/webdsl/css"
 )
 
@@ -13,7 +13,7 @@ const tableClass css.Class = "videos-table"
 const FileParamName = "file"
 
 //Videos returns a page listing videos in a growing wrapped flexbox
-func Videos(videos []video.Video) html.Node {
+func Videos(videos []fs.Video) html.Node {
 
 	var divs []html.Node
 

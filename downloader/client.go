@@ -61,7 +61,7 @@ func moveAllCompletedTorrentsToFiles() {
 
 	completed := allTorrentsCompleted()
 
-	log.Printf("All completed %v", completed)
+	log.Printf("All torrent files downloaded completed %v", completed)
 
 	if completed {
 		for _, torrent := range Client.Torrents() {
