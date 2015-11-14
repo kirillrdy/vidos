@@ -59,11 +59,7 @@ func allTorrentsCompleted() bool {
 //TODO reimplement so that you dont have to wait for ALL torrents to be completed
 func moveAllCompletedTorrentsToFiles() {
 
-	completed := allTorrentsCompleted()
-
-	log.Printf("All torrent files downloaded completed %v", completed)
-
-	if completed {
+	if len(Client.Torrents()) > 0 && allTorrentsCompleted() {
 		for _, torrent := range Client.Torrents() {
 			torrent.Drop()
 		}
