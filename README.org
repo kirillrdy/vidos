@@ -3,6 +3,7 @@
 
 * Changelog
 ** Release 1
+Release is currently a work in progress
 * Current TODO
 - [ ] Resurrect playing of videos
 - [ ] Stop using postgres
