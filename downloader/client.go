@@ -69,7 +69,7 @@ func moveAllCompletedTorrentsToFiles() {
 		for _, item := range items {
 			origin := torrentsDir + "/" + item.Name()
 			dest := FilesDir + "/" + item.Name()
-			log.Printf("moving %v to %v", origin, dest)
+			log.Printf("moving %#v to %#v", origin, dest)
 			err := os.Rename(origin, dest)
 			util.LogError(err)
 		}
