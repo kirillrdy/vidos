@@ -33,16 +33,16 @@ func init() {
 
 	//TODO also possibly part of Client.Close()
 	//Client.WaitAll()
-	go func() {
+	go downloadsFileMover()
+}
 
-		for {
-			moveAllCompletedTorrentsToFiles()
+func downloadsFileMover() {
+	for {
+		moveAllCompletedTorrentsToFiles()
 
-			//TODO perhaps thats too much
-			time.Sleep(1 * time.Minute)
-		}
-
-	}()
+		//TODO perhaps thats too much
+		time.Sleep(1 * time.Minute)
+	}
 }
 
 func allTorrentsCompleted() bool {
