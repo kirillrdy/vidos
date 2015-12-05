@@ -19,6 +19,7 @@ Release is currently a work in progress
 - [ ] Extract flexbox layout into nadeshiko
 - [ ] Add page for error logger
 - [ ] Resurrect subtitles support
+- [ ] Docker dev environment
 
 
 * Installing using Docker
