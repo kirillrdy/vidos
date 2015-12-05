@@ -19,7 +19,6 @@ var Client *torrent.Client
 
 func init() {
 
-	//TODO torrent should download to own dir and move files once completed
 	config := torrent.Config{DataDir: torrentsDir}
 	var err error
 	Client, err = torrent.NewClient(&config)
