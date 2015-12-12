@@ -1,0 +1,14 @@
+package: github.com/kirillrdy/vidos
+import:
+- package: github.com/anacrolix/torrent
+- package: github.com/dustin/go-humanize
+- package: github.com/kirillrdy/nadeshiko
+  subpackages:
+  - /html
+- package: github.com/sparkymat/webdsl
+  subpackages:
+  - /css
+  - css/display
+  - css/flex
+  - css/overflow
+  - css/size
