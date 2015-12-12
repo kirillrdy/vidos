@@ -1,10 +1,24 @@
 #+STARTUP: showall
 #+TITLE: Vidos
 
-* Changelog
-** Release 1
-Release is currently a work in progress
+* Installing using Docker
+To quickly try vidos using docker:
+#+BEGIN_SRC sh
+docker run -d -p 3001:3001 kirillrdy/vidos
+firefox localhost:3001
+#+END_SRC
+
+* Getting started
+using glide
+#+BEGIN_SRC sh
+go get -u -v github.com/Masterminds/glide
+glide install
+go run main.go
+#+END_SRC
+
+
 * Current TODO
+- [X] glide
 - [ ] Resurrect playing of videos
 - [ ] Stop using postgres
 - [ ] Simplify adding movie workflow ( for torrent )
@@ -21,11 +35,6 @@ Release is currently a work in progress
 - [ ] Resurrect subtitles support
 - [ ] Docker dev environment
 
-
-* Installing using Docker
-To quickly try vidos using docker:
-#+BEGIN_SRC sh
-docker run -d -p 3001:3001 kirillrdy/vidos
-#+END_SRC
-~firefox localhost:3001~
-
+* Changelog
+** Release 1
+Release is currently a work in progress
