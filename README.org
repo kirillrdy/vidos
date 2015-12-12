@@ -8,8 +8,13 @@ docker run -d -p 3001:3001 kirillrdy/vidos
 firefox localhost:3001
 #+END_SRC
 
+* Building docker image
+#+BEGIN_SRC sh
+docker build -t vidos .
+#+END_SRC
+
 * Getting started
-using glide
+using glide:
 #+BEGIN_SRC sh
 go get -u -v github.com/Masterminds/glide
 glide install
