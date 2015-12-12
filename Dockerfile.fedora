@@ -1,0 +1,21 @@
+FROM fedora:23
+
+RUN rpm -i http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-23.noarch.rpm
+RUN rpm -i http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-23.noarch.rpm
+
+RUN dnf install -y git golang ffmpeg
+
+ENV GOPATH /go
+ENV GO15VENDOREXPERIMENT 1
+RUN go get -u -v github.com/Masterminds/glide
+
+WORKDIR /go/src/github.com/kirillrdy/vidos
+ADD glide.lock /go/src/github.com/kirillrdy/vidos/
+ADD glide.yaml /go/src/github.com/kirillrdy/vidos/
+RUN /go/bin/glide install
+ADD . /go/src/github.com/kirillrdy/vidos
+
+RUN go install
+
+CMD /go/bin/vidos
+EXPOSE 3001
