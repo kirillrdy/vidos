@@ -22,7 +22,17 @@ func main() {
 	log.Printf("Listening on port: '%v'", *port)
 	server := http.Server{Addr: fmt.Sprintf(":%v", *port), Handler: nil}
 	http2.ConfigureServer(&server, nil)
-	err := server.ListenAndServeTLS("localhost.cert", "localhost.key")
+
+	http2Mode := false
+
+	var err error
+	if http2Mode == true {
+		//TODO generate thouse for dev mode somehow
+		err = server.ListenAndServeTLS("localhost.cert", "localhost.key")
+	} else {
+		err = server.ListenAndServe()
+	}
+
 	if err != nil {
 		log.Fatal(err)
 	}
