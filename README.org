@@ -22,7 +22,7 @@ go run main.go
 #+END_SRC
 
 
-* Current TODO
+* Current TODO[2/17]
 - [X] glide
 - [X] http2
 - [ ] Resurrect playing of videos
