@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-var torrentsDir = util.VidosDataDirFor("torrents")
+var downloadsDir = util.VidosDataDirFor("downloads")
 
 //FilesDir is where files go once they are downloaded
 var FilesDir = util.VidosDataDirFor("files")
@@ -19,7 +19,7 @@ var Client *torrent.Client
 
 func init() {
 
-	config := torrent.Config{DataDir: torrentsDir}
+	config := torrent.Config{DataDir: downloadsDir}
 	var err error
 	Client, err = torrent.NewClient(&config)
 
@@ -63,10 +63,10 @@ func moveAllCompletedTorrentsToFiles() {
 			torrent.Drop()
 		}
 
-		items, err := ioutil.ReadDir(torrentsDir)
+		items, err := ioutil.ReadDir(downloadsDir)
 		util.LogError(err)
 		for _, item := range items {
-			origin := torrentsDir + "/" + item.Name()
+			origin := downloadsDir + "/" + item.Name()
 			dest := FilesDir + "/" + item.Name()
 			log.Printf("moving %#v to %#v", origin, dest)
 			err := os.Rename(origin, dest)
