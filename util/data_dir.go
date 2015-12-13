@@ -10,6 +10,7 @@ import (
 var VidosDataDir string
 
 //VidosDataDirFor returns a dir where each submodule can store its data
+//It also creates a directory if it didn't exist
 func VidosDataDirFor(suffix string) string {
 
 	dir := VidosDataDir + "/" + suffix
