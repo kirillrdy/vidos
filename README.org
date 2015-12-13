@@ -24,6 +24,7 @@ go run main.go
 
 * Current TODO
 - [X] glide
+- [X] http2
 - [ ] Resurrect playing of videos
 - [ ] Stop using postgres
 - [ ] Simplify adding movie workflow ( for torrent )
