@@ -7,6 +7,7 @@ import (
 )
 
 //VidosDataDir is where all vidos files will be stored
+//its being set by init() of this package
 var VidosDataDir string
 
 //VidosDataDirFor returns a dir where each submodule can store its data
