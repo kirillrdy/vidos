@@ -1,74 +1,54 @@
 hash: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-updated: 2015-12-12T12:48:44.24159195+09:00
+updated: 2015-12-13T11:10:49.73587372+09:00
 imports:
 - name: bazil.org/fuse
   version: a8bc3b86317dc95ed28fdefcebc1dbce8baa88e9
-  repo: https://bazil.org/fuse
 - name: github.com/anacrolix/envpprof
   version: 27041c5a2f396c55f0ae730be4266f1a163e46e3
-  repo: https://github.com/anacrolix/envpprof
 - name: github.com/anacrolix/exc
   version: 59c50e7493febab6ccc6ec05c6d561fe8de0d82e
-  repo: https://github.com/anacrolix/exc
 - name: github.com/anacrolix/jitter
   version: 92923cc3f46b286365effc2cbe72e5d736df820c
-  repo: https://github.com/anacrolix/jitter
 - name: github.com/anacrolix/missinggo
   version: 511dea2e19236648e2696870623f05eb46230209
-  repo: https://github.com/anacrolix/missinggo
 - name: github.com/anacrolix/sync
   version: 812602587b72df6a2a4f6e30536adc75394a374b
-  repo: https://github.com/anacrolix/sync
 - name: github.com/anacrolix/tagflag
   version: 504593a2158fe8d1267b46647eb1e870f7bbf7c4
-  repo: https://github.com/anacrolix/tagflag
 - name: github.com/anacrolix/torrent
   version: 8a6ae76686b28ad16e5c5ba483b81c4a76c79b99
 - name: github.com/anacrolix/utp
   version: 165b1751e0193a9d0354ce0d592de9b295a0263d
-  repo: https://github.com/anacrolix/utp
 - name: github.com/bradfitz/iter
   version: 454541ec3da2a73fc34fd049b19ee5777bf19345
-  repo: https://github.com/bradfitz/iter
 - name: github.com/cznic/b
   version: 01b13d79526a9ce9aa2c6e11d6bd4540205e4c03
-  repo: https://github.com/cznic/b
 - name: github.com/docopt/docopt-go
   version: 854c423c810880e30b9fecdabb12d54f4a92f9bb
-  repo: https://github.com/docopt/docopt-go
 - name: github.com/dustin/go-humanize
   version: 8929fe90cee4b2cb9deb468b51fb34eba64d1bf0
 - name: github.com/edsrzf/mmap-go
   version: 903d080718bd2877583fe1bd0a19c9cd3e2906ff
-  repo: https://github.com/edsrzf/mmap-go
 - name: github.com/gedex/inflector
   version: 8c0e57904488c554ab26caec525db5c92b23f051
-  repo: https://github.com/gedex/inflector
 - name: github.com/go-fsnotify/fsnotify
   version: 2cdd39bd6129c6a49c74fb07fb9d77ba1271c572
-  repo: https://github.com/go-fsnotify/fsnotify
 - name: github.com/gorilla/context
   version: 1c83b3eabd45b6d76072b66b746c20815fb2872d
-  repo: https://github.com/gorilla/context
 - name: github.com/gosuri/uilive
   version: 25d1fbe4e2dfcacaa9ed5dc23f18a11de5a2cc87
-  repo: https://github.com/gosuri/uilive
 - name: github.com/gosuri/uiprogress
   version: af2d2fa391b10cb26d4dd107206072d4b5afcbb5
-  repo: https://github.com/gosuri/uiprogress
 - name: github.com/huandu/xstrings
   version: 3959339b333561bf62a38b424fd41517c2c90f40
-  repo: https://github.com/huandu/xstrings
 - name: github.com/jessevdk/go-flags
   version: aa34304f81c710f34c76e964a3d996ec1330711d
-  repo: https://github.com/jessevdk/go-flags
 - name: github.com/kirillrdy/nadeshiko
   version: 780e8d1f7d4583b37ba6222f97383c6a68321225
   subpackages:
   - /html
 - name: github.com/ryszard/goskiplist
   version: 2dfbae5fcf46374f166f8969cb07e167f1be6273
-  repo: https://github.com/ryszard/goskiplist
 - name: github.com/sparkymat/webdsl
   version: a229f96e29e366eb820e9b494ed9643a28ece7b6
   subpackages:
@@ -79,25 +59,20 @@ imports:
   - css/size
 - name: github.com/tylertreat/BoomFilters
   version: e1259fd17ae4453c811d57eb97119b90d46e1db4
-  repo: https://github.com/tylertreat/BoomFilters
 - name: github.com/willf/bitset
   version: 40860d631a7cda5964b942da95bf80dd788e770f
-  repo: https://github.com/willf/bitset
 - name: github.com/willf/bloom
   version: 73320a6e73f3e139842058d7e4886e09ca83ac9b
-  repo: https://github.com/willf/bloom
 - name: golang.org/x/crypto
   version: 7b85b097bf7527677d54d3220065e966a0e3b613
-  repo: https://golang.org/x/crypto
 - name: golang.org/x/net
   version: d75b1902409c457a51e4bd1895031872c370983a
-  repo: https://golang.org/x/net
+  subpackages:
+  - /http2
 - name: golang.org/x/sys
   version: 833a04a10549a95dc34458c195cbad61bbb6cb4d
-  repo: https://golang.org/x/sys
 - name: golang.org/x/text
   version: 435f36e02731c9ed3d5e8b610d23eebc03663614
-  repo: https://golang.org/x/text
 - name: launchpad.net/gommap
   version: ""
   repo: https://launchpad.net/gommap

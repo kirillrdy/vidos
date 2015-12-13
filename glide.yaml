@@ -12,3 +12,6 @@ import:
   - css/flex
   - css/overflow
   - css/size
+- package: golang.org/x/net
+  subpackages:
+  - /http2

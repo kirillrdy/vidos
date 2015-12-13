@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
-	"net/http"
-
 	"github.com/kirillrdy/vidos/ffmpeg"
 	"github.com/kirillrdy/vidos/routes"
+	"golang.org/x/net/http2"
+	"log"
+	"net/http"
 )
 
 func main() {
@@ -20,7 +20,9 @@ func main() {
 
 	port := flag.Int("port", 3001, "Port to listen on")
 	log.Printf("Listening on port: '%v'", *port)
-	err := http.ListenAndServe(fmt.Sprintf(":%v", *port), nil)
+	server := http.Server{Addr: fmt.Sprintf(":%v", *port), Handler: nil}
+	http2.ConfigureServer(&server, nil)
+	err := server.ListenAndServeTLS("localhost.cert", "localhost.key")
 	if err != nil {
 		log.Fatal(err)
 	}
