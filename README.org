@@ -21,10 +21,10 @@ glide install
 go run main.go
 #+END_SRC
 
-
 * Current TODO[2/17]
 - [X] glide
 - [X] http2
+- [ ] Resurrect processing of files
 - [ ] Resurrect playing of videos
 - [ ] Stop using postgres
 - [ ] Simplify adding movie workflow ( for torrent )
