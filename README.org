@@ -47,10 +47,10 @@ Release is currently a work in progress
 * File flow
 This describes how files can get into vidos and where they go.
 
-|                               | Location           |
-|-------------------------------+--------------------|
-| Files get downloaded to       | ~/.vidos/downloads |
-| Finished files moved to       | ~/.vidos/files     |
-| Encoding in progress output   | ~/.vidos/encoding  |
-| Finished videos for streaming | ~/.vidos/videos    |
-|-------------------------------+--------------------|
+|                               | Location           | DONE ? |                 |
+|-------------------------------+--------------------+--------+-----------------|
+| Files get downloaded to       | ~/.vidos/downloads | YES    |                 |
+| Finished files moved to       | ~/.vidos/files     | *YES   | Needs more work |
+| Encoding in progress output   | ~/.vidos/encoding  |        |                 |
+| Finished videos for streaming | ~/.vidos/videos    |        |                 |
+|-------------------------------+--------------------+--------+-----------------|
