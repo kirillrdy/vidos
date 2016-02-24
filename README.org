@@ -54,3 +54,14 @@ This describes how files can get into vidos and where they go.
 | Encoding in progress output   | ~/.vidos/encoding  |        |                 |
 | Finished videos for streaming | ~/.vidos/videos    |        |                 |
 |-------------------------------+--------------------+--------+-----------------|
+
+#+begin_src ditaa :file _docs/file_flow.png
++--------------+    +--------------+    +--------------+    +--------------+
+|  downloads   |--->|  files       |--->|  encooding   |--->| videos       |
++--------------+    +--------------+    +--------------+    +--------------+
+
+#+end_src
+
+#+RESULTS:
+[[file:_docs/file_flow.png]]
+
