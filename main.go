@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/kirillrdy/vidos/ffmpeg"
 	"github.com/kirillrdy/vidos/routes"
-	"golang.org/x/net/http2"
 	"log"
 	"net/http"
 )
@@ -20,17 +19,17 @@ func main() {
 
 	port := flag.Int("port", 3001, "Port to listen on")
 	log.Printf("Listening on port: '%v'", *port)
-	server := http.Server{Addr: fmt.Sprintf(":%v", *port), Handler: nil}
-	http2.ConfigureServer(&server, nil)
 
-	http2Mode := false
+	address := fmt.Sprintf(":%v", *port)
+
+	http2Mode := true
 
 	var err error
 	if http2Mode == true {
 		//TODO generate thouse for dev mode somehow
-		err = server.ListenAndServeTLS("localhost.cert", "localhost.key")
+		err = http.ListenAndServeTLS(address, "localhost.cert", "localhost.key", nil)
 	} else {
-		err = server.ListenAndServe()
+		err = http.ListenAndServe(address, nil)
 	}
 
 	if err != nil {
