@@ -42,7 +42,7 @@ func AddHandlers() {
 	addHandler(path.AddMagnetLink, handler.AddMagnetLink)
 
 	addHandler(path.Root, handler.RootHandle)
-	http.Handle(path.Public, http.StripPrefix(path.Public, http.FileServer(http.Dir("public"))))
+	http.Handle(path.Public, http.StripPrefix(path.Public, http.FileServer(http.Dir("_public"))))
 
 }
 
