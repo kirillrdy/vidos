@@ -9,17 +9,16 @@ import (
 	"net/http"
 )
 
-const MagnetLink = "magnet_link"
+const magnetLinkParamName = "magnet_link"
 
 func AddMagnetLink(response http.ResponseWriter, request *http.Request) {
 	if request.Method == "GET" {
 		magnetLinkForm(response, request)
 	} else {
 		request.ParseForm()
-		log.Print(request.Form.Get(MagnetLink))
+		log.Print(request.Form.Get(magnetLinkParamName))
 
-		torrentFile, err := downloader.Client.AddMagnet(request.Form.Get(MagnetLink))
-		//torrentFile, err := downloader.Client.AddMagnet("magnet:?xt=urn:btih:ZOCMZQIPFFW7OLLMIC5HUB6BPCSDEOQU")
+		torrentFile, err := downloader.Client.AddMagnet(request.Form.Get(magnetLinkParamName))
 
 		//Return errors to http client
 		if err != nil {
@@ -35,7 +34,7 @@ func AddMagnetLink(response http.ResponseWriter, request *http.Request) {
 
 func magnetLinkForm(response http.ResponseWriter, request *http.Request) {
 	form := html.Form().Action(path.AddMagnetLink).Method("POST").Children(
-		html.Input().Name(MagnetLink),
+		html.Input().Name(magnetLinkParamName),
 		html.Input().Type("submit").Value("Add"),
 	)
 	page := view.Layout("Add Magnet Link", form)
