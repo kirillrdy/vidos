@@ -4,14 +4,14 @@ import:
 - package: github.com/dustin/go-humanize
 - package: github.com/kirillrdy/nadeshiko
   subpackages:
-  - /html
+  - html
 - package: github.com/sparkymat/webdsl
   subpackages:
-  - /css
+  - css
   - css/display
   - css/flex
   - css/overflow
   - css/size
 - package: golang.org/x/net
   subpackages:
-  - /http2
+  - http2
