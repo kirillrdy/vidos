@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/kirillrdy/vidos/encoder"
 	"github.com/kirillrdy/vidos/ffmpeg"
 	"github.com/kirillrdy/vidos/routes"
 	"log"
@@ -12,6 +13,9 @@ import (
 func main() {
 
 	ffmpeg.CheckVersion()
+
+	encoder.Start()
+
 	//TODO sort out how this is currently non blocking using buffered chan
 	//db.QueueAllUnEncodedVideos()
 

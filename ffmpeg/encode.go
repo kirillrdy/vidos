@@ -48,7 +48,7 @@ func Encode(inputFilename, outFilename string, progressUpdate func(string)) {
 	// Print stderr before it gets consumed by bufio.Scanner
 	if err := cmd.Wait(); err != nil {
 		log.Println("ffmpeg/Encode()/cmd.Wait")
-		log.Printf("try rerunnign: %v %v\n", ffmpegBinName, strings.Join(args, " "))
+		log.Printf("try rerunnign: %#v %#v\n", ffmpegBinName, strings.Join(args, " "))
 		log.Fatal(err)
 	}
 }
