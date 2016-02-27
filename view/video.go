@@ -19,6 +19,7 @@ func VideoCSS() css.CssContainer {
 	return css.Stylesheet(
 		videoThumb.Style(
 			css.Width(size.Px(ffmpeg.ThumbnailWidth/2)),
+			css.Height(size.Px(ffmpeg.ThumbnailHeight/2)),
 			//css.Width(size.Percent(30)),
 			css.MarginBottom(size.Px(10)),
 		),
