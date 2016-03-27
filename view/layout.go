@@ -10,12 +10,14 @@ import (
 	"github.com/kirillrdy/vidos/layout"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/sparkymat/webdsl/css"
+	"github.com/sparkymat/webdsl/css/color"
 	"github.com/sparkymat/webdsl/css/overflow"
 	"github.com/sparkymat/webdsl/css/size"
 )
 
 const appName = "Видос"
-const padding = 10
+
+var padding = size.Px(10)
 
 const siteTitle css.Class = "site-title"
 const linksMenu css.Class = "links-menu"
@@ -24,18 +26,25 @@ const headerBar css.Class = "header-bar"
 const mainSection css.Class = "main-section"
 const statusLine css.Class = "status-line"
 const menuItem css.Class = "menu-item"
+const selectedMenuItem css.Class = "selected-menu-item"
 
 func pageStyle() css.CssContainer {
 	return css.Stylesheet(
-		css.Body.Style(css.FontFamily("'Helvetica Neue',Helvetica,Arial,sans-serif;")),
+		css.Body.Style(
+			css.FontFamily("'Helvetica Neue',Helvetica,Arial,sans-serif;"),
+			css.Color(color.ColorRGB{Red: 33, Green: 33, Blue: 33}),
+			css.BackgroundColor(color.ColorRGB{Red: 242, Green: 242, Blue: 242}),
+		),
 		css.Element("table").Style(css.Width(size.Percent(100))),
 		statusLine.Style(
 			css.Height(size.Px(30)),
 			css.FlexShrink(0),
-			css.PaddingRight(size.Px(padding)),
+			css.PaddingRight(padding),
 		),
 		siteTitle.Style(
-			css.FontSize(size.Px(50)),
+			css.FontSize(size.Px(25)),
+			css.Color(color.White),
+			css.PaddingLeft(padding),
 		),
 		centerItems.Style(
 			css.AlignItems(css.Center),
@@ -45,16 +54,23 @@ func pageStyle() css.CssContainer {
 			css.FlexShrink(0),
 		),
 		headerBar.Style(
-			css.Height(size.Px(100)),
+			css.Height(size.Px(56)),
+			css.BackgroundColor(color.ColorRGB{Red: 66, Green: 133, Blue: 244}),
 			css.FlexShrink(0),
+			css.BoxShadow(size.Px(0), size.Px(4), size.Px(4), color.Gray),
 		),
 		mainSection.Style(
 			css.Overflow(overflow.Auto),
-			css.Padding(size.Px(10)),
+			css.Padding(padding),
 		),
 		menuItem.Style(
-			css.MarginTop(size.Px(padding)),
-			css.MarginBottom(size.Px(padding)),
+			css.Height(size.Px(45)),
+			css.MarginTop(padding),
+			css.MarginBottom(padding),
+		),
+		selectedMenuItem.Style(
+			css.BackgroundColor(color.ColorRGBA{Red: 0, Green: 0, Blue: 0, Alpha: 0.05}),
+			css.FontWeightBold(),
 		),
 	)
 }
@@ -95,14 +111,13 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 		),
 		html.Body().Class(layout.VBox).Children(
 			html.Div().Class(layout.HBox, headerBar, centerItems).Children(
-				html.Span().Class(layout.Grow),
 				html.H1().Class(siteTitle).Text(appName),
 				html.Span().Class(layout.Grow),
 			),
 			html.Div().Class(layout.HBox, layout.Grow).Children(
 				html.Div().Class(linksMenu, layout.VBox, centerItems).Children(
 					html.Div().Class(layout.VBox).Children(
-						html.A().Class(menuItem).Href(path.Videos.List).Text("Videos"),
+						html.A().Class(menuItem, selectedMenuItem).Href(path.Videos.List).Text("Videos"),
 						html.A().Class(menuItem).Href(path.Videos.New).Text("Upload new video"),
 						html.A().Class(menuItem).Href(path.Videos.Unencoded).Text("Processing"),
 						html.A().Class(menuItem).Href(path.Files.List).Text("Files"),
