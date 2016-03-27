@@ -11,12 +11,8 @@ import (
 //TODO serve real filename
 //Stream actually streams video content, respecting Range header
 func Stream(response http.ResponseWriter, request *http.Request) {
-
-	log.Print(request.Header.Get("Range"))
-
+	log.Printf("Streaming byte range: %v", request.Header.Get("Range"))
 	video := videoFromRequest(request)
-
-	//response.Header().Set("Content-Type", db.VideoMimeType)
 	http.ServeFile(response, request, fs.VideosDataDir+"/"+video.Filepath)
 }
 
