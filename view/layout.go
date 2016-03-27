@@ -27,6 +27,7 @@ const menuItem css.Class = "menu-item"
 
 func pageStyle() css.CssContainer {
 	return css.Stylesheet(
+		css.Body.Style(css.FontFamily("'Helvetica Neue',Helvetica,Arial,sans-serif;")),
 		css.Element("table").Style(css.Width(size.Percent(100))),
 		statusLine.Style(
 			css.Height(size.Px(30)),
@@ -87,7 +88,7 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 		html.Head().Children(
 			html.Title().Text(title),
 			html.Link().Href(path.CSSReset).Rel("stylesheet"),
-			html.Style().Text(
+			html.Style().TextUnsafe(
 				pageStyle().String(),
 			),
 			layout.Styles(),
