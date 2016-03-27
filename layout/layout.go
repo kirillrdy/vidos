@@ -8,11 +8,13 @@ import (
 	"github.com/sparkymat/webdsl/css/size"
 )
 
-const VBox css.Class = "vbox"
-const HBox css.Class = "hbox"
-const Wrap css.Class = "wrap"
-const Grow css.Class = "grow"
-const NoGrow css.Class = "no-grow"
+const (
+	VBox   css.Class = "vbox"
+	HBox   css.Class = "hbox"
+	Wrap   css.Class = "wrap"
+	Grow   css.Class = "grow"
+	NoGrow css.Class = "no-grow"
+)
 
 func Styles() html.Node {
 	style := css.Stylesheet(
