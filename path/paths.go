@@ -82,7 +82,7 @@ func ViewFilesPath(dirName string) string {
 
 //StreamVideoPath is path where actual video being streamed from
 func StreamVideoPath(video fs.Video) string {
-	return fmt.Sprintf("%v?%v=%v", Videos.Stream, ParamKeys.ID, video.Filepath)
+	return fmt.Sprintf("%v?%v=%v", Videos.Stream, ParamKeys.Filepath, video.Filepath)
 }
 
 // func DownloadVideoPath(video db.Video) string {
@@ -99,7 +99,7 @@ func StreamVideoPath(video fs.Video) string {
 
 //ViewFilesPath is path where video player is rendered
 func ViewVideoPath(video fs.Video) string {
-	return fmt.Sprintf("%v?%v=%v", Videos.Show, ParamKeys.ID, video.Filepath)
+	return fmt.Sprintf("%v?%v=%v", Videos.Show, ParamKeys.Filepath, video.Filepath)
 }
 
 // func UploadSubtitlePath(video db.Video) string {
