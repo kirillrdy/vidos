@@ -24,7 +24,7 @@ func Videos(videos []fs.Video) html.Node {
 	}
 
 	if len(videos) == 0 {
-		divs = append(divs, html.Span().Text("No videos"))
+		divs = append(divs, CenterByBoxes(html.H2().Text("No videos")))
 	}
 
 	page := html.Div().Class(layout.HBox, layout.Grow, layout.Wrap).Children(
@@ -32,4 +32,16 @@ func Videos(videos []fs.Video) html.Node {
 	)
 
 	return Layout("Videos", page)
+}
+
+func CenterByBoxes(content html.Node) html.Node {
+	return html.Div().Class(layout.VBox, layout.Grow).Children(
+		html.Span().Class(layout.Grow),
+		html.Div().Class(layout.HBox, layout.Grow, centerItems).Children(
+			html.Span().Class(layout.Grow),
+			content,
+			html.Span().Class(layout.Grow),
+		),
+		html.Span().Class(layout.Grow),
+	)
 }

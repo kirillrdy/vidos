@@ -3,6 +3,7 @@ package handler
 import (
 	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/downloader"
+	"github.com/kirillrdy/vidos/layout"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/view"
 	"log"
@@ -33,10 +34,10 @@ func AddMagnetLink(response http.ResponseWriter, request *http.Request) {
 }
 
 func magnetLinkForm(response http.ResponseWriter, request *http.Request) {
-	form := html.Form().Action(path.AddMagnetLink).Method("POST").Children(
+	form := html.Form().Class(layout.VBox).Action(path.AddMagnetLink).Method("POST").Children(
 		html.Input().Name(magnetLinkParamName),
 		html.Input().Type("submit").Value("Add"),
 	)
-	page := view.Layout("Add Magnet Link", form)
+	page := view.Layout("Add Magnet Link", view.CenterByBoxes(form))
 	page.WriteTo(response)
 }
