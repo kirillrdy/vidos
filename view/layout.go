@@ -13,6 +13,7 @@ import (
 	"github.com/sparkymat/webdsl/css/color"
 	"github.com/sparkymat/webdsl/css/overflow"
 	"github.com/sparkymat/webdsl/css/size"
+	"github.com/sparkymat/webdsl/css/textdecoration"
 )
 
 const appName = "Видос"
@@ -64,9 +65,12 @@ func pageStyle() css.CssContainer {
 			css.Padding(padding),
 		),
 		menuItem.Style(
-			css.Height(size.Px(45)),
-			css.MarginTop(padding),
-			css.MarginBottom(padding),
+			css.Padding(size.Px(15)),
+			css.TextDecoration(textdecoration.None),
+		),
+		css.SelectorWithPseudoClass{Element: menuItem, PseudoClass: css.Hover}.Style(
+			css.BackgroundColor(color.ColorRGBA{Red: 0, Green: 0, Blue: 0, Alpha: 0.05}),
+			css.FontWeightBold(),
 		),
 		selectedMenuItem.Style(
 			css.BackgroundColor(color.ColorRGBA{Red: 0, Green: 0, Blue: 0, Alpha: 0.05}),
@@ -115,15 +119,13 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 				html.Span().Class(layout.Grow),
 			),
 			html.Div().Class(layout.HBox, layout.Grow).Children(
-				html.Div().Class(linksMenu, layout.VBox, centerItems).Children(
-					html.Div().Class(layout.VBox).Children(
-						html.A().Class(menuItem, selectedMenuItem).Href(path.Videos.List).Text("Videos"),
-						html.A().Class(menuItem).Href(path.Videos.New).Text("Upload new video"),
-						html.A().Class(menuItem).Href(path.Videos.Unencoded).Text("Processing"),
-						html.A().Class(menuItem).Href(path.Files.List).Text("Files"),
-						html.A().Class(menuItem).Href(path.Torrents).Text("Torrents"),
-						html.A().Class(menuItem).Href(path.AddMagnetLink).Text("Add Magnet link"),
-					),
+				html.Div().Class(linksMenu, layout.VBox).Children(
+					html.A().Class(menuItem, selectedMenuItem).Href(path.Videos.List).Text("Videos"),
+					html.A().Class(menuItem).Href(path.Videos.New).Text("Upload new video"),
+					html.A().Class(menuItem).Href(path.Videos.Unencoded).Text("Processing"),
+					html.A().Class(menuItem).Href(path.Files.List).Text("Files"),
+					html.A().Class(menuItem).Href(path.Torrents).Text("Torrents"),
+					html.A().Class(menuItem).Href(path.AddMagnetLink).Text("Add Magnet link"),
 				),
 				html.Div().Class(layout.Grow, mainSection, layout.VBox).Children(
 					bodyContent...,
