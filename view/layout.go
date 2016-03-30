@@ -68,6 +68,7 @@ func pageStyle() css.CssContainer {
 		menuItem.Style(
 			css.Padding(size.Px(15)),
 			css.TextDecoration(textdecoration.None),
+			css.Color(color.ColorRGB{Red: 97, Green: 97, Blue: 97}),
 		),
 		css.SelectorWithPseudoClass{Element: menuItem, PseudoClass: css.Hover}.Style(
 			css.BackgroundColor(color.ColorRGBA{Red: 0, Green: 0, Blue: 0, Alpha: 0.05}),
@@ -75,6 +76,7 @@ func pageStyle() css.CssContainer {
 		selectedMenuItem.Style(
 			css.BackgroundColor(color.ColorRGBA{Red: 0, Green: 0, Blue: 0, Alpha: 0.05}),
 			css.FontWeightBold(),
+			css.Color(color.ColorRGB{Red: 33, Green: 33, Blue: 33}),
 		),
 	)
 }
