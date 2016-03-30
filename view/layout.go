@@ -9,6 +9,7 @@ import (
 	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/layout"
 	"github.com/kirillrdy/vidos/path"
+	"github.com/kirillrdy/vidos/util"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/color"
 	"github.com/sparkymat/webdsl/css/overflow"
@@ -84,8 +85,7 @@ func statusLineText() string {
 	runtime.ReadMemStats(&memStat)
 
 	var fsStat syscall.Statfs_t
-	//TODO dont use '/', but use datadir
-	err := syscall.Statfs("/", &fsStat)
+	err := syscall.Statfs(util.VidosDataDir, &fsStat)
 	if err != nil {
 		log.Print(err)
 	}
