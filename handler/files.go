@@ -2,7 +2,6 @@ package handler
 
 import (
 	"io/ioutil"
-	"log"
 	"net/http"
 
 	"github.com/kirillrdy/nadeshiko/html"
@@ -17,7 +16,6 @@ func Files(response http.ResponseWriter, request *http.Request) {
 	basePath := request.FormValue("path")
 
 	pathToRead := downloader.FilesDir + basePath
-	log.Printf("%#v", pathToRead)
 
 	files, err := ioutil.ReadDir(pathToRead)
 	if err != nil {
