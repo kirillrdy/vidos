@@ -1,11 +1,11 @@
 package handler
 
 import (
-	"log"
-	"net/http"
-
 	"github.com/kirillrdy/vidos/fs"
 	"github.com/kirillrdy/vidos/path"
+	"log"
+	"net/http"
+	"os"
 )
 
 //TODO serve real filename
@@ -13,7 +13,7 @@ import (
 func Stream(response http.ResponseWriter, request *http.Request) {
 	log.Printf("Streaming byte range: %v", request.Header.Get("Range"))
 	video := videoFromRequest(request)
-	http.ServeFile(response, request, fs.VideosDataDir+"/"+video.Filepath)
+	http.ServeFile(response, request, fs.VideosDataDir+string(os.PathSeparator)+video.Filepath)
 }
 
 func videoFromRequest(request *http.Request) fs.Video {

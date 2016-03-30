@@ -66,8 +66,8 @@ func moveAllCompletedTorrentsToFiles() {
 		items, err := ioutil.ReadDir(downloadsDir)
 		util.LogError(err)
 		for _, item := range items {
-			origin := downloadsDir + "/" + item.Name()
-			dest := FilesDir + "/" + item.Name()
+			origin := downloadsDir + string(os.PathSeparator) + item.Name()
+			dest := FilesDir + string(os.PathSeparator) + item.Name()
 			log.Printf("moving %#v to %#v", origin, dest)
 			err := os.Rename(origin, dest)
 			util.LogError(err)

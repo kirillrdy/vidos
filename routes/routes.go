@@ -16,8 +16,8 @@ func addHandler(path string, handler http.HandlerFunc) {
 func AddHandlers() {
 
 	//Files related routes
-	// addHandler(path.UploadFile, handler.UploadFile)
-	// addHandler(path.Files.List, handler.Files)
+	addHandler(path.UploadFile, handler.UploadFile)
+	addHandler(path.Files.List, handler.Files)
 	// addHandler(path.DeleteFileOrDirectory, handler.DeleteFileOrDirectory)
 	// addHandler(path.AddFileForEncoding, handler.AddFileForEncoding)
 

@@ -14,7 +14,7 @@ var VidosDataDir string
 //It also creates a directory if it didn't exist
 func VidosDataDirFor(suffix string) string {
 
-	dir := VidosDataDir + "/" + suffix
+	dir := VidosDataDir + string(os.PathSeparator) + suffix
 
 	err := os.MkdirAll(dir, os.ModePerm)
 	if err != nil {

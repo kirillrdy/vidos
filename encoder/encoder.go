@@ -20,17 +20,17 @@ func encodeAllfiles() {
 
 	for _, item := range items {
 		if fs.CanBeEncoded(item) {
-			filePath := downloader.FilesDir + "/" + item.Name()
+			filePath := downloader.FilesDir + string(os.PathSeparator) + item.Name()
 			encodedName := fs.ChangeExt(item.Name(), fs.Mp4)
 
-			ffmpeg.Encode(filePath, encodingDir+"/"+encodedName, func(progress string) {
+			ffmpeg.Encode(filePath, encodingDir+string(os.PathSeparator)+encodedName, func(progress string) {
 				log.Println(progress)
 			})
 
-			err := os.Remove(downloader.FilesDir + "/" + item.Name())
+			err := os.Remove(downloader.FilesDir + string(os.PathSeparator) + item.Name())
 			util.LogError(err)
 
-			os.Rename(encodingDir+"/"+encodedName, fs.VideosDataDir+"/"+encodedName)
+			os.Rename(encodingDir+string(os.PathSeparator)+encodedName, fs.VideosDataDir+string(os.PathSeparator)+encodedName)
 		}
 	}
 
