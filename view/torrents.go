@@ -11,7 +11,7 @@ import (
 func TorrentsTable(torrents []torrent.Torrent) html.Node {
 
 	if len(torrents) == 0 {
-		return html.H4().Text("No torrents have been added")
+		return CenterByBoxes(html.H4().Text("No torrents have been added"))
 	}
 
 	page := html.Div().Children(
