@@ -8,10 +8,9 @@ import:
 - package: github.com/sparkymat/webdsl
   subpackages:
   - css
+  - css/color
   - css/display
   - css/flex
   - css/overflow
   - css/size
-- package: golang.org/x/net
-  subpackages:
-  - http2
+  - css/textdecoration
