@@ -8,7 +8,7 @@ import (
 )
 
 //TorrentsTable should be selfexplanitory
-func TorrentsTable(torrents []torrent.Torrent) html.Node {
+func TorrentsTable(torrents []*torrent.Torrent) html.Node {
 
 	if len(torrents) == 0 {
 		return CenterByBoxes(html.H4().Text("No torrents have been added"))
@@ -35,7 +35,7 @@ func TorrentsTable(torrents []torrent.Torrent) html.Node {
 	return page
 }
 
-func torrentTrs(torrents []torrent.Torrent) []html.Node {
+func torrentTrs(torrents []*torrent.Torrent) []html.Node {
 	var nodes []html.Node
 	for index := range torrents {
 		nodes = append(nodes, torrentTr(torrents[index]))
@@ -43,7 +43,7 @@ func torrentTrs(torrents []torrent.Torrent) []html.Node {
 	return nodes
 }
 
-func torrentTr(torrent torrent.Torrent) html.Node {
+func torrentTr(torrent *torrent.Torrent) html.Node {
 	percent := 100 * torrent.BytesCompleted() / torrent.Length()
 	return html.Tr().Children(
 		html.Td().Text(torrent.Name()),
