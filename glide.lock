@@ -1,16 +1,16 @@
 hash: 8b49018e1e16aac9b4f4c7573f6ef94a3541cc6b5340319c4d7377d5a49da2f6
-updated: 2016-04-09T21:27:08.489624698+10:00
+updated: 2017-01-01T11:53:27.361473089+11:00
 imports:
 - name: github.com/anacrolix/missinggo
   version: c9877b1e02d33cd90f19024b7ec5f401e88b68e6
   subpackages:
   - bitmap
   - itertools
+  - orderedmap
   - perf
   - pproffd
   - prioritybitmap
   - pubsub
-  - orderedmap
 - name: github.com/anacrolix/sync
   version: 812602587b72df6a2a4f6e30536adc75394a374b
 - name: github.com/anacrolix/torrent
@@ -19,14 +19,14 @@ imports:
   - bencode
   - dht
   - iplist
+  - logonce
   - metainfo
+  - mmap_span
   - mse
   - peer_protocol
   - storage
   - tracker
   - util
-  - logonce
-  - mmap_span
 - name: github.com/anacrolix/utp
   version: 91202c143a16f7d6828976ae73d86af81fa42169
 - name: github.com/bradfitz/iter
@@ -51,20 +51,20 @@ imports:
   version: 9e8408b4c2ae8ecefa689f4bbcf05b90d9a490c4
   subpackages:
   - css
-  - css/color
-  - css/display
-  - css/flex
-  - css/overflow
-  - css/size
-  - css/textdecoration
   - css/appearance
   - css/background
   - css/box
   - css/clear
+  - css/color
+  - css/display
+  - css/flex
   - css/float
   - css/list
   - css/outline
+  - css/overflow
   - css/position
+  - css/size
+  - css/textdecoration
   - css/textrendering
 - name: github.com/tylertreat/BoomFilters
   version: ae0b9585d4b87b2fe0b49ee09270abae7aaad179
@@ -72,4 +72,4 @@ imports:
   version: 2e6e8094ef4745224150c88c16191c7dceaad16f
 - name: github.com/willf/bloom
   version: aa3071d9203598166c09553d43e74b588c3d91be
-devImports: []
+testImports: []
