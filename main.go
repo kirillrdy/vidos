@@ -26,7 +26,7 @@ func main() {
 
 	address := fmt.Sprintf(":%v", *port)
 
-	http2Mode := true
+	http2Mode := false
 
 	var err error
 	if http2Mode == true {
