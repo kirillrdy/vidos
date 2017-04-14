@@ -29,8 +29,6 @@ package handler
 
 // func processVideoFromFile(file io.ReadCloser, filename string) error {
 
-// 	video := db.Video{Filename: filename}
-// 	db.Postgres.Save(&video)
 // 	video.Save(file)
 
 // 	//TODO Stop doing this as part of request
@@ -42,12 +40,6 @@ package handler
 // 	if err != nil {
 // 		return err
 // 	}
-
-// 	//This can block so do in goroutine
-// 	//TODO potentially dangerous
-// 	go func() {
-// 		db.EncodeVideo <- video.Id
-// 	}()
 
 // 	return nil
 // }
