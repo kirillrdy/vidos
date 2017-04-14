@@ -7,29 +7,32 @@ import (
 	"strings"
 )
 
-//TODO looks like this wasnt a very useful helper
-func p(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
-//TODO needs to handle errors
-func Convert(srtFilename string, webvttFilename string) {
+// Convert converts srt subtitle to webvtt format
+func Convert(srtFilename string, webvttFilename string) error {
 	//TODO don't read all of the file into memory
 	srtData, err := ioutil.ReadFile(srtFilename)
 
-	//TODO handle errors
-	p(err)
+	if err != nil {
+		return err
+	}
 
 	//TODO WRONG WRONG WRONG, need to just replace , to . in the timestamp
+	// this also replaces , and . in the text of subtitles
 	replaced := strings.Replace(string(srtData), ",", ".", -1)
 	replaced = "WEBVTT FILE\n\n" + replaced
 
 	webvttFile, err := os.Create(webvttFilename)
-	//TOOD handle errors
-	p(err)
-	defer webvttFile.Close()
+	if err != nil {
+		return err
+	}
 
-	io.WriteString(webvttFile, replaced)
+	_, err = io.WriteString(webvttFile, replaced)
+	if err != nil {
+		return err
+	}
+	err = webvttFile.Close()
+	if err != nil {
+		return err
+	}
+	return nil
 }
