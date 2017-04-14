@@ -13,6 +13,7 @@ import (
 
 var encodingDir = util.VidosDataDirFor("encoding")
 
+//TODO use something like inotify
 func encodeAllfiles() {
 
 	items, err := ioutil.ReadDir(downloader.FilesDir)
@@ -30,6 +31,7 @@ func encodeAllfiles() {
 			err := os.Remove(downloader.FilesDir + string(os.PathSeparator) + item.Name())
 			util.LogError(err)
 
+			//TODO handle errors
 			os.Rename(encodingDir+string(os.PathSeparator)+encodedName, fs.VideosDataDir+string(os.PathSeparator)+encodedName)
 		}
 	}
