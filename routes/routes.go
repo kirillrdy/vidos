@@ -27,7 +27,6 @@ func AddHandlers() {
 	addHandler(path.Videos.Show, handler.Videos.Show)
 	addHandler(path.Videos.Stream, handler.Stream)
 	addHandler(path.Videos.Delete, handler.DeleteVideo)
-	addHandler(path.Videos.New, handler.NewVideo)
 	//addHandler(path.Videos.Thumbnail, handler.Thumbnail)
 
 	//Subtitles
@@ -36,7 +35,6 @@ func AddHandlers() {
 	// addHandler(path.UploadSubtitle, handler.SubtitlesUpload)
 
 	// addHandler(path.Videos.Unencoded, handler.UnencodedVideos)
-	//addHandler(path.Videos.Create, handler.VideosUpload)
 
 	addHandler(path.Torrents, handler.Torrents)
 	addHandler(path.TorrentStatus, handler.TorrentStatus)

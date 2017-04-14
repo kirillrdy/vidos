@@ -122,7 +122,6 @@ func Layout(title string, bodyContent ...html.Node) html.Node {
 			html.Div().Class(layout.HBox, layout.Grow).Children(
 				html.Div().Class(linksMenu, layout.VBox).Children(
 					html.A().Class(menuItem, selectedMenuItem).Href(path.Videos.List).Text("Videos"),
-					html.A().Class(menuItem).Href(path.Videos.New).Text("Upload new video"),
 					html.A().Class(menuItem).Href(path.Videos.Unencoded).Text("Processing"),
 					html.A().Class(menuItem).Href(path.Files.List).Text("Files"),
 					html.A().Class(menuItem).Href(path.Torrents).Text("Torrents"),

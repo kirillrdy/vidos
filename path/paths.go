@@ -17,8 +17,6 @@ const CSSReset = Public + "reset.css"
 var Videos = struct {
 	List      string
 	Unencoded string
-	New       string
-	Create    string
 	Show      string
 	Stream    string
 	Download  string
@@ -27,8 +25,6 @@ var Videos = struct {
 }{
 	"/videos/list",
 	"/videos/unencoded",
-	"/videos/new",
-	"/videos/create",
 	"/videos/show",
 	"/videos/stream",
 	"/videos/download",
