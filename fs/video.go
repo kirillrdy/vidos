@@ -2,6 +2,7 @@ package fs
 
 import (
 	"github.com/kirillrdy/vidos/util"
+	"io"
 	"io/ioutil"
 	"mime"
 	"os"
@@ -47,4 +48,29 @@ func Videos() ([]Video, error) {
 		}
 	}
 	return videos, nil
+}
+
+// Save reads content from the reader and writes it to filepath of video
+func (video Video) Save(reader io.ReadCloser) error {
+
+	destinationFile, err := os.Create(video.Filepath)
+
+	if err != nil {
+		return err
+	}
+
+	n, err := io.Copy(destinationFile, reader)
+	if n == 0 || err != nil {
+		return err
+	}
+
+	err = reader.Close()
+	if err != nil {
+		return err
+	}
+	err = destinationFile.Close()
+	if err != nil {
+		return err
+	}
+	return nil
 }
