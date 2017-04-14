@@ -16,6 +16,14 @@ func LogError(err error) {
 	}
 }
 
+// CrashOnErrors panics via the logger if there are any erros
+// only use when error is unrecoverable
+func CrashOnErrors(err error) {
+	if err != nil {
+		Errors.Panic(err)
+	}
+}
+
 func init() {
 	Errors = log.New(os.Stderr, "ERROR ", log.LstdFlags)
 }
