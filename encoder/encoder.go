@@ -25,7 +25,7 @@ func encodeAllfiles() {
 			encodedName := fs.ChangeExt(item.Name(), fs.Mp4)
 
 			ffmpeg.Encode(filePath, encodingDir+string(os.PathSeparator)+encodedName, func(progress string) {
-				log.Println(progress)
+				log.Printf("Encoding: %s %s\n", item.Name(), progress)
 			})
 
 			err := os.Remove(downloader.FilesDir + string(os.PathSeparator) + item.Name())
