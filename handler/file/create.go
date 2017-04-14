@@ -1,4 +1,4 @@
-package handler
+package file
 
 import (
 	"io"
@@ -12,7 +12,7 @@ import (
 )
 
 //UploadFile handler accepts file being posted
-func UploadFile(response http.ResponseWriter, request *http.Request) {
+func Create(response http.ResponseWriter, request *http.Request) {
 
 	if request.Method != "POST" {
 		http.Redirect(response, request, path.Root, http.StatusFound)

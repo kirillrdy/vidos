@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/kirillrdy/vidos/handler"
+	"github.com/kirillrdy/vidos/handler/file"
 	"github.com/kirillrdy/vidos/path"
 	"log"
 	"net/http"
@@ -16,7 +17,7 @@ func addHandler(path string, handler http.HandlerFunc) {
 func AddHandlers() {
 
 	//Files related routes
-	addHandler(path.UploadFile, handler.UploadFile)
+	addHandler(path.UploadFile, file.Create)
 	addHandler(path.Files.List, handler.Files)
 	// addHandler(path.DeleteFileOrDirectory, handler.DeleteFileOrDirectory)
 	// addHandler(path.AddFileForEncoding, handler.AddFileForEncoding)
