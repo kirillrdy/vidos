@@ -92,7 +92,8 @@ func statusLineText() string {
 		log.Print(err)
 	}
 
-	freeStorage := float64(uint64(fsStat.Bavail)*fsStat.Bsize) / float64(1024*1024*1024)
+	// note that forceful type casting necessary here due to different types on different platforms
+	freeStorage := float64(uint64(fsStat.Bavail)*uint64(fsStat.Bsize)) / float64(1024*1024*1024)
 	memoryUsed := float64(memStat.Alloc) / float64(1024*1024)
 
 	return fmt.Sprintf("OS:%v/%v FreeStorage:%.2f Gb, MemUsed: %.2f Mb", runtime.GOOS, runtime.GOARCH, freeStorage, memoryUsed)
