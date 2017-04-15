@@ -4,6 +4,7 @@ import (
 	"github.com/kirillrdy/vidos/util"
 	"io"
 	"io/ioutil"
+	"log"
 	"mime"
 	"os"
 	"path/filepath"
@@ -20,7 +21,12 @@ type Video struct {
 //MimeType returns mimetype for a video
 func (video Video) MimeType() string {
 	ext := filepath.Ext(video.Filepath)
-	return mime.TypeByExtension(ext)
+	mime := mime.TypeByExtension(ext)
+	if mime == "" {
+		log.Println("WARNING: failed to detect mime type")
+	}
+
+	return mime
 }
 
 //Delete deletes video from fs, also will delete any related metadata
