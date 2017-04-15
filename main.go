@@ -12,12 +12,7 @@ import (
 
 func main() {
 	ffmpeg.CheckVersion()
-
 	encoder.Start()
-
-	//TODO sort out how this is currently non blocking using buffered chan
-	//db.QueueAllUnEncodedVideos()
-
 	routes.AddHandlers()
 
 	port := flag.Int("port", 3000, "Port to listen on")

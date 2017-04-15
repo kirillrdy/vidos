@@ -45,7 +45,6 @@ func AddHandlers() {
 
 }
 
-//TODO perhaps wrap all handlers with this middleware
 func logTimeMiddleware(handler http.HandlerFunc) http.HandlerFunc {
 	return func(response http.ResponseWriter, request *http.Request) {
 		start := time.Now()

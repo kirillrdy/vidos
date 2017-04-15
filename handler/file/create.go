@@ -19,7 +19,7 @@ func Create(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	handleMultiFileUpload(response, request, func(file io.ReadCloser, fileName string) error {
+	err := handleMultiFileUpload(response, request, func(file io.ReadCloser, fileName string) error {
 		defer file.Close()
 
 		uploadedFile := uploadedFile{Filename: fileName}
@@ -37,6 +37,11 @@ func Create(response http.ResponseWriter, request *http.Request) {
 		}
 		return nil
 	})
+
+	if err != nil {
+		http.Error(response, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	http.Redirect(response, request, path.Files.List, http.StatusFound)
 }
