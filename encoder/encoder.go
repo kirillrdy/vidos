@@ -38,10 +38,6 @@ func encodeAllfiles() {
 
 }
 
-func encodeFile(file os.FileInfo, encodedName string) {
-
-}
-
 //Start starts a background encoding worker
 func Start() {
 
