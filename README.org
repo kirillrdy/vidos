@@ -40,6 +40,7 @@ go run main.go
 - [ ] Add page for error logger
 - [ ] Resurrect subtitles support
 - [ ] Docker dev environment
+- [ ] inotify ( and FreeBSD equivalent)
 
 * Changelog
 ** Release 1
