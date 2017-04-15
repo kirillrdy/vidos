@@ -92,15 +92,15 @@ func statusLineText() string {
 		log.Print(err)
 	}
 
-	freeStorage := float64(uint64(fsStat.Bavail)*uint64(fsStat.Bsize)) / float64(1024*1024*1024)
+	freeStorage := float64(uint64(fsStat.Bavail)*fsStat.Bsize) / float64(1024*1024*1024)
 	memoryUsed := float64(memStat.Alloc) / float64(1024*1024)
 
 	return fmt.Sprintf("OS:%v/%v FreeStorage:%.2f Gb, MemUsed: %.2f Mb", runtime.GOOS, runtime.GOARCH, freeStorage, memoryUsed)
 }
 
-//Layout returns the main layout of the application
+//Page returns the main layout of the application
 //TODO fix regression with overflow in the main grow section
-func Layout(title string, bodyContent ...html.Node) html.Node {
+func Page(title string, bodyContent ...html.Node) html.Node {
 
 	title = fmt.Sprintf("%v - %v", appName, title)
 

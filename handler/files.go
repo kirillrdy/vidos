@@ -39,6 +39,6 @@ func Files(response http.ResponseWriter, request *http.Request) {
 		),
 	}
 
-	view.Layout("Files", nodes...).WriteTo(response)
+	view.Page("Files", nodes...).WriteTo(response)
 
 }
