@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/kirillrdy/vidos/downloader"
+	"github.com/kirillrdy/vidos/param"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/view"
 	"log"
@@ -18,9 +19,10 @@ func AddMagnetLink(response http.ResponseWriter, request *http.Request) {
 			http.Error(response, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		log.Print(request.Form.Get(view.MagnetLinkFormParams.MagnetLink))
+		magenetLink := request.Form.Get(param.MagnetLink)
+		log.Print(magenetLink)
 
-		torrentFile, err := downloader.Client.AddMagnet(request.Form.Get(view.MagnetLinkFormParams.MagnetLink))
+		torrentFile, err := downloader.Client.AddMagnet(magenetLink)
 
 		if err != nil {
 			http.Error(response, err.Error(), http.StatusInternalServerError)
