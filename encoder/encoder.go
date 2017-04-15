@@ -13,7 +13,6 @@ import (
 
 var encodingDir = util.VidosDataDirFor("encoding")
 
-//TODO use something like inotify
 func encodeAllfiles() {
 
 	items, err := ioutil.ReadDir(downloader.FilesDir)
@@ -21,21 +20,25 @@ func encodeAllfiles() {
 
 	for _, item := range items {
 		if fs.CanBeEncoded(item) {
-			filePath := downloader.FilesDir + string(os.PathSeparator) + item.Name()
-			encodedName := fs.ChangeExt(item.Name(), fs.Mp4)
-
-			ffmpeg.Encode(filePath, encodingDir+string(os.PathSeparator)+encodedName, func(progress string) {
-				log.Printf("Encoding: %s %s\n", item.Name(), progress)
-			})
-
-			err := os.Remove(downloader.FilesDir + string(os.PathSeparator) + item.Name())
-			util.LogError(err)
-
-			//TODO handle errors
-			os.Rename(encodingDir+string(os.PathSeparator)+encodedName, fs.VideosDataDir+string(os.PathSeparator)+encodedName)
+			encodeFile(item)
 		}
 	}
 
+}
+
+func encodeFile(file os.FileInfo) {
+	filePath := downloader.FilesDir + string(os.PathSeparator) + file.Name()
+	encodedName := fs.ChangeExt(file.Name(), fs.Mp4)
+
+	ffmpeg.Encode(filePath, encodingDir+string(os.PathSeparator)+encodedName, func(progress string) {
+		log.Printf("Encoding: %s %s\n", file.Name(), progress)
+	})
+
+	err := os.Remove(downloader.FilesDir + string(os.PathSeparator) + file.Name())
+	util.LogError(err)
+
+	err = os.Rename(encodingDir+string(os.PathSeparator)+encodedName, fs.VideosDataDir+string(os.PathSeparator)+encodedName)
+	util.LogError(err)
 }
 
 //Start starts a background encoding worker
