@@ -52,7 +52,6 @@ const ManageSubtitles = "/subtitles"
 const Torrents = "/torrents"
 const TorrentStatus = "/torrent_status"
 const AddMagnetLink = "/add_magnet_link"
-const AddFileForEncoding = "/add_file_for_encoding"
 
 var ParamKeys = struct {
 	ID       string
@@ -67,10 +66,6 @@ var ParamKeys = struct {
 //TODO refactor all those to use url.Values
 func DeleteFileOrDirectoryPath(filename string) string {
 	return fmt.Sprintf("%v?%v=%v", DeleteFileOrDirectory, ParamKeys.Filepath, url.QueryEscape(filename))
-}
-
-func AddFileForEncodingPath(filename string) string {
-	return fmt.Sprintf("%v?%v=%v", AddFileForEncoding, ParamKeys.Filepath, url.QueryEscape(filename))
 }
 
 func ViewFilesPath(dirName string) string {
