@@ -1,4 +1,4 @@
-package view
+package web
 
 import (
 	"fmt"
@@ -22,7 +22,6 @@ var padding = size.Px(10)
 
 const siteTitle css.Class = "site-title"
 const linksMenu css.Class = "links-menu"
-const centerItems css.Class = "align-items-center"
 const headerBar css.Class = "header-bar"
 const mainSection css.Class = "main-section"
 const statusLine css.Class = "status-line"
@@ -46,9 +45,6 @@ func pageStyle() css.CssContainer {
 			css.FontSize(size.Px(25)),
 			css.Color(color.White),
 			css.PaddingLeft(padding),
-		),
-		centerItems.Style(
-			css.AlignItems(css.Center),
 		),
 		linksMenu.Style(
 			css.Width(size.Px(197)),
@@ -113,7 +109,7 @@ func Page(title string, bodyContent ...html.Node) html.Node {
 			flex.Styles(),
 		),
 		html.Body().Class(flex.VBox).Children(
-			html.Div().Class(flex.HBox, headerBar, centerItems).Children(
+			html.Div().Class(flex.HBox, headerBar, flex.CenterItems).Children(
 				html.H1().Class(siteTitle).Text(appName),
 				html.Span().Class(flex.Grow),
 			),

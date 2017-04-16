@@ -9,11 +9,12 @@ import (
 )
 
 const (
-	VBox   css.Class = "vbox"
-	HBox   css.Class = "hbox"
-	Wrap   css.Class = "wrap"
-	Grow   css.Class = "grow"
-	NoGrow css.Class = "no-grow"
+	VBox        css.Class = "vbox"
+	HBox        css.Class = "hbox"
+	Wrap        css.Class = "wrap"
+	Grow        css.Class = "grow"
+	NoGrow      css.Class = "no-grow"
+	CenterItems css.Class = "align-items-center"
 )
 
 func Styles() html.Node {
@@ -40,6 +41,9 @@ func Styles() html.Node {
 		),
 		NoGrow.Style(
 			css.FlexShrink(0),
+		),
+		CenterItems.Style(
+			css.AlignItems(css.Center),
 		),
 	)
 	return html.Style().Text(

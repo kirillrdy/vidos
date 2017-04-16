@@ -24,7 +24,7 @@ func VideoShowPage(video fs.Video) html.Node {
 	var videoPlayer css.Class = "video-player"
 	var videoTitle css.Class = "video-title"
 
-	return html.Div().Class(flex.VBox, flex.Grow, centerItems).Children(
+	return html.Div().Class(flex.VBox, flex.Grow, flex.CenterItems).Children(
 		html.Style().Text(
 			css.Stylesheet(
 				videoTitle.Style(

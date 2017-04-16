@@ -4,6 +4,7 @@ import (
 	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/flex"
 	"github.com/kirillrdy/vidos/fs"
+	"github.com/kirillrdy/vidos/web"
 	"github.com/sparkymat/webdsl/css"
 )
 
@@ -31,13 +32,13 @@ func Videos(videos []fs.Video) html.Node {
 		divs...,
 	)
 
-	return Page("Videos", page)
+	return web.Page("Videos", page)
 }
 
 func centerByBoxes(content html.Node) html.Node {
 	return html.Div().Class(flex.VBox, flex.Grow).Children(
 		html.Span().Class(flex.Grow),
-		html.Div().Class(flex.HBox, flex.Grow, centerItems).Children(
+		html.Div().Class(flex.HBox, flex.Grow, flex.CenterItems).Children(
 			html.Span().Class(flex.Grow),
 			content,
 			html.Span().Class(flex.Grow),

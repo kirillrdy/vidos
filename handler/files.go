@@ -8,6 +8,7 @@ import (
 	"github.com/kirillrdy/vidos/downloader"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/view"
+	"github.com/kirillrdy/vidos/web"
 )
 
 //Files renderes list of files
@@ -39,6 +40,6 @@ func Files(response http.ResponseWriter, request *http.Request) {
 		),
 	}
 
-	view.Page("Files", nodes...).WriteTo(response)
+	web.Page("Files", nodes...).WriteTo(response)
 
 }

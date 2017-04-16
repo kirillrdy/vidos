@@ -5,6 +5,7 @@ import (
 
 	"github.com/kirillrdy/vidos/fs"
 	"github.com/kirillrdy/vidos/view"
+	"github.com/kirillrdy/vidos/web"
 )
 
 //Videos contains all handlers realted to videos
@@ -35,6 +36,6 @@ var Videos = struct {
 		// 	return
 		// }
 
-		view.Page(video.Filename(), view.VideoShowPage(video)).WriteTo(response)
+		web.Page(video.Filename(), view.VideoShowPage(video)).WriteTo(response)
 	},
 }

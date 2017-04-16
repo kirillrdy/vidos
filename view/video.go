@@ -36,7 +36,7 @@ func VideoCSS() css.CssContainer {
 
 //Video For a given video returns its view partial
 func Video(video fs.Video) html.Node {
-	return html.Div().Class(flex.VBox, videoItem, centerItems).Children(
+	return html.Div().Class(flex.VBox, videoItem, flex.CenterItems).Children(
 		//html.Img().Class(videoThumb).Src(path.ThumbnailPath(video)),
 		html.A().Class(videoLink).Href(path.ViewVideoPath(video)).Text(video.Filepath),
 	)

@@ -5,6 +5,7 @@ import (
 	"github.com/kirillrdy/vidos/flex"
 	"github.com/kirillrdy/vidos/param"
 	"github.com/kirillrdy/vidos/path"
+	"github.com/kirillrdy/vidos/web"
 	"net/http"
 )
 
@@ -13,6 +14,6 @@ func MagnetLinkForm(response http.ResponseWriter, request *http.Request) {
 		html.Input().Name(param.MagnetLink),
 		html.Input().Type("submit").Value("Add"),
 	)
-	page := Page("Add Magnet Link", centerByBoxes(form))
+	page := web.Page("Add Magnet Link", centerByBoxes(form))
 	page.WriteTo(response)
 }
