@@ -2,8 +2,8 @@ package view
 
 import (
 	"github.com/kirillrdy/nadeshiko/html"
+	"github.com/kirillrdy/vidos/flex"
 	"github.com/kirillrdy/vidos/fs"
-	"github.com/kirillrdy/vidos/layout"
 	"github.com/sparkymat/webdsl/css"
 )
 
@@ -27,7 +27,7 @@ func Videos(videos []fs.Video) html.Node {
 		divs = append(divs, centerByBoxes(html.H2().Text("No videos")))
 	}
 
-	page := html.Div().Class(layout.HBox, layout.Grow, layout.Wrap).Children(
+	page := html.Div().Class(flex.HBox, flex.Grow, flex.Wrap).Children(
 		divs...,
 	)
 
@@ -35,13 +35,13 @@ func Videos(videos []fs.Video) html.Node {
 }
 
 func centerByBoxes(content html.Node) html.Node {
-	return html.Div().Class(layout.VBox, layout.Grow).Children(
-		html.Span().Class(layout.Grow),
-		html.Div().Class(layout.HBox, layout.Grow, centerItems).Children(
-			html.Span().Class(layout.Grow),
+	return html.Div().Class(flex.VBox, flex.Grow).Children(
+		html.Span().Class(flex.Grow),
+		html.Div().Class(flex.HBox, flex.Grow, centerItems).Children(
+			html.Span().Class(flex.Grow),
 			content,
-			html.Span().Class(layout.Grow),
+			html.Span().Class(flex.Grow),
 		),
-		html.Span().Class(layout.Grow),
+		html.Span().Class(flex.Grow),
 	)
 }

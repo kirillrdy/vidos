@@ -2,7 +2,7 @@ package view
 
 import (
 	"github.com/kirillrdy/nadeshiko/html"
-	"github.com/kirillrdy/vidos/layout"
+	"github.com/kirillrdy/vidos/flex"
 	"github.com/kirillrdy/vidos/path"
 	"os"
 )
@@ -15,7 +15,7 @@ func FilesTable(files []os.FileInfo, basePath string) html.Node {
 		return html.H4().Text("No files have been added")
 	}
 
-	table := html.Table().Class(layout.Grow).Children(
+	table := html.Table().Class(flex.Grow).Children(
 		html.Thead().Children(
 			html.Tr().Children(
 				html.Th().Text("Name"),

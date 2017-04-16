@@ -1,4 +1,4 @@
-package layout
+package flex
 
 import (
 	"github.com/kirillrdy/nadeshiko/html"
@@ -41,9 +41,6 @@ func Styles() html.Node {
 		NoGrow.Style(
 			css.FlexShrink(0),
 		),
-		//centerItems.Style(
-		//	css.AlignItems(css.Center),
-		//),
 	)
 	return html.Style().Text(
 		style.String(),

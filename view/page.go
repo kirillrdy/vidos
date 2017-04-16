@@ -2,12 +2,11 @@ package view
 
 import (
 	"fmt"
-	"log"
 	"runtime"
 	"syscall"
 
 	"github.com/kirillrdy/nadeshiko/html"
-	"github.com/kirillrdy/vidos/layout"
+	"github.com/kirillrdy/vidos/flex"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/util"
 	"github.com/sparkymat/webdsl/css"
@@ -88,9 +87,7 @@ func statusLineText() string {
 
 	var fsStat syscall.Statfs_t
 	err := syscall.Statfs(util.VidosDataDir, &fsStat)
-	if err != nil {
-		log.Print(err)
-	}
+	util.LogError(err)
 
 	// note that forceful type casting necessary here due to different types on different platforms
 	freeStorage := float64(uint64(fsStat.Bavail)*uint64(fsStat.Bsize)) / float64(1024*1024*1024)
@@ -113,27 +110,27 @@ func Page(title string, bodyContent ...html.Node) html.Node {
 			html.Style().TextUnsafe(
 				pageStyle().String(),
 			),
-			layout.Styles(),
+			flex.Styles(),
 		),
-		html.Body().Class(layout.VBox).Children(
-			html.Div().Class(layout.HBox, headerBar, centerItems).Children(
+		html.Body().Class(flex.VBox).Children(
+			html.Div().Class(flex.HBox, headerBar, centerItems).Children(
 				html.H1().Class(siteTitle).Text(appName),
-				html.Span().Class(layout.Grow),
+				html.Span().Class(flex.Grow),
 			),
-			html.Div().Class(layout.HBox, layout.Grow).Children(
-				html.Div().Class(linksMenu, layout.VBox).Children(
+			html.Div().Class(flex.HBox, flex.Grow).Children(
+				html.Div().Class(linksMenu, flex.VBox).Children(
 					html.A().Class(menuItem, selectedMenuItem).Href(path.Videos.List).Text("Videos"),
 					html.A().Class(menuItem).Href(path.Videos.Unencoded).Text("Processing"),
 					html.A().Class(menuItem).Href(path.Files.List).Text("Files"),
 					html.A().Class(menuItem).Href(path.Torrents).Text("Torrents"),
 					html.A().Class(menuItem).Href(path.AddMagnetLink).Text("Add Magnet link"),
 				),
-				html.Div().Class(layout.Grow, mainSection, layout.VBox).Children(
+				html.Div().Class(flex.Grow, mainSection, flex.VBox).Children(
 					bodyContent...,
 				),
 			),
-			html.Div().Class(layout.HBox, statusLine).Children(
-				html.Span().Class(layout.Grow),
+			html.Div().Class(flex.HBox, statusLine).Children(
+				html.Span().Class(flex.Grow),
 				html.Span().Class().Text(statusLineText),
 			),
 		),

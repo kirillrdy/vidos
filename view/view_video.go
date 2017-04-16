@@ -2,8 +2,8 @@ package view
 
 import (
 	"github.com/kirillrdy/nadeshiko/html"
+	"github.com/kirillrdy/vidos/flex"
 	"github.com/kirillrdy/vidos/fs"
-	"github.com/kirillrdy/vidos/layout"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/size"
@@ -24,7 +24,7 @@ func VideoShowPage(video fs.Video) html.Node {
 	var videoPlayer css.Class = "video-player"
 	var videoTitle css.Class = "video-title"
 
-	return html.Div().Class(layout.VBox, layout.Grow, centerItems).Children(
+	return html.Div().Class(flex.VBox, flex.Grow, centerItems).Children(
 		html.Style().Text(
 			css.Stylesheet(
 				videoTitle.Style(
