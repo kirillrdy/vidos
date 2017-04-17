@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/kirillrdy/vidos/encoder"
 	"github.com/kirillrdy/vidos/ffmpeg"
-	"github.com/kirillrdy/vidos/routes"
+	"github.com/kirillrdy/vidos/handler"
 	"log"
 	"net/http"
 )
@@ -13,7 +13,7 @@ import (
 func main() {
 	ffmpeg.CheckVersion()
 	encoder.Start()
-	routes.AddHandlers()
+	handler.AddHandlers()
 
 	port := flag.Int("port", 3000, "Port to listen on")
 	http2Mode := flag.Bool("http2", false, "Use http2")
