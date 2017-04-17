@@ -1,3 +1,3 @@
 package view
 
-const appName = "Видос"
+const AppName = "Видос"

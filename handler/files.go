@@ -40,6 +40,6 @@ func Files(response http.ResponseWriter, request *http.Request) {
 		),
 	}
 
-	web.Page("Files", nodes...).WriteTo(response)
+	web.Page(view.AppName, "Files", nodes...).WriteTo(response)
 
 }

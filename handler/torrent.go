@@ -10,12 +10,12 @@ import (
 )
 
 func Torrents(response http.ResponseWriter, request *http.Request) {
-	web.Page("Torrent", view.TorrentsTable(downloader.Client.Torrents())).WriteTo(response)
+	web.Page(view.AppName, "Torrent", view.TorrentsTable(downloader.Client.Torrents())).WriteTo(response)
 }
 
 func TorrentStatus(response http.ResponseWriter, request *http.Request) {
 	buffer := new(bytes.Buffer)
 
 	downloader.Client.WriteStatus(buffer)
-	web.Page("Torrent Status", html.Pre().Text(buffer.String())).WriteTo(response)
+	web.Page(view.AppName, "Torrent Status", html.Pre().Text(buffer.String())).WriteTo(response)
 }

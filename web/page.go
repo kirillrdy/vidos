@@ -16,8 +16,6 @@ import (
 	"github.com/sparkymat/webdsl/css/textdecoration"
 )
 
-const appName = "Видос"
-
 var padding = size.Px(10)
 
 const siteTitle css.Class = "site-title"
@@ -94,9 +92,11 @@ func statusLineText() string {
 
 //Page returns the main layout of the application
 //TODO fix regression with overflow in the main grow section
-func Page(title string, bodyContent ...html.Node) html.Node {
+func Page(title string, subTitle string, bodyContent ...html.Node) html.Node {
 
-	title = fmt.Sprintf("%v - %v", appName, title)
+	if subTitle != "" {
+		title = fmt.Sprintf("%v - %v", title, subTitle)
+	}
 
 	statusLineText := statusLineText()
 	return html.Html().Children(
@@ -110,7 +110,7 @@ func Page(title string, bodyContent ...html.Node) html.Node {
 		),
 		html.Body().Class(flex.VBox).Children(
 			html.Div().Class(flex.HBox, headerBar, flex.CenterItems).Children(
-				html.H1().Class(siteTitle).Text(appName),
+				html.H1().Class(siteTitle).Text(title),
 				html.Span().Class(flex.Grow),
 			),
 			html.Div().Class(flex.HBox, flex.Grow).Children(

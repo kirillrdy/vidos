@@ -36,6 +36,6 @@ var Videos = struct {
 		// 	return
 		// }
 
-		web.Page(video.Filename(), view.VideoShowPage(video)).WriteTo(response)
+		web.Page(view.AppName, video.Filename(), view.VideoShowPage(video)).WriteTo(response)
 	},
 }

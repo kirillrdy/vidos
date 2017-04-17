@@ -32,7 +32,7 @@ func Videos(videos []fs.Video) html.Node {
 		divs...,
 	)
 
-	return web.Page("Videos", page)
+	return web.Page(AppName, "Videos", page)
 }
 
 func centerByBoxes(content html.Node) html.Node {

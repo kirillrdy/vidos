@@ -14,6 +14,6 @@ func MagnetLinkForm(response http.ResponseWriter, request *http.Request) {
 		html.Input().Name(param.MagnetLink),
 		html.Input().Type("submit").Value("Add"),
 	)
-	page := web.Page("Add Magnet Link", centerByBoxes(form))
+	page := web.Page(AppName, "Add Magnet Link", centerByBoxes(form))
 	page.WriteTo(response)
 }
