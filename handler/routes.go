@@ -3,43 +3,40 @@ package handler
 import (
 	"github.com/kirillrdy/vidos/handler/file"
 	"github.com/kirillrdy/vidos/path"
+	"github.com/kirillrdy/vidos/router"
 	"log"
 	"net/http"
 	"time"
 )
 
-func AddHandler(path string, handler http.HandlerFunc) {
-	http.HandleFunc(path, logTimeMiddleware(handler))
-}
-
 //AddHandlers registers all the handlers with all of our middleware
 func AddHandlers() {
 
 	//Files related routes
-	AddHandler(path.UploadFile, file.Create)
-	AddHandler(path.Files.List, Files)
-	// AddHandler(path.DeleteFileOrDirectory, handler.DeleteFileOrDirectory)
-	// AddHandler(path.AddFileForEncoding, handler.AddFileForEncoding)
+	router.AddHandler(path.UploadFile, file.Create)
+	router.AddHandler(path.Files.List, Files)
+	// router.AddHandler(path.DeleteFileOrDirectory, handler.DeleteFileOrDirectory)
+	// router.AddHandler(path.AddFileForEncoding, handler.AddFileForEncoding)
 
 	//Videos
-	AddHandler(path.Videos.List, Videos.List)
-	AddHandler(path.Videos.Show, Videos.Show)
-	AddHandler(path.Videos.Stream, Stream)
-	AddHandler(path.Videos.Delete, DeleteVideo)
-	//AddHandler(path.Videos.Thumbnail, handler.Thumbnail)
+	router.AddHandler(path.Videos.List, Videos.List)
+	router.AddHandler(path.Videos.Show, Videos.Show)
+	router.AddHandler(path.Videos.Stream, Stream)
+	router.AddHandler(path.Videos.Delete, DeleteVideo)
+	//router.AddHandler(path.Videos.Thumbnail, handler.Thumbnail)
 
 	//Subtitles
-	//AddHandler(path.ManageSubtitles, handler.ManageSubtitles)
-	//AddHandler(path.Subtitle, handler.Subtitle)
-	// AddHandler(path.UploadSubtitle, handler.SubtitlesUpload)
+	//router.AddHandler(path.ManageSubtitles, handler.ManageSubtitles)
+	//router.AddHandler(path.Subtitle, handler.Subtitle)
+	// router.AddHandler(path.UploadSubtitle, handler.SubtitlesUpload)
 
-	// AddHandler(path.Videos.Unencoded, handler.UnencodedVideos)
+	// router.AddHandler(path.Videos.Unencoded, handler.UnencodedVideos)
 
-	AddHandler(path.Torrents, Torrents)
-	AddHandler(path.TorrentStatus, TorrentStatus)
-	AddHandler(path.AddMagnetLink, AddMagnetLink)
+	router.AddHandler(path.Torrents, Torrents)
+	router.AddHandler(path.TorrentStatus, TorrentStatus)
+	router.AddHandler(path.AddMagnetLink, AddMagnetLink)
 
-	AddHandler(path.Root, RootHandle)
+	router.AddHandler(path.Root, RootHandle)
 	http.Handle(path.Public, http.StripPrefix(path.Public, http.FileServer(http.Dir("_public"))))
 
 }
