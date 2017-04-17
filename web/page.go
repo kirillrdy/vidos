@@ -94,14 +94,18 @@ func statusLineText() string {
 //TODO fix regression with overflow in the main grow section
 func Page(title string, subTitle string, bodyContent ...html.Node) html.Node {
 
+	var pageTitle string
 	if subTitle != "" {
-		title = fmt.Sprintf("%v - %v", title, subTitle)
+		pageTitle = fmt.Sprintf("%v - %v", title, subTitle)
+	} else {
+		pageTitle = subTitle
+
 	}
 
 	statusLineText := statusLineText()
 	return html.Html().Children(
 		html.Head().Children(
-			html.Title().Text(title),
+			html.Title().Text(pageTitle),
 			html.Link().Href(path.CSSReset).Rel("stylesheet"),
 			html.Style().TextUnsafe(
 				pageStyle().String(),
