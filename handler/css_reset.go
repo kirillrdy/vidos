@@ -1,6 +1,7 @@
-package handle
+package handler
 
 import (
+	"io"
 	"net/http"
 )
 
