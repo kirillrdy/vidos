@@ -5,9 +5,6 @@ import (
 	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/router"
 	"github.com/kirillrdy/web/css"
-	"log"
-	"net/http"
-	"time"
 )
 
 //AddHandlers registers all the handlers with all of our middleware
@@ -38,14 +35,6 @@ func AddHandlers() {
 	router.AddHandler(path.AddMagnetLink, AddMagnetLink)
 
 	router.AddHandler(path.Root, RootHandle)
-	router.AddHandler(path.CSSReset, css.ServeResetCSS)
+	router.AddHandler(css.ResetCSSPath, css.ServeResetCSS)
 
-}
-
-func logTimeMiddleware(handler http.HandlerFunc) http.HandlerFunc {
-	return func(response http.ResponseWriter, request *http.Request) {
-		start := time.Now()
-		handler(response, request)
-		log.Printf("%v %v took %v", request.Method, request.URL.Path, time.Since(start))
-	}
 }

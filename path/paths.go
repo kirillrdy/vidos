@@ -10,10 +10,6 @@ import (
 // Root page, which actually redirects to a more useful page
 const Root = "/"
 
-//Note trailing / is important, due to how "/" http Mux works
-const Public = "/public/"
-const CSSReset = Public + "reset.css"
-
 var Videos = struct {
 	List      string
 	Unencoded string

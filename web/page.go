@@ -9,6 +9,7 @@ import (
 	"github.com/kirillrdy/vidos/flex"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/util"
+	reset "github.com/kirillrdy/web/css"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/color"
 	"github.com/sparkymat/webdsl/css/overflow"
@@ -83,7 +84,7 @@ func statusLineText() string {
 	err := syscall.Statfs(util.VidosDataDir, &fsStat)
 	util.LogError(err)
 
-	// note that forceful type casting necessary here due to different types on different platforms
+	// note that forceful type casting necessary here due to different types on different platforms (linux vs FreeBSD)
 	freeStorage := float64(uint64(fsStat.Bavail)*uint64(fsStat.Bsize)) / float64(1024*1024*1024)
 	memoryUsed := float64(memStat.Alloc) / float64(1024*1024)
 
@@ -106,7 +107,7 @@ func Page(title string, subTitle string, bodyContent ...html.Node) html.Node {
 	return html.Html().Children(
 		html.Head().Children(
 			html.Title().Text(pageTitle),
-			html.Link().Href(path.CSSReset).Rel("stylesheet"),
+			html.Link().Href(reset.ResetCSSPath).Rel("stylesheet"),
 			html.Style().TextUnsafe(
 				pageStyle().String(),
 			),
