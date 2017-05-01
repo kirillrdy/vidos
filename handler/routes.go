@@ -4,6 +4,7 @@ import (
 	"github.com/kirillrdy/vidos/handler/file"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/router"
+	"github.com/kirillrdy/web/css"
 	"log"
 	"net/http"
 	"time"
@@ -37,7 +38,7 @@ func AddHandlers() {
 	router.AddHandler(path.AddMagnetLink, AddMagnetLink)
 
 	router.AddHandler(path.Root, RootHandle)
-	http.Handle(path.Public, http.StripPrefix(path.Public, http.FileServer(http.Dir("_public"))))
+	router.AddHandler(path.CSSReset, css.ServeResetCSS)
 
 }
 
