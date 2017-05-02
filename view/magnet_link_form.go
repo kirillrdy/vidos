@@ -1,11 +1,10 @@
 package view
 
 import (
-	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/flex"
 	"github.com/kirillrdy/vidos/param"
 	"github.com/kirillrdy/vidos/path"
-	"github.com/kirillrdy/vidos/web"
+	"github.com/kirillrdy/web/html"
 	"net/http"
 )
 
@@ -14,6 +13,6 @@ func MagnetLinkForm(response http.ResponseWriter, request *http.Request) {
 		html.Input().Name(param.MagnetLink),
 		html.Input().Type("submit").Value("Add"),
 	)
-	page := web.Page(AppName, "Add Magnet Link", centerByBoxes(form))
+	page := application.NewPage("Add Magnet Link", path.AddMagnetLink).ToHTML(centerByBoxes(form))
 	page.WriteTo(response)
 }

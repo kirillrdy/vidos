@@ -1,10 +1,10 @@
 package view
 
 import (
-	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/flex"
 	"github.com/kirillrdy/vidos/fs"
-	"github.com/kirillrdy/vidos/web"
+	"github.com/kirillrdy/vidos/path"
+	"github.com/kirillrdy/web/html"
 	"github.com/sparkymat/webdsl/css"
 )
 
@@ -32,7 +32,7 @@ func Videos(videos []fs.Video) html.Node {
 		divs...,
 	)
 
-	return web.Page(AppName, "Videos", page)
+	return application.NewPage("Videos", path.Videos.List).ToHTML(page)
 }
 
 func centerByBoxes(content html.Node) html.Node {

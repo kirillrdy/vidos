@@ -1,9 +1,9 @@
 package view
 
 import (
-	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/flex"
 	"github.com/kirillrdy/vidos/path"
+	"github.com/kirillrdy/web/html"
 	"os"
 )
 

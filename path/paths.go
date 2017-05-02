@@ -4,20 +4,22 @@ import (
 	"fmt"
 
 	"github.com/kirillrdy/vidos/fs"
+	"github.com/kirillrdy/web"
 	"net/url"
 )
 
 // Root page, which actually redirects to a more useful page
 const Root = "/"
 
+//Videos contains list of paths for video related resource
 var Videos = struct {
-	List      string
-	Unencoded string
-	Show      string
-	Stream    string
-	Download  string
-	Delete    string
-	Thumbnail string
+	List      web.Path
+	Unencoded web.Path
+	Show      web.Path
+	Stream    web.Path
+	Download  web.Path
+	Delete    web.Path
+	Thumbnail web.Path
 }{
 	"/videos/list",
 	"/videos/unencoded",
@@ -29,7 +31,7 @@ var Videos = struct {
 }
 
 var Files = struct {
-	List   string
+	List   web.Path
 	Upload string
 }{
 	"/files/list",
@@ -60,12 +62,12 @@ var ParamKeys = struct {
 }
 
 //TODO refactor all those to use url.Values
-func DeleteFileOrDirectoryPath(filename string) string {
-	return fmt.Sprintf("%v?%v=%v", DeleteFileOrDirectory, ParamKeys.Filepath, url.QueryEscape(filename))
+func DeleteFileOrDirectoryPath(filename string) web.Path {
+	return web.Path(fmt.Sprintf("%v?%v=%v", DeleteFileOrDirectory, ParamKeys.Filepath, url.QueryEscape(filename)))
 }
 
-func ViewFilesPath(dirName string) string {
-	return fmt.Sprintf("%v?%v=%v", Files.List, ParamKeys.Path, url.QueryEscape(dirName))
+func ViewFilesPath(dirName string) web.Path {
+	return web.Path(fmt.Sprintf("%v?%v=%v", Files.List, ParamKeys.Path, url.QueryEscape(dirName)))
 }
 
 //StreamVideoPath is path where actual video being streamed from
@@ -86,8 +88,8 @@ func StreamVideoPath(video fs.Video) string {
 // }
 
 //ViewFilesPath is path where video player is rendered
-func ViewVideoPath(video fs.Video) string {
-	return fmt.Sprintf("%v?%v=%v", Videos.Show, ParamKeys.Filepath, url.QueryEscape(video.Filepath))
+func ViewVideoPath(video fs.Video) web.Path {
+	return web.Path(fmt.Sprintf("%v?%v=%v", Videos.Show, ParamKeys.Filepath, url.QueryEscape(video.Filepath)))
 }
 
 // func UploadSubtitlePath(video db.Video) string {

@@ -1,13 +1,15 @@
 package router
 
 import (
+	"github.com/kirillrdy/web"
 	"log"
 	"net/http"
 	"time"
 )
 
-func AddHandler(path string, handler http.HandlerFunc) {
-	http.HandleFunc(path, logTimeMiddleware(handler))
+// AddHandler adds a handle function for a given path
+func AddHandler(path web.Path, handler http.HandlerFunc) {
+	http.HandleFunc(path.String(), logTimeMiddleware(handler))
 }
 
 func logTimeMiddleware(handler http.HandlerFunc) http.HandlerFunc {

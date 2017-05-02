@@ -1,10 +1,10 @@
 package view
 
 import (
-	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/flex"
 	"github.com/kirillrdy/vidos/fs"
 	"github.com/kirillrdy/vidos/path"
+	"github.com/kirillrdy/web/html"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/size"
 )
@@ -24,7 +24,7 @@ func VideoShowPage(video fs.Video) html.Node {
 	var videoPlayer css.Class = "video-player"
 	var videoTitle css.Class = "video-title"
 
-	return html.Div().Class(flex.VBox, flex.Grow, flex.CenterItems).Children(
+	page := html.Div().Class(flex.VBox, flex.Grow, flex.CenterItems).Children(
 		html.Style().Text(
 			css.Stylesheet(
 				videoTitle.Style(
@@ -44,4 +44,6 @@ func VideoShowPage(video fs.Video) html.Node {
 	// html.A().Href(path.DeleteVideoPath(video)).Text("Delete"),
 	// 	html.A().Href(path.ManageSubtitlesPath(video)).Text("Manage Subtitles"),
 	)
+
+	return application.NewPage(video.Filename(), path.ViewVideoPath(video)).ToHTML(page)
 }

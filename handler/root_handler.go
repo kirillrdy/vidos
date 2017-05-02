@@ -4,9 +4,10 @@ import (
 	"net/http"
 
 	"github.com/kirillrdy/vidos/path"
+	"github.com/kirillrdy/web"
 )
 
 // RootHandle redirects to default route
 func RootHandle(response http.ResponseWriter, request *http.Request) {
-	http.Redirect(response, request, path.Videos.List, http.StatusFound)
+	web.Redirect(response, request, path.Videos.List)
 }

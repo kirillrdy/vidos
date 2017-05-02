@@ -4,11 +4,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/downloader"
-	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/view"
-	"github.com/kirillrdy/vidos/web"
 )
 
 //Files renderes list of files
@@ -24,22 +21,5 @@ func Files(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	nodes := []html.Node{
-		html.H1().Text("Files"),
-		view.FilesTable(files, basePath),
-		html.Div().Children(
-			html.Span().Text("Select file to upload"),
-			html.Form().Action(path.UploadFile).Attribute("enctype", "multipart/form-data").Method("POST").Children(
-				html.Div().Children(
-					html.Input().Type("file").Multiple().Name(view.FileParamName),
-				),
-				html.Div().Children(
-					html.Input().Type("submit").Value("Upload"),
-				),
-			),
-		),
-	}
-
-	web.Page(view.AppName, "Files", nodes...).WriteTo(response)
-
+	view.FilesList(basePath, files).WriteTo(response)
 }

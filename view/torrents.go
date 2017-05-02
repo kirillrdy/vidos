@@ -1,11 +1,23 @@
 package view
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/anacrolix/torrent"
 	humanise "github.com/dustin/go-humanize"
-	"github.com/kirillrdy/nadeshiko/html"
+	"github.com/kirillrdy/vidos/path"
+	"github.com/kirillrdy/web/html"
 )
+
+// TorrentsList is the page that lists all the torrents
+func TorrentsList(torrents []*torrent.Torrent) html.Node {
+	return application.NewPage("Torrent", path.Torrents).ToHTML(TorrentsTable(torrents))
+}
+
+// TorrentsStatus displayes torrent status page
+func TorrentStatus(buffer *bytes.Buffer) html.Node {
+	return application.NewPage("Torrent Status", path.TorrentStatus).ToHTML(html.Pre().Text(buffer.String()))
+}
 
 //TorrentsTable should be selfexplanitory
 func TorrentsTable(torrents []*torrent.Torrent) html.Node {

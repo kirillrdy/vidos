@@ -1,13 +1,14 @@
 package flex
 
 import (
-	"github.com/kirillrdy/nadeshiko/html"
+	"github.com/kirillrdy/web/html"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/display"
 	"github.com/sparkymat/webdsl/css/flex"
 	"github.com/sparkymat/webdsl/css/size"
 )
 
+//VBox and others are flex box related classes
 const (
 	VBox        css.Class = "vbox"
 	HBox        css.Class = "hbox"
@@ -17,6 +18,7 @@ const (
 	CenterItems css.Class = "align-items-center"
 )
 
+//Styles returns stylesheet related to css flex box
 func Styles() html.Node {
 	style := css.Stylesheet(
 		css.AllSelectors(css.Body, css.Html).Style(

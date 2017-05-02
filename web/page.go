@@ -5,11 +5,12 @@ import (
 	"runtime"
 	"syscall"
 
-	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/flex"
 	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/util"
+	"github.com/kirillrdy/web"
 	reset "github.com/kirillrdy/web/css"
+	"github.com/kirillrdy/web/html"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/color"
 	"github.com/sparkymat/webdsl/css/overflow"
@@ -91,19 +92,12 @@ func statusLineText() string {
 	return fmt.Sprintf("OS:%v/%v FreeStorage:%.2f Gb, MemUsed: %.2f Mb", runtime.GOOS, runtime.GOARCH, freeStorage, memoryUsed)
 }
 
-//Page returns the main layout of the application
+//ToHTML returns html content for a given page
 //TODO fix regression with overflow in the main grow section
-func Page(title string, subTitle string, bodyContent ...html.Node) html.Node {
+func (page Page) ToHTML(bodyContent ...html.Node) html.Node {
 
-	var pageTitle string
-	if subTitle != "" {
-		pageTitle = fmt.Sprintf("%v - %v", title, subTitle)
-	} else {
-		pageTitle = subTitle
+	pageTitle := fmt.Sprintf("%v - %v", page.application.Name, page.title)
 
-	}
-
-	statusLineText := statusLineText()
 	return html.Html().Children(
 		html.Head().Children(
 			html.Title().Text(pageTitle),
@@ -115,7 +109,7 @@ func Page(title string, subTitle string, bodyContent ...html.Node) html.Node {
 		),
 		html.Body().Class(flex.VBox).Children(
 			html.Div().Class(flex.HBox, headerBar, flex.CenterItems).Children(
-				html.H1().Class(siteTitle).Text(title),
+				html.H1().Class(siteTitle).Text(page.application.Name),
 				html.Span().Class(flex.Grow),
 			),
 			html.Div().Class(flex.HBox, flex.Grow).Children(
@@ -132,8 +126,27 @@ func Page(title string, subTitle string, bodyContent ...html.Node) html.Node {
 			),
 			html.Div().Class(flex.HBox, statusLine).Children(
 				html.Span().Class(flex.Grow),
-				html.Span().Class().Text(statusLineText),
+				html.Span().Class().Text(statusLineText()),
 			),
 		),
 	)
+}
+
+// Page represents a single web page
+type Page struct {
+	application Application
+	path        web.Path
+	title       string
+}
+
+// Application represents a web application
+// TODO application could have a list of default middleware
+type Application struct {
+	Name string
+}
+
+// NewPage creates a new page for a given application
+// TODO possibly also register handler or something like that ?
+func (application Application) NewPage(title string, path web.Path) Page {
+	return Page{application: application, path: path, title: title}
 }

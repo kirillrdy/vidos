@@ -11,7 +11,7 @@ import (
 	"github.com/kirillrdy/vidos/view"
 )
 
-//UploadFile handler accepts file being posted
+//Create handler accepts file being posted
 func Create(response http.ResponseWriter, request *http.Request) {
 
 	if request.Method != "POST" {
@@ -43,7 +43,8 @@ func Create(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	http.Redirect(response, request, path.Files.List, http.StatusFound)
+	//TODO perhaps have own way of redirecting that uses web.Path type
+	http.Redirect(response, request, path.Files.List.String(), http.StatusFound)
 }
 
 type uploadedFile struct {

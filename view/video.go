@@ -1,11 +1,11 @@
 package view
 
 import (
-	"github.com/kirillrdy/nadeshiko/html"
 	"github.com/kirillrdy/vidos/ffmpeg"
 	"github.com/kirillrdy/vidos/flex"
 	"github.com/kirillrdy/vidos/fs"
 	"github.com/kirillrdy/vidos/path"
+	"github.com/kirillrdy/web/html"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/size"
 )
