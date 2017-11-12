@@ -13,6 +13,7 @@ import (
 	"github.com/kirillrdy/web/html"
 	"github.com/sparkymat/webdsl/css"
 	"github.com/sparkymat/webdsl/css/color"
+	"github.com/sparkymat/webdsl/css/font"
 	"github.com/sparkymat/webdsl/css/overflow"
 	"github.com/sparkymat/webdsl/css/size"
 	"github.com/sparkymat/webdsl/css/textdecoration"
@@ -70,7 +71,7 @@ func pageStyle() css.CssContainer {
 		),
 		selectedMenuItem.Style(
 			css.BackgroundColor(color.ColorRGBA{Red: 0, Green: 0, Blue: 0, Alpha: 0.05}),
-			css.FontWeightBold(),
+			css.FontWeight(font.WeightBold),
 			css.Color(color.ColorRGB{Red: 33, Green: 33, Blue: 33}),
 		),
 	)
