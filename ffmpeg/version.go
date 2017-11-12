@@ -9,7 +9,7 @@ import (
 )
 
 //TODO something better than this, something like min max range
-var testedVersions = []string{"2.3.6", "2.6.4", "2.6.5", "2.8.1", "2.8.3", "2.8.6", "3.2.4"}
+var testedVersions = []string{"2.3.6", "2.6.4", "2.6.5", "2.8.1", "2.8.3", "2.8.6", "3.2.4", "3.4"}
 
 //Version returns the version of ffmpeg found in path
 func Version() (string, error) {
