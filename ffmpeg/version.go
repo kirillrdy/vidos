@@ -18,6 +18,7 @@ func Version() (string, error) {
 		return "", err
 	}
 
+	//TODO maybe this shouldn't be MustCompile
 	versionRegex := regexp.MustCompile("version (.*?) Copyright")
 	result := versionRegex.FindStringSubmatch(string(out))
 
