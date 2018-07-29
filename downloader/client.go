@@ -19,9 +19,11 @@ var Client *torrent.Client
 
 func init() {
 
-	config := torrent.Config{DataDir: downloadsDir}
+	config := torrent.NewDefaultClientConfig()
+	config.DataDir = downloadsDir
+
 	var err error
-	Client, err = torrent.NewClient(&config)
+	Client, err = torrent.NewClient(config)
 
 	//TODO pehaps allow client to be nil for the whole app
 	if err != nil {
