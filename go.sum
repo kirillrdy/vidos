@@ -30,12 +30,17 @@ github.com/anacrolix/sync v0.0.0-20171108081538-eee974e4f8c1/go.mod h1:+u91KiUuf
 github.com/anacrolix/sync v0.0.0-20180611022320-3c4cb11f5a01/go.mod h1:+u91KiUuf0lyILI6x3n/XrW7iFROCZCG+TjgK8nW52w=
 github.com/anacrolix/sync v0.0.0-20180725074606-fda11526ff08 h1:w0QQ3EPXGMOFLBRvBk7vCeNkfreNQ5xhTzUIDIEdNm0=
 github.com/anacrolix/sync v0.0.0-20180725074606-fda11526ff08/go.mod h1:+u91KiUuf0lyILI6x3n/XrW7iFROCZCG+TjgK8nW52w=
+github.com/anacrolix/sync v0.0.0-20180808010631-44578de4e778 h1:XpCDEixzXOB8yaTW/4YBzKrJdMcFI0DzpPTYNv75wzk=
+github.com/anacrolix/sync v0.0.0-20180808010631-44578de4e778/go.mod h1:s735Etp3joe/voe2sdaXLcqDdJSay1O0OPnM0ystjqk=
 github.com/anacrolix/tagflag v0.0.0-20180109131632-2146c8d41bf0/go.mod h1:1m2U/K6ZT+JZG0+bdMK6qauP49QT4wE5pmhJXOKKCHw=
 github.com/anacrolix/tagflag v0.0.0-20180605133421-f477c8c2f14c/go.mod h1:1m2U/K6ZT+JZG0+bdMK6qauP49QT4wE5pmhJXOKKCHw=
+github.com/anacrolix/tagflag v0.0.0-20180803105420-3a8ff5428f76/go.mod h1:1m2U/K6ZT+JZG0+bdMK6qauP49QT4wE5pmhJXOKKCHw=
 github.com/anacrolix/torrent v0.0.0-20170404084108-40b96d0e4e5d h1:18xhNVwztww2WlLc16UTTk1+OOUIQYTfDGa0zlVLpHM=
 github.com/anacrolix/torrent v0.0.0-20170404084108-40b96d0e4e5d/go.mod h1:w+zWzagAI9Qm0NmBHLL1p2WK0TuqZt0J/j6EdOUkLEs=
 github.com/anacrolix/torrent v0.0.0-20180622074351-fefeef4ee9eb h1:XTz2SGqfyyk/fvDYPZe3VaZqAH4heDTMz5WQmBm6F5w=
 github.com/anacrolix/torrent v0.0.0-20180622074351-fefeef4ee9eb/go.mod h1:3vcFVxgOASslNXHdivT8spyMRBanMCenHRpe0u5vpBs=
+github.com/anacrolix/torrent v0.0.0-20180813102802-4431464fd62c h1:QfH+J0UvZTt6Szx4AYS8Pfk3HWD7KWNcmNLtkXPSCZU=
+github.com/anacrolix/torrent v0.0.0-20180813102802-4431464fd62c/go.mod h1:F1piecUEeH/yZKCYsflSTxW5uiAacywaltgmO1atY6w=
 github.com/anacrolix/utp v0.0.0-20170412102346-1a2093d4dfa2 h1:jxBcpxAegn8QPGS/GViZ3/WcziRVmDKa5PKoiScH89s=
 github.com/anacrolix/utp v0.0.0-20170412102346-1a2093d4dfa2/go.mod h1:MDwc+vsGEq7RMw6lr2GKOEqjWny5hO5OZXRVNaBJ2Dk=
 github.com/anacrolix/utp v0.0.0-20180219060659-9e0e1d1d0572 h1:kpt6TQTVi6gognY+svubHfxxpq0DLU9AfTQyZVc3UOc=
