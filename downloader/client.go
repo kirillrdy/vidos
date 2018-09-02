@@ -18,6 +18,9 @@ var FilesDir = util.VidosDataDirFor("files")
 var Client *torrent.Client
 
 func init() {
+	initClientAndDownloadMover()
+}
+func initClientAndDownloadMover() {
 
 	config := torrent.NewDefaultClientConfig()
 	config.DataDir = downloadsDir
