@@ -6,7 +6,6 @@ import (
 	"syscall"
 
 	"github.com/kirillrdy/vidos/flex"
-	"github.com/kirillrdy/vidos/path"
 	"github.com/kirillrdy/vidos/util"
 	"github.com/kirillrdy/web"
 	reset "github.com/kirillrdy/web/css"
@@ -86,6 +85,7 @@ func statusLineText() string {
 	err := syscall.Statfs(util.VidosDataDir, &fsStat)
 	util.LogError(err)
 
+	//TODO use gohuman for formatting numbers
 	// note that forceful type casting necessary here due to different types on different platforms (linux vs FreeBSD)
 	freeStorage := float64(uint64(fsStat.Bavail)*uint64(fsStat.Bsize)) / float64(1024*1024*1024)
 	memoryUsed := float64(memStat.Alloc) / float64(1024*1024)
@@ -97,7 +97,12 @@ func statusLineText() string {
 //TODO fix regression with overflow in the main grow section
 func (page Page) ToHTML(bodyContent ...html.Node) html.Node {
 
-	pageTitle := fmt.Sprintf("%v - %v", page.application.Name, page.title)
+	pageTitle := fmt.Sprintf("%v - %v", page.application.Name, page.Title)
+
+	var links []html.Node
+	for _, item := range page.application.Menu {
+		links = append(links, html.A().Class(menuItem, selectedMenuItem).Href(item.Path).Text(item.Title))
+	}
 
 	return html.Html().Children(
 		html.Head().Children(
@@ -115,11 +120,7 @@ func (page Page) ToHTML(bodyContent ...html.Node) html.Node {
 			),
 			html.Div().Class(flex.HBox, flex.Grow).Children(
 				html.Div().Class(linksMenu, flex.VBox).Children(
-					html.A().Class(menuItem, selectedMenuItem).Href(path.Videos.List).Text("Videos"),
-					html.A().Class(menuItem).Href(path.Videos.Unencoded).Text("Processing"),
-					html.A().Class(menuItem).Href(path.Files.List).Text("Files"),
-					html.A().Class(menuItem).Href(path.Torrents).Text("Torrents"),
-					html.A().Class(menuItem).Href(path.AddMagnetLink).Text("Add Magnet link"),
+					links...,
 				),
 				html.Div().Class(flex.Grow, mainSection, flex.VBox).Children(
 					bodyContent...,
@@ -136,18 +137,19 @@ func (page Page) ToHTML(bodyContent ...html.Node) html.Node {
 // Page represents a single web page
 type Page struct {
 	application Application
-	path        web.Path
-	title       string
+	Path        web.Path
+	Title       string
 }
 
 // Application represents a web application
 // TODO application could have a list of default middleware
 type Application struct {
 	Name string
+	Menu []Page
 }
 
 // NewPage creates a new page for a given application
 // TODO possibly also register handler or something like that ?
 func (application Application) NewPage(title string, path web.Path) Page {
-	return Page{application: application, path: path, title: title}
+	return Page{application: application, Path: path, Title: title}
 }
