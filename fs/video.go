@@ -21,6 +21,10 @@ type Video struct {
 //MimeType returns mimetype for a video
 func (video Video) MimeType() string {
 	ext := filepath.Ext(video.Filepath)
+	// this is because golang's built in mime database only has very limited list of mime types
+	if ext == ".mp4" {
+		return "video/mp4"
+	}
 	mime := mime.TypeByExtension(ext)
 	if mime == "" {
 		log.Println("WARNING: failed to detect mime type")
