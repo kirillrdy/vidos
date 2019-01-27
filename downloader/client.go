@@ -17,10 +17,8 @@ var FilesDir = util.VidosDataDirFor("files")
 //Client is a pointer to
 var Client *torrent.Client
 
-func init() {
-	initClientAndDownloadMover()
-}
-func initClientAndDownloadMover() {
+// This is the main loop of downloader
+func InitClientAndDownloadMover() {
 
 	config := torrent.NewDefaultClientConfig()
 	config.DataDir = downloadsDir
