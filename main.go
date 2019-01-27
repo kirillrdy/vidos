@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/kirillrdy/vidos/downloader"
 	"github.com/kirillrdy/vidos/encoder"
 	"github.com/kirillrdy/vidos/ffmpeg"
 	"github.com/kirillrdy/vidos/handler"
@@ -13,6 +14,7 @@ import (
 func main() {
 	ffmpeg.CheckVersion()
 	encoder.Start()
+	downloader.InitClientAndDownloadMover()
 	handler.AddHandlers()
 
 	port := flag.Int("port", 3000, "Port to listen on")
